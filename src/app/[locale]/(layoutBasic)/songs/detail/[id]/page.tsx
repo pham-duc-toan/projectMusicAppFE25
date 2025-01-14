@@ -6,6 +6,8 @@ import Lyric from "./components/lyric";
 import FavoriteButton from "@/component/iconbutton/IconLikeSong";
 import IconAddToPlayList from "@/component/iconbutton/IconAddToPlayList";
 import { GetPublicAccessTokenFromCookie } from "@/app/utils/checkRole";
+import SingerInfoPopover from "./components/SingerInfo";
+import TopicPopover from "./components/TopicInfo";
 
 export const metadata: Metadata = {
   title: "Chi tiết bài hát",
@@ -21,10 +23,21 @@ interface SongDetail {
   singerId: {
     _id: string;
     fullName: string;
+    avatar: string;
+    status: string;
+    slug: string;
+    deleted: boolean;
+    updatedAt: string;
+    createdAt: string;
   };
   topicId: {
     _id: string;
     title: string;
+    avatar: string;
+    description: string;
+    status: string;
+    slug: string;
+    deleted: boolean;
   };
   like: number;
   lyrics: string;
@@ -103,12 +116,8 @@ const SongDetailPage = async ({ params }: { params: { id: string } }) => {
             <Typography variant="h4" fontWeight="bold">
               {songDetail.title}
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary">
-              Ca sĩ: {songDetail.singerId?.fullName || "Không rõ ca sĩ"}
-            </Typography>
-            <Typography variant="subtitle2" color="text.secondary">
-              Chủ đề: {songDetail.topicId?.title || "Không rõ thể loại"}
-            </Typography>
+            <SingerInfoPopover singer={songDetail.singerId} />
+            <TopicPopover topicDetail={songDetail.topicId} />
           </Box>
         </Box>
         <Box>

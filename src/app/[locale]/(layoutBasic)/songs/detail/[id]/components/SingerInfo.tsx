@@ -1,0 +1,98 @@
+"use client";
+import React, { useState } from "react";
+import { Typography, Popover, Paper, Avatar, Box } from "@mui/material";
+import { Link } from "@/i18n/routing";
+
+interface SingerInfoPopoverProps {
+  singer: {
+    fullName: string;
+    avatar: string;
+    status: string;
+    slug: string;
+    deleted: boolean;
+    updatedAt: string;
+    createdAt: string;
+  };
+}
+
+const SingerInfoPopover: React.FC<SingerInfoPopoverProps> = ({ singer }) => {
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+
+  const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  return (
+    <>
+      <Link href={`/singers/detailSinger/${singer.slug}`}>
+        <Typography
+          variant="subtitle1"
+          color="text.secondary"
+          sx={{ cursor: "pointer" }}
+          aria-owns={open ? "mouse-over-popover" : undefined}
+          aria-haspopup="true"
+          onMouseEnter={handlePopoverOpen}
+          onMouseLeave={handlePopoverClose}
+        >
+          Ca sĩ: {singer?.fullName || "Không rõ ca sĩ"}
+        </Typography>
+      </Link>
+
+      <Popover
+        id="mouse-over-popover"
+        sx={{ pointerEvents: "none" }}
+        open={open}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        onClose={handlePopoverClose}
+        disableRestoreFocus
+      >
+        <Paper
+          elevation={3}
+          sx={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "20px",
+            maxWidth: "600px",
+            textAlign: "center",
+          }}
+        >
+          <Avatar
+            src={singer.avatar}
+            alt={singer.fullName}
+            sx={{ width: 120, height: 120, marginBottom: "10px" }}
+          />
+          <Typography variant="h6" sx={{ marginBottom: "10px" }}>
+            {singer.fullName}
+          </Typography>
+
+          <Typography variant="body2" sx={{ marginBottom: "10px" }}>
+            <strong>Tham gia vào:</strong>{" "}
+            {new Date(singer.createdAt).toLocaleDateString("vi-VN", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })}
+          </Typography>
+        </Paper>
+      </Popover>
+    </>
+  );
+};
+
+export default SingerInfoPopover;

@@ -3,30 +3,51 @@
     "bxh": "HIT SONGS",
     "btn-top-song": "Top 100 hit songs"
   },
-  "PlayListPage":{
-    "no-playlist":"There is no playlist available."
+  "PlayListPage": {
+    "no-playlist": "There is currently no playlist."
   },
-  "Layout":{
-    "header-search":"Search for songs, artists, lyrics...",
-    "header-loggin":"Loggin",
-    "header-unknow-author":"Unknown author",
-    "header-artists":"Artist",
-    "header-dang-ky-ca-si":"Register as a singer",
-    "header-menu-thong-tin-ca-nhan":"Personal information",
-    "header-menu-lich-su-giao-dich":"Transaction history",
-    "header-menu-quan-ly-bai-hat":"Manage my songs",
-    "header-menu-doi-mat-khau":"Change password",
-    "header-menu-dang-xuat":"Log out"
+  "Layout": {
+    "header-search": "Search for songs, artists, lyrics...",
+    "header-loggin": "Log in",
+    "header-unknow-author": "Unknown author",
+    "header-artists": "Artist",
+    "header-dang-ky-ca-si": "Register as a singer",
+    "header-menu-thong-tin-ca-nhan": "Personal information",
+    "header-menu-lich-su-giao-dich": "Transaction history",
+    "header-menu-quan-ly-bai-hat": "Manage my songs",
+    "header-menu-doi-mat-khau": "Change password",
+    "header-menu-dang-xuat": "Log out",
+    "sider-home": "Home",
+    "sider-playlist": "My playlists",
+    "sider-favorite-songs": "Favorite songs",
+    "sider-songs": "Songs",
+    "sider-singer": "Singers",
+    "sider-topic": "Topics",
+    "sider-quan-ly-bai-hat": "Manage songs",
+    "sider-quan-ly-chu-de": "Manage topics",
+    "sider-quan-ly-ca-si": "Manage singers",
+    "sider-quan-ly-nguoi-dung": "Manage users",
+    "sider-quan-ly-quyen": "Manage permissions",
+    "siderPlayList": "Playlists",
+    "siderPlayList-Null": "This playlist is empty.",
+    "siderPlayList-No-Song": "There is currently no playlist being played."
   },
-  "Notification":{
-    "logout":"Logging out",
-    "logged out":"Logged out"
+  "Notification": {
+    "logout": "Logging out",
+    "logged out": "Logged out"
+  },
+  "Button": {
+    "Them": "Add",
+    "Sua": "Edit",
+    "Xoa": "Delete",
+    "ChiTiet": "Details",
+    "Huy": "Cancel"
   },
   "PermissionPage": {
     "title": "Permission Page"
   },
   "language": {
     "en": "English",
-    "vi": "Tiếng Việt"
+    "vi": "Vietnamese"
   }
 }
