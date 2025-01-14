@@ -3,19 +3,19 @@ import React, { useState } from "react";
 import { Typography, Popover, Paper, Avatar, Box } from "@mui/material";
 import { Link } from "@/i18n/routing";
 
-interface TopicPopoverProps {
-  topicDetail: {
-    _id: string;
-    title: string;
+interface SingerInfoPopoverProps {
+  singer: {
+    fullName: string;
     avatar: string;
-    description: string;
     status: string;
     slug: string;
     deleted: boolean;
+    updatedAt: string;
+    createdAt: string;
   };
 }
 
-const TopicPopover: React.FC<TopicPopoverProps> = ({ topicDetail }) => {
+const SingerInfoPopover: React.FC<SingerInfoPopoverProps> = ({ singer }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [position, setPosition] = React.useState<"top" | "bottom">("bottom");
 
@@ -23,7 +23,7 @@ const TopicPopover: React.FC<TopicPopoverProps> = ({ topicDetail }) => {
     const rect = event.currentTarget.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
 
-    // Điều chỉnh vị trí Popover dựa trên vị trí TableCell
+    // Kiểm tra vị trí để hiển thị Popover
     if (rect.bottom + 300 > viewportHeight) {
       setPosition("top");
     } else {
@@ -38,20 +38,22 @@ const TopicPopover: React.FC<TopicPopoverProps> = ({ topicDetail }) => {
   };
 
   const open = Boolean(anchorEl);
-
   return (
     <>
-      <Link href={`/topics/detail/${topicDetail.slug}`}>
+      <Link href={`/singers/detailSinger/${singer.slug}`}>
         <Typography
           variant="subtitle1"
           color="text.secondary"
+          component="div"
+          height={"50%"}
+          noWrap
           sx={{ cursor: "pointer" }}
-          aria-owns={open ? "topic-popover" : undefined}
+          aria-owns={open ? "mouse-over-popover" : undefined}
           aria-haspopup="true"
           onMouseEnter={handlePopoverOpen}
           onMouseLeave={handlePopoverClose}
         >
-          Chủ đề: {topicDetail?.title || "Không rõ chủ đề"}
+          Ca sĩ: {singer?.fullName || "Không rõ ca sĩ"}
         </Typography>
       </Link>
 
@@ -74,32 +76,32 @@ const TopicPopover: React.FC<TopicPopoverProps> = ({ topicDetail }) => {
         <Paper
           elevation={3}
           sx={{
+            width: "100%",
+            height: "100%",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             padding: "20px",
             maxWidth: "600px",
-            width: "100%",
             textAlign: "center",
           }}
         >
           <Avatar
-            src={topicDetail.avatar}
-            alt={topicDetail.title}
+            src={singer.avatar}
+            alt={singer.fullName}
             sx={{ width: 120, height: 120, marginBottom: "10px" }}
           />
           <Typography variant="h6" sx={{ marginBottom: "10px" }}>
-            {topicDetail.title}
+            {singer.fullName}
           </Typography>
 
-          <Typography
-            sx={{
-              marginBottom: "10px",
-              fontSize: "14px",
-              color: "text.secondary",
-            }}
-          >
-            {topicDetail.description || "Không có mô tả"}
+          <Typography variant="body2" sx={{ marginBottom: "10px" }}>
+            <strong>Tham gia vào:</strong>{" "}
+            {new Date(singer.createdAt).toLocaleDateString("vi-VN", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })}
           </Typography>
         </Paper>
       </Popover>
@@ -107,4 +109,4 @@ const TopicPopover: React.FC<TopicPopoverProps> = ({ topicDetail }) => {
   );
 };
 
-export default TopicPopover;
+export default SingerInfoPopover;

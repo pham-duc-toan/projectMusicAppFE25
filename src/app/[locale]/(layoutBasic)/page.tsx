@@ -16,6 +16,7 @@ import ButtonListenNow from "./components/buttonListenNow";
 import { apiBasicServer } from "@/app/utils/request";
 import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
+import SingerInfo from "./components/infoSinger";
 
 interface Topic {
   _id: string;
@@ -205,20 +206,7 @@ export default async function Dashboard() {
                       >
                         {song.title}
                       </Typography>
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        sx={{
-                          //combo hien thi 3 cham
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 1,
-                          overflow: "hidden",
-                          wordWrap: "break-word",
-                        }}
-                      >
-                        Ca sĩ: {song.singerId?.fullName || "Không rõ"}
-                      </Typography>
+                      <SingerInfo singer={song.singerId} />
                     </Box>
 
                     <ButtonListenNow song={song} />
@@ -314,7 +302,7 @@ export default async function Dashboard() {
                           wordWrap: "break-word",
                         }}
                       >
-                        Ca sĩ: {song.singerId?.fullName || "Không rõ"}
+                        <SingerInfo singer={song.singerId} />
                       </Typography>
                     </Box>
                     <ButtonListenNow song={song} />

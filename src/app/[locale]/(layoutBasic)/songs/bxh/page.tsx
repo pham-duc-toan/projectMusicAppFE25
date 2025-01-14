@@ -21,6 +21,8 @@ import { apiBasicServer, getInfoUser } from "@/app/utils/request";
 import { TSongDetail } from "@/dataType/song";
 import ActionButton from "./components/ActionButton";
 import { GetPublicAccessTokenFromCookie } from "@/app/utils/checkRole";
+import CellTopicInfo from "../../admin/managerSong/songs-for-you/components/CellTopicInfo";
+import CellSingerInfo from "../../admin/managerSong/songs-for-you/components/CellSingerInfo";
 
 const ManagetopSong: React.FC = async () => {
   const resTop = await apiBasicServer(
@@ -97,14 +99,14 @@ const ManagetopSong: React.FC = async () => {
                       variant="rounded"
                     />
                   </TableCell>
-                  <TableCell>{song.title}</TableCell>
+                  <TableCell>
+                    <Link href={`/songs/detail/${song.slug}`}>
+                      {song.title}
+                    </Link>
+                  </TableCell>
                   <TableCell>{song.listen}</TableCell>
-                  <TableCell>
-                    {song.topicId?.title || "Không rõ thể loại"}
-                  </TableCell>
-                  <TableCell>
-                    {song.singerId?.fullName || "Không rõ ca sĩ"}
-                  </TableCell>
+                  <CellTopicInfo topicDetail={song.topicId} />
+                  <CellSingerInfo singer={song.singerId} />
                   <TableCell>
                     <ActionButton fSongs={favoriteSongs} data={song} />
                   </TableCell>

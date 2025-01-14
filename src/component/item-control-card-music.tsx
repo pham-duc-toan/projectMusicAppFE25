@@ -17,6 +17,7 @@ import { pause, play, setNewSong } from "@/store/playingMusicSlice";
 import Image from "next/image";
 import IconAddToPlayList from "./iconbutton/IconAddToPlayList";
 import IconLikeSong from "./iconbutton/IconLikeSong";
+import SingerInfoPopover from "./SingerInfoItem";
 
 export default function ItemControlCard({
   fSongs,
@@ -60,15 +61,7 @@ export default function ItemControlCard({
           >
             <Link href={`/songs/detail/${data.slug}`}>{data.title}</Link>
           </Typography>
-          <Typography
-            variant="subtitle1"
-            color="text.secondary"
-            component="div"
-            height={"50%"}
-            noWrap
-          >
-            {data.singerId?.fullName || "Không rõ ca sĩ"}
-          </Typography>
+          <SingerInfoPopover singer={data.singerId} />
         </CardContent>
         <Box sx={{ display: "flex", alignItems: "center", pb: 1 }}>
           {songCurrent._id != data._id ? (

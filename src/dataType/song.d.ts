@@ -17,7 +17,12 @@ export interface TSongDetail {
   singerId: {
     _id: string;
     fullName: string;
-    [key: string]: any;
+    avatar: string;
+    status: string;
+    slug: string;
+    deleted: boolean;
+    updatedAt: string;
+    createdAt: string;
   };
   topicId: Topic;
   like: number;

@@ -21,6 +21,8 @@ import StarIcon from "@mui/icons-material/Star";
 import { apiBasicClient } from "@/app/utils/request";
 import { Link } from "@/i18n/routing";
 import { useAppContext } from "@/context-app";
+import CellSingerInfo from "./components/CellSingerInfo";
+import CellTopicInfo from "./components/CellTopicInfo";
 
 interface Topic {
   _id: string;
@@ -38,6 +40,12 @@ interface Song {
   avatar: string;
   singerId: {
     fullName: string;
+    avatar: string;
+    status: string;
+    slug: string;
+    deleted: boolean;
+    updatedAt: string;
+    createdAt: string;
   };
   topicId: Topic;
   like: number;
@@ -256,13 +264,14 @@ const ManageFeaturedSongs: React.FC = () => {
                         variant="rounded"
                       />
                     </TableCell>
-                    <TableCell>{song.title}</TableCell>
                     <TableCell>
-                      {song.topicId?.title || "Không rõ thể loại"}
+                      <Link href={`/songs/detail/${song.slug}`}>
+                        {song.title}
+                      </Link>
                     </TableCell>
-                    <TableCell>
-                      {song.singerId?.fullName || "Không rõ ca sĩ"}
-                    </TableCell>
+                    <CellSingerInfo singer={song.singerId} />
+                    <CellTopicInfo topicDetail={song.topicId} />
+
                     <TableCell>
                       <Tooltip title="Xóa khỏi đề cử" arrow>
                         <IconButton

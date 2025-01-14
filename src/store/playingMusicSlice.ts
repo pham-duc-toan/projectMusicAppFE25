@@ -27,7 +27,7 @@ const playingMusicSlice = createSlice({
       state._id = action.payload._id;
       state.title = action.payload.title;
       state.singerFullName =
-        action.payload.singerId?.fullName || "Không rõ ca sĩ";
+        action.payload.singerId?.fullName || "Unknow Singer";
       state.audio = action.payload.audio;
       state.slug = action.payload.slug;
       state.isPlaying = true; // Đặt trạng thái phát bài hát mới

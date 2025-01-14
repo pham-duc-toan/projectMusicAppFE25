@@ -7,6 +7,7 @@ import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/system";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import SingerInfo from "./infoSinger";
 interface SliderProps {
   topSong: TSongDetail[];
 }
@@ -152,20 +153,7 @@ const Slider: React.FC<SliderProps> = ({ topSong }) => {
                       >
                         {song.title}
                       </Typography>
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        sx={{
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 1,
-                          lineHeight: 2,
-                          overflow: "hidden",
-                          wordWrap: "break-word",
-                        }}
-                      >
-                        Ca sĩ: {song.singerId?.fullName || "Không rõ"}
-                      </Typography>
+                      <SingerInfo singer={song.singerId} />
                     </Box>
                     <Box
                       sx={{

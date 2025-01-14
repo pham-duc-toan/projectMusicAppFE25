@@ -17,8 +17,19 @@ interface SingerInfoPopoverProps {
 
 const SingerInfoPopover: React.FC<SingerInfoPopoverProps> = ({ singer }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  const [position, setPosition] = React.useState<"top" | "bottom">("bottom");
 
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+
+    // Kiểm tra vị trí để hiển thị Popover
+    if (rect.bottom + 300 > viewportHeight) {
+      setPosition("top");
+    } else {
+      setPosition("bottom");
+    }
+
     setAnchorEl(event.currentTarget);
   };
 
@@ -49,11 +60,11 @@ const SingerInfoPopover: React.FC<SingerInfoPopoverProps> = ({ singer }) => {
         open={open}
         anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: "bottom",
+          vertical: position === "top" ? "top" : "bottom",
           horizontal: "left",
         }}
         transformOrigin={{
-          vertical: "top",
+          vertical: position === "top" ? "bottom" : "top",
           horizontal: "left",
         }}
         onClose={handlePopoverClose}
