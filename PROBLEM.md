@@ -1,0 +1,1 @@
+- khi xóa bài hát thì phải xóa cả các bài hát nằm trong playlist và trong favorite songs để tối ưu hóa database, dù hiện tại thì ko ảnh hưởng vì với playlist thì gọi ref nên những cái giá trị ko gắn được với id của song thì ko hiện còn với favorite songs thì đang tìm kiếm tuyến tính để biết bài hát có được tim hay ko

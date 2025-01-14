@@ -1,0 +1,54 @@
+{
+  "HomePage": {
+    "bxh": "BÀI HÁT THỊNH HÀNH",
+    "btn-top-song": "Top 100 bài hát thịnh hành"
+  },
+  "PlayListPage": {
+    "no-playlist": "Hiện không có danh sách phát nào."
+  },
+  "Layout": {
+    "header-search": "Tìm kiếm bài hát, nghệ sĩ, lời bài hát...",
+    "header-loggin":"Đăng nhập",
+    "header-unknow-author": "Tác giả không rõ",
+    "header-artists": "Nghệ sĩ",
+    "header-dang-ky-ca-si": "Đăng ký ca sĩ",
+    "header-menu-thong-tin-ca-nhan": "Thông tin cá nhân",
+    "header-menu-lich-su-giao-dich": "Lịch sử giao dịch",
+    "header-menu-quan-ly-bai-hat": "Quản lý bài hát của tôi",
+    "header-menu-doi-mat-khau": "Đổi mật khẩu",
+    "header-menu-dang-xuat": "Đăng xuất",
+    "sider-home":"Trang chủ",
+    "sider-playlist":"Danh sách phát của tôi",
+    "sider-favorite-songs":"Các bài hát đã thích",
+    "sider-songs":"Bài hát",
+    "sider-singer":"Ca sĩ",
+    "sider-topic": "Chủ đề",
+    "sider-quan-ly-bai-hat":"Quản lý bài hát",
+    "sider-quan-ly-chu-de":"Quản lý chủ đề",
+    "sider-quan-ly-ca-si":"Quản lý ca sĩ",
+    "sider-quan-ly-nguoi-dung":"Quản lý người dùng",
+    "sider-quan-ly-quyen":"Quản lý các quyền",
+    "siderPlayList":"Danh sách phát",
+    "siderPlayList-Null":"Danh sách nhạc này đang rỗng.",
+    "siderPlayList-No-Song":"Hiện đang không có danh sách nhạc nào được phát."
+    
+  },
+  "Notification": {
+    "logout": "Đang đăng xuất",
+    "logged out": "Đã đăng xuất"
+  },
+  "Button":{
+    "Them":"Thêm",
+    "Sua":"Sửa",
+    "Xoa":"Xóa",
+    "ChiTiet":"Chi tiết",
+    "Huy":"Hủy"
+  },
+  "PermissionPage": {
+    "title": "Trang quyền"
+  },
+  "language": {
+    "en": "English",
+    "vi": "Tiếng Việt"
+  }
+}

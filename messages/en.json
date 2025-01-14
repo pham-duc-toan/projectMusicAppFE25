@@ -1,0 +1,32 @@
+{
+  "HomePage": {
+    "bxh": "HIT SONGS",
+    "btn-top-song": "Top 100 hit songs"
+  },
+  "PlayListPage":{
+    "no-playlist":"There is no playlist available."
+  },
+  "Layout":{
+    "header-search":"Search for songs, artists, lyrics...",
+    "header-loggin":"Loggin",
+    "header-unknow-author":"Unknown author",
+    "header-artists":"Artist",
+    "header-dang-ky-ca-si":"Register as a singer",
+    "header-menu-thong-tin-ca-nhan":"Personal information",
+    "header-menu-lich-su-giao-dich":"Transaction history",
+    "header-menu-quan-ly-bai-hat":"Manage my songs",
+    "header-menu-doi-mat-khau":"Change password",
+    "header-menu-dang-xuat":"Log out"
+  },
+  "Notification":{
+    "logout":"Logging out",
+    "logged out":"Logged out"
+  },
+  "PermissionPage": {
+    "title": "Permission Page"
+  },
+  "language": {
+    "en": "English",
+    "vi": "Tiếng Việt"
+  }
+}

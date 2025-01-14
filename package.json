@@ -1,0 +1,51 @@
+{
+  "name": "my-next-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/cache": "^11.13.1",
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@fontsource/inter": "^5.1.1",
+    "@mui/base": "^5.0.0-beta.40",
+    "@mui/icons-material": "^5.16.7",
+    "@mui/material": "^5.16.7",
+    "@mui/material-nextjs": "^5.16.6",
+    "@mui/system": "^5.16.7",
+    "@reduxjs/toolkit": "^2.2.7",
+    "@types/form-data": "^2.5.0",
+    "@types/formidable": "^3.4.5",
+    "@types/jsonwebtoken": "^9.0.7",
+    "axios": "^1.7.7",
+    "chart.js": "^4.4.6",
+    "cookies-next": "^4.2.1",
+    "dayjs": "^1.11.13",
+    "form-data": "^4.0.0",
+    "formidable": "^3.5.1",
+    "jsonwebtoken": "^9.0.2",
+    "next": "14.2.5",
+    "next-intl": "^3.26.3",
+    "nextjs-toploader": "^3.6.15",
+    "react": "^18",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18",
+    "react-dropzone": "^14.2.3",
+    "react-h5-audio-player": "^3.9.3",
+    "react-redux": "^9.1.2"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "typescript": "^5.7.2"
+  }
+}
