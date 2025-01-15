@@ -41,19 +41,19 @@ const TopicPopover: React.FC<TopicPopoverProps> = ({ topicDetail }) => {
 
   return (
     <>
-      <Link href={`/topics/detail/${topicDetail.slug}`}>
-        <Typography
-          variant="subtitle1"
-          color="text.secondary"
-          sx={{ cursor: "pointer" }}
-          aria-owns={open ? "topic-popover" : undefined}
-          aria-haspopup="true"
-          onMouseEnter={handlePopoverOpen}
-          onMouseLeave={handlePopoverClose}
-        >
+      <Typography
+        variant="subtitle1"
+        color="text.secondary"
+        sx={{ cursor: "pointer" }}
+        aria-owns={open ? "topic-popover" : undefined}
+        aria-haspopup="true"
+        onMouseEnter={handlePopoverOpen}
+        onMouseLeave={handlePopoverClose}
+      >
+        <Link href={`/topics/detail/${topicDetail.slug}`}>
           Chủ đề: {topicDetail?.title || "Không rõ chủ đề"}
-        </Typography>
-      </Link>
+        </Link>
+      </Typography>
 
       <Popover
         id="mouse-over-popover"

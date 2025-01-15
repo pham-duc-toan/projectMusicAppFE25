@@ -40,27 +40,27 @@ const SingerInfo: React.FC<SingerInfoPopoverProps> = ({ singer }) => {
   const open = Boolean(anchorEl);
   return (
     <>
-      <Link href={`/singers/detailSinger/${singer.slug}`}>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          sx={{
-            //combo hien thi 3 cham
-            display: "-webkit-box",
-            WebkitBoxOrient: "vertical",
-            WebkitLineClamp: 1,
-            overflow: "hidden",
-            wordWrap: "break-word",
-            cursor: "pointer",
-          }}
-          aria-owns={open ? "mouse-over-popover" : undefined}
-          aria-haspopup="true"
-          onMouseEnter={handlePopoverOpen}
-          onMouseLeave={handlePopoverClose}
-        >
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        sx={{
+          //combo hien thi 3 cham
+          display: "-webkit-box",
+          WebkitBoxOrient: "vertical",
+          WebkitLineClamp: 1,
+          overflow: "hidden",
+          wordWrap: "break-word",
+          cursor: "pointer",
+        }}
+        aria-owns={open ? "mouse-over-popover" : undefined}
+        aria-haspopup="true"
+        onMouseEnter={handlePopoverOpen}
+        onMouseLeave={handlePopoverClose}
+      >
+        <Link href={`/singers/detailSinger/${singer.slug}`}>
           Ca sĩ: {singer?.fullName || "Không rõ ca sĩ"}
-        </Typography>
-      </Link>
+        </Link>
+      </Typography>
 
       <Popover
         id="mouse-over-popover"
