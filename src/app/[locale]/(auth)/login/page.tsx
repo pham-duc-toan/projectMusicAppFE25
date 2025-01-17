@@ -93,13 +93,36 @@ export default function Login() {
   return (
     <Box
       sx={{
-        height: "60vh",
-        width: "100%",
         display: "flex",
+        height: "100vh",
+        width: "100%",
+        backgroundColor: "primary.A100",
         justifyContent: "center",
         alignItems: "center",
+        "@media (min-width: 768px)": {
+          flexDirection: "row",
+        },
+        "@media (max-width: 768px)": {
+          flexDirection: "column",
+        },
       }}
     >
+      <Box
+        sx={{
+          width: "60%",
+          height: "100vh",
+
+          display: { xs: "none", md: "flex" },
+          backgroundImage: (theme) =>
+            `url(${
+              theme.palette.mode === "dark"
+                ? "/backlogin.jpeg"
+                : "/lightloginback2.jpg"
+            })`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
       <Box
         component="form"
         onSubmit={handleSubmit}
@@ -107,12 +130,11 @@ export default function Login() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          width: "100%",
           maxWidth: "600px",
           margin: "0 auto",
           padding: "20px",
           borderRadius: "8px",
-          backgroundColor: "primary.A100",
+          width: "40%",
           "@media (max-width: 768px)": {
             padding: "15px",
             width: "90%",
