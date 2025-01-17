@@ -6,25 +6,22 @@ import {
   Button,
   CircularProgress,
   Grid,
-  InputLabel,
-  LinearProgress,
-  MenuItem,
-  Select,
-  TextField,
   Typography,
   Card,
   CardContent,
   CardMedia,
   IconButton,
-  FormControl,
+  LinearProgress,
+  TextField,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { FileWithPath } from "react-dropzone";
 import DropzoneComponent from "@/component/customDropzone/dropzoneComponent";
 import { useAppContext } from "@/context-app";
-import { getAccessTokenFromLocalStorage } from "@/app/helper/localStorageClient";
+import { useTranslations } from "next-intl";
 import axios, { AxiosProgressEvent } from "axios";
 import { apiBasicClient, refreshtoken } from "@/app/utils/request";
+import { getAccessTokenFromLocalStorage } from "@/app/helper/localStorageClient";
 
 interface User {
   _id: string;
@@ -36,15 +33,15 @@ interface User {
 }
 
 const EditUserPage: React.FC = () => {
+  const t = useTranslations("EditUser");
+  const { showMessage } = useAppContext();
   const [user, setUser] = useState<User | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const { showMessage } = useAppContext();
 
   useEffect(() => {
-    // Fetch user data from API
     const fetchUserData = async () => {
       try {
         const response = await apiBasicClient("GET", "/users/profile");
@@ -52,10 +49,10 @@ const EditUserPage: React.FC = () => {
           setUser(response.data);
           setAvatarPreview(response.data.avatar || null);
         } else {
-          showMessage(response.message || "Failed to fetch user data", "error");
+          showMessage(response.message || t("errors.fetchUserData"), "error");
         }
       } catch (error) {
-        showMessage("Error fetching user data", "error");
+        showMessage(t("errors.serverError"), "error");
       }
     };
 
@@ -86,7 +83,6 @@ const EditUserPage: React.FC = () => {
 
     const formData = new FormData();
     formData.append("fullName", fullName);
-
     if (avatarFile) {
       formData.append("avatar", avatarFile);
     }
@@ -112,13 +108,13 @@ const EditUserPage: React.FC = () => {
       if (response.status === 200) {
         setUser(response.data.data);
         await refreshtoken();
-        showMessage("Cập nhật thành công!", "success");
+        showMessage(t("messages.updateSuccess"), "success");
       } else {
-        showMessage(response.data.message || "Something went wrong", "error");
+        showMessage(response.data.message || t("errors.updateFailed"), "error");
       }
     } catch (error: any) {
       showMessage(
-        error.response?.data?.message || "Lỗi khi cập nhật!",
+        error.response?.data?.message || t("errors.serverError"),
         "error"
       );
     } finally {
@@ -138,7 +134,7 @@ const EditUserPage: React.FC = () => {
   return (
     <Box sx={{ maxWidth: 800, margin: "auto", padding: 2 }}>
       <Typography variant="h4" gutterBottom>
-        Edit User
+        {t("title")}
       </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
@@ -146,7 +142,7 @@ const EditUserPage: React.FC = () => {
             <TextField
               fullWidth
               size="small"
-              label="Full Name"
+              label={t("fields.fullName")}
               name="fullName"
               defaultValue={user.fullName}
               required
@@ -166,7 +162,7 @@ const EditUserPage: React.FC = () => {
                 <CardMedia
                   component="img"
                   image={avatarPreview}
-                  alt="Avatar Preview"
+                  alt={t("avatarPreview")}
                   style={{
                     width: "200px",
                     height: "200px",
@@ -174,7 +170,7 @@ const EditUserPage: React.FC = () => {
                   }}
                 />
                 <CardContent>
-                  <Typography>Avatar Preview</Typography>
+                  <Typography>{t("avatarPreview")}</Typography>
                 </CardContent>
                 <IconButton
                   onClick={handleRemoveAvatar}
@@ -220,7 +216,7 @@ const EditUserPage: React.FC = () => {
               disabled={loading}
               endIcon={loading ? <CircularProgress size={24} /> : null}
             >
-              {loading ? "Updating..." : "Update"}
+              {loading ? t("buttons.updating") : t("buttons.update")}
             </Button>
           </Grid>
         </Grid>

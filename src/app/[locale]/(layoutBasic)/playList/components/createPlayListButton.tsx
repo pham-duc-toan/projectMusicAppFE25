@@ -14,8 +14,10 @@ import { decodeToken } from "@/app/helper/jwt";
 import { useAppContext } from "@/context-app";
 import { apiBasicClient } from "@/app/utils/request";
 import { revalidateByTag } from "@/app/action";
+import { useTranslations } from "next-intl";
 
 const CreatePlaylistButton = () => {
+  const t = useTranslations("CreatePlaylist");
   const access_token = getAccessTokenFromLocalStorage();
   const info_user = decodeToken(access_token || undefined);
   const { showMessage } = useAppContext();
@@ -48,12 +50,12 @@ const CreatePlaylistButton = () => {
       if (response?.data) {
         await revalidateByTag("revalidate-tag-list-playlist");
 
-        showMessage("Đã tạo playlist mới thành công", "success");
+        showMessage(t("messages.success"), "success");
       } else {
-        showMessage("Bạn cần đăng nhập để tạo Playlist", "error");
+        showMessage(t("messages.loginRequired"), "error");
       }
     } catch (error) {
-      showMessage("Có lỗi xảy ra khi gọi API", "error");
+      showMessage(t("messages.apiError"), "error");
     } finally {
       setLoading(false); // Kết thúc loading
       setOpen(false); // Đóng modal
@@ -64,7 +66,7 @@ const CreatePlaylistButton = () => {
     <>
       {/* Button to open modal */}
       <Button variant="contained" color="primary" onClick={handleOpen}>
-        Tạo mới playlist
+        {t("buttons.createNew")}
       </Button>
 
       {/* Modal for creating new playlist */}
@@ -83,11 +85,11 @@ const CreatePlaylistButton = () => {
           }}
         >
           <Typography variant="h6" gutterBottom>
-            Tạo Playlist Mới
+            {t("title")}
           </Typography>
           <TextField
             fullWidth
-            label="Tên Playlist"
+            label={t("fields.playlistName")}
             variant="outlined"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -102,11 +104,11 @@ const CreatePlaylistButton = () => {
               {loading ? (
                 <CircularProgress size={24} color="inherit" />
               ) : (
-                "Thêm"
+                t("buttons.add")
               )}
             </Button>
             <Button variant="outlined" color="primary" onClick={handleClose}>
-              Hủy
+              {t("buttons.cancel")}
             </Button>
           </Box>
         </Box>

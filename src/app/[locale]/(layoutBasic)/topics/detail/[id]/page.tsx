@@ -2,6 +2,7 @@ import { Box, Typography, Avatar, Paper, Grid } from "@mui/material";
 import { apiBasicServer, getInfoUser } from "@/app/utils/request";
 import ItemControlCard from "@/component/item-control-card-music";
 import { GetPublicAccessTokenFromCookie } from "@/app/utils/checkRole";
+import { getTranslations } from "next-intl/server";
 
 // Định nghĩa kiểu dữ liệu của topic
 interface Topic {
@@ -14,7 +15,7 @@ interface Topic {
   deleted: boolean;
 }
 
-// Hàm server-side để lấy dữ liệu
+// Hàm server-side để lấy dữ liệu topic
 async function getTopicDetail(id: string): Promise<Topic | null> {
   try {
     const response = await apiBasicServer(
@@ -37,6 +38,8 @@ export default async function TopicDetailPage({
 }: {
   params: { id: string };
 }) {
+  const t = await getTranslations("topicDetail"); // Dùng getTranslations() cho Server Component
+
   // Lấy dữ liệu topic theo id từ params
   const topicDetail = await getTopicDetail(params.id);
 
@@ -46,12 +49,12 @@ export default async function TopicDetailPage({
         color="primary"
         sx={{ textAlign: "center", marginTop: "20px" }}
       >
-        Không thể tải thông tin topic.
+        {t("fetchError")}
       </Typography>
     );
   }
 
-  // Lấy danh sách bài hát của topic (có thể thay đổi endpoint nếu cần)
+  // Lấy danh sách bài hát của topic
   const datall: any = await apiBasicServer(
     "GET",
     `/songs/song-of-topic/${topicDetail._id}`,
@@ -136,7 +139,7 @@ export default async function TopicDetailPage({
                 fontStyle: "italic",
               }}
             >
-              Không có bài hát.
+              {t("noSongs")}
             </Typography>
           </Grid>
         )}

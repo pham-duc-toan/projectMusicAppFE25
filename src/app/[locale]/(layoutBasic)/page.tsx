@@ -108,7 +108,7 @@ export default async function Dashboard() {
           }}
         >
           <Typography sx={{ fontWeight: 700 }} variant="h4">
-            {t("bxh")}
+            {t("topSongs")}
           </Typography>
           <Link href={"/songs/bxh"}>
             <Button
@@ -126,7 +126,7 @@ export default async function Dashboard() {
               }}
               variant="outlined"
             >
-              Xem Top 100 bài hát
+              {t("viewTop100")}
             </Button>
           </Link>
         </Box>
@@ -143,7 +143,7 @@ export default async function Dashboard() {
           }}
         >
           <Typography sx={{ fontWeight: 600 }} variant="h5">
-            Có thể bạn muốn nghe
+            {t("songsForYou")}
           </Typography>
           <Link href="/songs">
             <Typography
@@ -160,7 +160,7 @@ export default async function Dashboard() {
               }}
             >
               <KeyboardArrowLeftIcon />
-              Xem thêm
+              {t("seeMore")}
             </Typography>
           </Link>
         </Box>
@@ -177,7 +177,6 @@ export default async function Dashboard() {
                 sx={{
                   borderRadius: "4px",
                   objectFit: "cover",
-                  // width: "200px",
                   height: "200px",
                 }}
               />
@@ -195,7 +194,6 @@ export default async function Dashboard() {
                       variant="h6"
                       sx={{
                         fontWeight: 500,
-                        //combo hien thi 3 cham
                         display: "-webkit-box",
                         WebkitBoxOrient: "vertical",
                         WebkitLineClamp: 2,
@@ -227,7 +225,7 @@ export default async function Dashboard() {
           }}
         >
           <Typography sx={{ fontWeight: 600 }} variant="h5">
-            Mới phát hành
+            {t("newReleases")}
           </Typography>
           <Link href="/songs">
             <Typography
@@ -244,7 +242,7 @@ export default async function Dashboard() {
               }}
             >
               <KeyboardArrowLeftIcon />
-              Xem thêm
+              {t("seeMore")}
             </Typography>
           </Link>
         </Box>
@@ -261,7 +259,6 @@ export default async function Dashboard() {
                 sx={{
                   borderRadius: "4px",
                   objectFit: "cover",
-                  // width: "200px",
                   height: "200px",
                 }}
               />
@@ -279,7 +276,6 @@ export default async function Dashboard() {
                       variant="h6"
                       sx={{
                         fontWeight: 500,
-                        //combo hien thi 3 cham
                         display: "-webkit-box",
                         WebkitBoxOrient: "vertical",
                         WebkitLineClamp: 2,
@@ -312,7 +308,7 @@ export default async function Dashboard() {
           }}
         >
           <Typography sx={{ fontWeight: 600 }} variant="h5">
-            Những Chủ Đề Mới Nhất
+            {t("latestTopics")}
           </Typography>
           <Link href="/topics">
             <Typography
@@ -323,13 +319,13 @@ export default async function Dashboard() {
               fontWeight={"700"}
               sx={{
                 "&:hover": {
-                  color: "primary.main", // Màu khi hover
-                  cursor: "pointer", // Thêm hiệu ứng con trỏ tay khi hover
+                  color: "primary.main",
+                  cursor: "pointer",
                 },
               }}
             >
               <KeyboardArrowLeftIcon />
-              Xem thêm
+              {t("seeMore")}
             </Typography>
           </Link>
         </Box>
@@ -347,7 +343,6 @@ export default async function Dashboard() {
                   boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
                 }}
               >
-                {/* Hình ảnh full chiều rộng và chiều cao */}
                 <CardMedia
                   component="img"
                   image={topic.avatar}
@@ -358,13 +353,7 @@ export default async function Dashboard() {
                     objectFit: "cover",
                   }}
                 />
-
-                {/* Nội dung tiêu đề và mô tả */}
-                <Box
-                  sx={{
-                    padding: "10px",
-                  }}
-                >
+                <Box sx={{ padding: "10px" }}>
                   <Typography
                     variant="h6"
                     sx={{
@@ -390,7 +379,7 @@ export default async function Dashboard() {
                       textOverflow: "ellipsis",
                     }}
                   >
-                    {topic.description || "Mô tả đang được cập nhật"}
+                    {topic.description || t("descriptionUpdating")}
                   </Typography>
                 </Box>
               </Box>
@@ -398,13 +387,14 @@ export default async function Dashboard() {
           </Grid>
         ))}
       </Grid>
+
       {singers.length > 0 && (
         <Box sx={{ marginBottom: "20px" }}>
           <Typography
             sx={{ fontWeight: 600, marginBottom: "20px" }}
             variant="h5"
           >
-            Nghệ Sĩ Nổi Bật
+            {t("featuredSingers")}
           </Typography>
 
           <Grid container spacing={4}>
@@ -420,14 +410,12 @@ export default async function Dashboard() {
                       backgroundColor: "background.default",
                       padding: "20px",
                       borderRadius: "12px",
-
                       transition: "transform 0.3s ease-in-out",
                       "&:hover": {
                         transform: "scale(1.05)",
                       },
                     }}
                   >
-                    {/* Ảnh tròn */}
                     <Box
                       sx={{
                         width: "120px",
@@ -450,12 +438,10 @@ export default async function Dashboard() {
                       />
                     </Box>
 
-                    {/* Tên nghệ sĩ */}
                     <Typography
                       variant="h6"
                       sx={{
                         fontWeight: 600,
-
                         overflow: "hidden",
                         whiteSpace: "nowrap",
                         textOverflow: "ellipsis",
@@ -464,14 +450,13 @@ export default async function Dashboard() {
                       {singer.fullName}
                     </Typography>
 
-                    {/* Vai trò hoặc mô tả */}
                     <Typography
                       variant="body2"
                       sx={{
                         marginTop: "5px",
                       }}
                     >
-                      {"Nghệ sĩ"}
+                      {t("artist")}
                     </Typography>
                   </Box>
                 </Link>

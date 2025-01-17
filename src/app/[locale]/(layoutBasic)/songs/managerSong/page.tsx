@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   Box,
@@ -18,6 +20,7 @@ import ButtonRedirect from "@/component/buttonRedirect";
 import PlayPauseButton from "../../admin/managerSong/components/PlayPauseButton";
 import ChangeStatus from "./component/ChangStatus";
 import ButtonActionModal from "./component/ButtonActionModal";
+import { getTranslations } from "next-intl/server";
 
 interface Topic {
   _id: string;
@@ -63,6 +66,7 @@ const fetchSongs = async (): Promise<{
 };
 
 const ManagerSongPage = async () => {
+  const t = await getTranslations("managerSongPageClient");
   const { songs } = await fetchSongs();
 
   return (
@@ -74,11 +78,11 @@ const ManagerSongPage = async () => {
         alignItems={"center"}
       >
         <Typography variant="h4" gutterBottom>
-          Quản lý bài hát
+          {t("manageSongs")}
         </Typography>
         <ButtonRedirect
           link="/songs/managerSong/createSong"
-          content="Tạo mới bài hát"
+          content={t("createSong")}
           variant="contained"
           color="primary"
         />
@@ -91,20 +95,20 @@ const ManagerSongPage = async () => {
           textAlign="center"
           fontStyle={"italic"}
         >
-          Hiện chưa có bài hát nào.
+          {t("noSongs")}
         </Typography>
       ) : (
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>STT</TableCell>
-                <TableCell>Hình ảnh</TableCell>
-                <TableCell>Tiêu đề</TableCell>
-                <TableCell>Chủ đề</TableCell>
-                <TableCell>Phát</TableCell>
-                <TableCell>Trạng thái</TableCell>
-                <TableCell>Hành động</TableCell>
+                <TableCell>{t("stt")}</TableCell>
+                <TableCell>{t("image")}</TableCell>
+                <TableCell>{t("title")}</TableCell>
+                <TableCell>{t("topic")}</TableCell>
+                <TableCell>{t("play")}</TableCell>
+                <TableCell>{t("status")}</TableCell>
+                <TableCell>{t("actions")}</TableCell>
               </TableRow>
             </TableHead>
 
@@ -120,7 +124,7 @@ const ManagerSongPage = async () => {
                     />
                   </TableCell>
                   <TableCell>{song.title}</TableCell>
-                  <TableCell>{song.topicId?.title || "Không rõ"}</TableCell>
+                  <TableCell>{song.topicId?.title || t("unknown")}</TableCell>
                   <TableCell>
                     <PlayPauseButton song={song} />
                   </TableCell>

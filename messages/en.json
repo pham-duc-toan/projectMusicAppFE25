@@ -1,7 +1,14 @@
 {
   "HomePage": {
-    "bxh": "HIT SONGS",
-    "btn-top-song": "Top 100 hit songs"
+    "topSongs": "Top Songs",
+    "viewTop100": "View Top 100 Songs",
+    "songsForYou": "Songs You May Like",
+    "seeMore": "See more",
+    "newReleases": "New Releases",
+    "latestTopics": "Latest Topics",
+    "descriptionUpdating": "Description is being updated",
+    "featuredSingers": "Prominent Singers",
+    "artist": "Artist"
   },
   "PlayListPage": {
     "no-playlist": "There is currently no playlist."
@@ -370,6 +377,383 @@
     "description": "The page you are looking for does not exist!",
     "goHome": "Go to Home"
   },
+  "RefreshIcon": {
+    "tooltip": "Refresh",
+    "messages": {
+      "success": "Refreshed successfully",
+      "error": "Server error"
+    }
+  },
+  "HistoryTable": {
+    "title": "Transaction History",
+    "columns": {
+      "orderId": "Order ID",
+      "orderStatus": "Order Status",
+      "singerStatus": "Singer Status",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "action": "Action"
+    },
+    "status": {
+      "notCreated": "Not Created",
+      "created": "Created"
+    },
+    "actions": {
+      "payNow": "Pay Now"
+    },
+    "noOrders": "No orders available"
+  },
+  "CreatePlaylist": {
+    "title": "Create New Playlist",
+    "fields": {
+      "playlistName": "Playlist Name"
+    },
+    "buttons": {
+      "createNew": "Create New Playlist",
+      "add": "Add",
+      "cancel": "Cancel"
+    },
+    "messages": {
+      "success": "New playlist created successfully",
+      "loginRequired": "You need to log in to create a Playlist",
+      "apiError": "An error occurred while calling the API"
+    }
+  },
+  "Playlist": {
+    "actions": {
+      "delete": "Delete",
+      "edit": "Edit"
+    },
+    "messages": {
+      "deleteSuccess": "Playlist deleted successfully",
+      "deleteError": "Error deleting playlist",
+      "editSuccess": "Playlist updated successfully",
+      "editError": "Error updating playlist",
+      "apiError": "An error occurred while calling the API"
+    },
+    "playlist": {
+      "songs": "songs",
+      "editTitle": "Edit Playlist",
+      "name": "Playlist Name",
+      "edit": "Edit"
+    },
+    "buttons": {
+      "cancel": "Cancel"
+    }
+  },
+  "playlist": {
+    "title": "Playlists",
+    "noPlaylists": "There are no playlists available"
+  },
+  "ChangePassword": {
+    "title": "Change Password",
+    "fields": {
+      "oldPassword": "Old Password",
+      "newPassword": "New Password",
+      "confirmNewPassword": "Confirm New Password"
+    },
+    "errors": {
+      "emptyFields": "Please fill in all fields",
+      "passwordMismatch": "New password and confirmation do not match",
+      "serverError": "An error occurred"
+    },
+    "messages": {
+      "success": "Password changed successfully!"
+    },
+    "buttons": {
+      "submit": "Change Password",
+      "processing": "Processing..."
+    }
+  },
+  "EditUser": {
+    "title": "Edit User Information",
+    "fields": {
+      "fullName": "Full Name"
+    },
+    "avatarPreview": "Avatar Preview",
+    "errors": {
+      "fetchUserData": "Failed to fetch user data",
+      "updateFailed": "Update failed",
+      "serverError": "Server error"
+    },
+    "messages": {
+      "updateSuccess": "Updated successfully!"
+    },
+    "buttons": {
+      "update": "Update",
+      "updating": "Updating..."
+    }
+  },
+  "EditSinger": {
+    "title": "Edit Singer",
+    "fields": {
+      "fullName": "Full Name"
+    },
+    "avatarPreview": "Avatar Preview",
+    "errors": {
+      "fetchSingerData": "Failed to fetch singer data",
+      "updateFailed": "Update failed",
+      "serverError": "Server error"
+    },
+    "messages": {
+      "updateSuccess": "Updated successfully!"
+    },
+    "buttons": {
+      "update": "Update",
+      "updating": "Updating..."
+    }
+  },
+  "ProfilePage": {
+    "errors": {
+      "loadProfile": "Error loading profile data."
+    },
+    "fields": {
+      "role": "Role",
+      "userType": "User Type"
+    },
+    "singerInfo": {
+      "title": "Managed Singer Information",
+      "status": "Status",
+      "unknown": "Unknown singer",
+      "deleted": "Account has been deleted"
+    },
+    "buttons": {
+      "edit": "Edit",
+      "viewDetails": "View Details"
+    }
+  },
+  "ItemControlCardSinger": {
+    "songCount": "{count} songs"
+  },
+  "SingerCreateComponent": {
+    "fields": {
+      "fullName": "Full Name",
+      "status": "Status"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "messages": {
+      "missingAvatar": "Missing avatar upload!",
+      "createSuccess": "Created successfully!",
+      "error": "An error occurred!",
+      "uploadError": "Upload error!"
+    },
+    "buttons": {
+      "submit": "Create",
+      "submitting": "Submitting..."
+    },
+    "avatarPreview": "Avatar Preview"
+  },
+  "CreateSingerPage": {
+    "title": "Create Singer"
+  },
+  "SingerDetailPage": {
+    "errors": {
+      "fetchFailed": "Failed to fetch singer details."
+    },
+    "labels": {
+      "joinedDate": "Joined on",
+      "noSongs": "No songs available."
+    }
+  },
+  "AllSingers": {
+    "title": "Discover Singers",
+    "noSingers": "No singers available."
+  },
+  "ManagetopSong": {
+    "heading": "Top Song Rankings",
+    "allSongs": "Explore Unlimited Songs",
+    "ranking": "Ranking",
+    "image": "Image",
+    "songTitle": "Title",
+    "views": "Views",
+    "topic": "Topic",
+    "singer": "Singer",
+    "actions": "Actions",
+    "noSongs": "No songs available"
+  },
+  "SingerInfoPopover": {
+    "label": "Singer",
+    "unknownSinger": "Unknown singer",
+    "joinedDate": "Joined on",
+    "singerUnknown": "Unknown singer",
+    "singer": "Singer"
+  },
+  "TopicPopover": {
+    "label": "Topic",
+    "unknownTopic": "Unknown topic",
+    "noDescription": "No description"
+  },
+  "SongDetailPage": {
+    "title": "Song Details",
+    "description": "Detailed information about the song",
+    "notFound": "Song not found",
+    "listenCount": "Listen ",
+    "likeCount": "Like ",
+    "lyrics": "Lyrics",
+    "noLyrics": "Lyrics not updated",
+    "descriptionLabel": "Description",
+    "noDescription": "Description not updated"
+  },
+  "songActions": {
+    "viewDetails": "View Details",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirmDelete": "Confirm Delete",
+    "deletePrompt": "Are you sure you want to delete this song?",
+    "deleteSuccess": "Song deleted successfully!",
+    "cancel": "Cancel",
+    "confirm": "Yes"
+  },
+  "changeStatus": {
+    "tooltip": "Change Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "processing": "Processing...",
+    "success": "Status changed successfully!"
+  },
+  "editSong": {
+    "editTitle": "Edit Song",
+    "songTitle": "Song Title",
+    "topic": "Topic",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "lyrics": "Lyrics",
+    "description": "Description",
+    "submitting": "Submitting...",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "successMessage": "Song updated successfully!",
+    "errorMessage": "Something went wrong!",
+    "editSongTitle": "Edit Song",
+    "title": "Title",
+
+    "statusActive": "Active",
+    "statusInactive": "Inactive",
+
+    "lyricsPlaceholder": "Enter LRC format...\nExample:\n[00:19.12] A windy autumn day\n[00:21.78] In the evening sunlight, your eyes shine",
+
+    "avatarPreview": "Avatar Preview",
+    "audioPreview": "Audio Preview",
+    "audioNotSupported": "Your browser does not support the audio tag.",
+
+    "uploadError": "Error uploading file!"
+  },
+  "songCreate": {
+    "title": "Title",
+    "status": "Status",
+    "statusActive": "Active",
+    "statusInactive": "Inactive",
+    "lyrics": "Lyrics",
+    "description": "Description",
+    "avatarPreview": "Avatar Preview",
+    "audioPreview": "Audio Preview",
+    "audioNotSupported": "Your browser does not support the audio tag.",
+    "submitting": "Submitting...",
+    "submit": "Submit",
+    "uploadImageError": "Please upload an image file.",
+    "uploadAudioError": "Please upload an audio file.",
+    "createSuccess": "Song created successfully!",
+    "createError": "Error creating the song.",
+    "uploadError": "Error during upload!",
+    "editSongTitle": "Edit Song",
+    "topic": "Topic",
+    "lyricsPlaceholder": "Enter LRC format...\nExample:\n[00:19.12] A windy autumn day\n[00:21.78] In the evening sunlight, your eyes shine",
+    "cancel": "Cancel"
+  },
+  "songCreatePage": {
+    "createSongTitle": "Create a New Song",
+    "manageSongs": "Manage Songs",
+    "notASinger": "You are not a singer!"
+  },
+  "managerSongPageClient": {
+    "manageSongs": "Manage Songs",
+    "createSong": "Create New Song",
+    "noSongs": "No songs available.",
+    "stt": "No.",
+    "image": "Image",
+    "title": "Title",
+    "topic": "Topic",
+    "play": "Play",
+    "status": "Status",
+    "actions": "Actions",
+    "unknown": "Unknown"
+  },
+  "myFavoriteSongPage": {
+    "likedSongs": "Liked Songs",
+    "noFavoriteSongs": "No favorite songs available."
+  },
+  "songsPage": {
+    "allSongs": "Explore Unlimited Songs"
+  },
+  "topicCard": {
+    "songsCount": "{count} songs"
+  },
+  "topicDetail": {
+    "fetchError": "Unable to load topic information.",
+    "noSongs": "No songs available."
+  },
+  "allTopics": {
+    "title": "Discover Music Topics",
+    "noTopics": "No topics available."
+  },
+  "registerNow": {
+    "payNow": "Pay Now",
+    "errorMessage": "Unable to proceed!",
+    "serverError": "Connection error with server."
+  },
+  "homePage": {
+    "unlimitedMusic": "Unlimited Music{br}Experience",
+    "upgradeAccount": "Upgrade your account to enjoy premium features and content.",
+    "becomeSinger": "Become a Singer",
+    "price": "For 289,000 VND",
+    "specialPrivileges": "Special Privileges:",
+    "privilege1": "Store your own music",
+    "privilege2": "Let everyone enjoy your music",
+    "privilege3": "Unlimited music storage",
+    "privilege4": "Advanced music listening features",
+    "privilege5": "Extended Upload capabilities"
+  },
+  "dropzone": {
+    "dragAndDrop": "Drag and drop files or click to select files to upload"
+  },
+  "PlaylistComponent": {
+    "fetchError": "Error fetching playlists.",
+    "songNotInFavorites": "This song is not in your favorite songs.",
+    "createSuccess": "Successfully created a new playlist.",
+    "createError": "Error creating playlist.",
+    "apiError": "An error occurred while connecting to the server.",
+    "addSuccess": "Song successfully added!",
+    "removeSuccess": "Song successfully removed!",
+    "deleteSuccess": "Successfully deleted the playlist.",
+    "selectPlaylist": "Select a playlist to add the song",
+    "delete": "Delete",
+    "createNewPlaylist": "Create a new playlist",
+    "newPlaylistName": "New playlist name",
+    "add": "Add",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "FavoriteButton": {
+    "processing": "Processing...",
+    "success": "Successfully updated",
+    "errorUpdatingFavorite": "Error updating favorite status:",
+    "loginRequired": "You need to log in to use this feature"
+  },
+  "PaginationComponent": {
+    "currentPage": "Page {currentPage} / {totalPages}",
+    "nextPage": "Next",
+    "previousPage": "Previous"
+  },
+  "SelectorSuggest": {
+    "noDataFound": "No data found",
+    "inputLabel": "Enter {field}",
+    "error": "An error occurred",
+    "loginRedirect": "Redirecting to login..."
+  },
 
   "Layout": {
     "header-search": "Search for songs, artists, lyrics...",
@@ -398,7 +782,7 @@
     "siderPlayList-No-Song": "There is currently no playlist being played."
   },
   "Notification": {
-    "logout": "Logging out",
+    "logout": "Logging out...",
     "logged out": "Logged out"
   },
   "Button": {

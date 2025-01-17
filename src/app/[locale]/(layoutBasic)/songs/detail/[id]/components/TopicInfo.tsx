@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Typography, Popover, Paper, Avatar, Box } from "@mui/material";
 import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 interface TopicPopoverProps {
   topicDetail: {
@@ -18,6 +19,7 @@ interface TopicPopoverProps {
 const TopicPopover: React.FC<TopicPopoverProps> = ({ topicDetail }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [position, setPosition] = React.useState<"top" | "bottom">("bottom");
+  const t = useTranslations("TopicPopover");
 
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -51,7 +53,7 @@ const TopicPopover: React.FC<TopicPopoverProps> = ({ topicDetail }) => {
         onMouseLeave={handlePopoverClose}
       >
         <Link href={`/topics/detail/${topicDetail.slug}`}>
-          Chủ đề: {topicDetail?.title || "Không rõ chủ đề"}
+          {t("label")}: {topicDetail?.title || t("unknownTopic")}
         </Link>
       </Typography>
 
@@ -99,7 +101,7 @@ const TopicPopover: React.FC<TopicPopoverProps> = ({ topicDetail }) => {
               color: "text.secondary",
             }}
           >
-            {topicDetail.description || "Không có mô tả"}
+            {topicDetail.description || t("noDescription")}
           </Typography>
         </Paper>
       </Popover>

@@ -20,7 +20,8 @@ import PaymentIcon from "@mui/icons-material/Payment";
 import { revalidateByTag } from "@/app/action";
 import { Box } from "@mui/system";
 import Link from "next/link";
-// Định nghĩa giao diện cho order
+import { getTranslations } from "next-intl/server";
+
 interface Order {
   _id: string;
   orderId: string;
@@ -33,6 +34,8 @@ interface Order {
 }
 
 const HistoryTable = async () => {
+  const t = await getTranslations("HistoryTable");
+
   let orders = [];
   const accessToken = GetAccessTokenFromCookie();
   const info = decodeToken(accessToken.value || undefined);
@@ -54,19 +57,17 @@ const HistoryTable = async () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1 style={{ marginBottom: "30px", marginTop: "40px" }}>
-        Lịch sử giao dịch
-      </h1>
+      <h1 style={{ marginBottom: "30px", marginTop: "40px" }}>{t("title")}</h1>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Đơn hàng</TableCell>
-              <TableCell>Trạng thái đơn hàng</TableCell>
-              <TableCell>Trạng thái ca sĩ</TableCell>
-              <TableCell>Thời gian tạo</TableCell>
-              <TableCell>Thời gian cập nhật</TableCell>
-              <TableCell>Hành động</TableCell>
+              <TableCell>{t("columns.orderId")}</TableCell>
+              <TableCell>{t("columns.orderStatus")}</TableCell>
+              <TableCell>{t("columns.singerStatus")}</TableCell>
+              <TableCell>{t("columns.createdAt")}</TableCell>
+              <TableCell>{t("columns.updatedAt")}</TableCell>
+              <TableCell>{t("columns.action")}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -76,7 +77,9 @@ const HistoryTable = async () => {
                   <TableCell>{order.orderId}</TableCell>
                   <TableCell>{order.message}</TableCell>
                   <TableCell>
-                    {order.status === "init" ? "Chưa tạo" : "Đã tạo"}
+                    {order.status === "init"
+                      ? t("status.notCreated")
+                      : t("status.created")}
                   </TableCell>
                   <TableCell>
                     {new Date(order.createdAt).toLocaleDateString("vi-VN", {
@@ -111,7 +114,7 @@ const HistoryTable = async () => {
                       <RefreshIcon orderId={order?.orderId || ""} />
                       {order.resultCode === "1000" ? (
                         <Link href={order?.shortLink || "/"} passHref>
-                          <Tooltip title="Thanh toán ngay">
+                          <Tooltip title={t("actions.payNow")}>
                             <IconButton>
                               <PaymentIcon />
                             </IconButton>
@@ -126,7 +129,7 @@ const HistoryTable = async () => {
               <TableRow>
                 <TableCell colSpan={6} align="center">
                   <Typography variant="body2" fontStyle="italic">
-                    Không có đơn hàng nào
+                    {t("noOrders")}
                   </Typography>
                 </TableCell>
               </TableRow>

@@ -21,7 +21,6 @@ import {
   CircularProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-
 import { FileWithPath } from "react-dropzone";
 import DropzoneComponent from "@/component/customDropzone/dropzoneComponent";
 import { useAppContext } from "@/context-app";
@@ -29,8 +28,8 @@ import { getAccessTokenFromLocalStorage } from "@/app/helper/localStorageClient"
 import axios, { AxiosProgressEvent } from "axios";
 import SelectorSuggest from "@/component/selectorSuggest";
 import { revalidateByTag } from "@/app/action";
-import { useRouter } from "next/navigation";
 import { apiBasicClient } from "@/app/utils/request";
+import { useTranslations } from "next-intl";
 interface Song {
   _id: string;
   title: string;
@@ -67,6 +66,8 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState<string>("active");
 
+  const t = useTranslations("editSong"); // 🔥 Lấy dữ liệu từ file JSON song ngữ
+
   useEffect(() => {
     if (song && open) {
       setAvatarPreview(song.avatar || null);
@@ -76,7 +77,7 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
     }
   }, [song, open]);
 
-  // Hàm để xử lý file upload và xem trước avatar/audio
+  // Hàm xử lý file upload
   const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
     acceptedFiles.forEach((file) => {
       if (file.type.startsWith("image/")) {
@@ -90,6 +91,7 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
     });
   }, []);
 
+  // Hàm xử lý gửi form
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const accessToken = getAccessTokenFromLocalStorage();
@@ -97,13 +99,9 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
     //@ts-ignore
     const title = form.title.value || "";
     const description = form.description.value || "";
-
     const inputTopic = form.querySelector('input[name="topic"]');
-
     const valueidTopic = inputTopic?.getAttribute("valueid") || "";
-
     const lyrics = form.lyrics.value || "";
-    // Tạo một đối tượng FormData
 
     const formData = new FormData();
     formData.append("title", title);
@@ -117,10 +115,9 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
     if (audioFile) {
       formData.append("audio", audioFile);
     }
-    // Gửi formData lên server
+
     setLoading(true);
     try {
-      // Sử dụng Axios để upload file và theo dõi tiến trình
       const response = await axios.patchForm(
         process.env.NEXT_PUBLIC_BACK_END_URL + `/songs/editSong/${song._id}`,
         formData,
@@ -130,29 +127,28 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
             "Content-Type": "multipart/form-data",
           },
           onUploadProgress: (progressEvent: AxiosProgressEvent) => {
-            const { loaded, total } = progressEvent;
-            const percentCompleted = Math.round((loaded * 100) / total!);
-            setProgress(percentCompleted); // Cập nhật tiến trình
+            const percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total!
+            );
+            setProgress(percentCompleted);
           },
         }
       );
 
       if (response.status === 200) {
         await revalidateByTag("revalidate-tag-songs");
-
-        showMessage("Chỉnh sửa thành công !", "success");
-        onClose(); // Đóng modal khi submit thành công
+        showMessage(t("successMessage"), "success");
+        onClose();
       } else {
-        showMessage(response.data.message || "Something went wrong", "error");
+        showMessage(response.data.message || t("errorMessage"), "error");
       }
     } catch (error: any) {
-      showMessage(error.response?.data?.message || "Lỗi khi upload!", "error");
+      showMessage(error.response?.data?.message || t("uploadError"), "error");
     } finally {
       setProgress(0);
       setLoading(false);
     }
   };
-
   const handleRemoveAvatar = () => {
     setAvatarPreview(null);
     setAvatarFile(null);
@@ -165,7 +161,9 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
   const handleStatusChange = (event: any) => {
     setStatus(event.target.value as string);
   };
+
   if (!mounted) return null;
+
   return (
     <Dialog
       open={open}
@@ -180,7 +178,7 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
         paddingBottom: "100px", // khoảng cách dưới
       }}
     >
-      <DialogTitle>Edit Song</DialogTitle>
+      <DialogTitle>{t("editSongTitle")}</DialogTitle>
       <DialogContent
         sx={{
           maxHeight: "calc(100vh - 200px)", // Đảm bảo modal không quá lớn
@@ -204,7 +202,7 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
                   },
                 }}
                 size="small"
-                label="Title"
+                label={t("title")}
                 name="title"
                 defaultValue={song.title}
                 required
@@ -215,7 +213,7 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
               <SelectorSuggest
                 suggestKey="title"
                 urlFetch="/topics"
-                label="Chủ đề"
+                label={t("topic")}
                 name="topic"
                 defaultKey={{
                   value: song?.topicId?.title || "",
@@ -225,15 +223,15 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
             </Grid>
             <Grid item xs={12} md={4}>
               <FormControl fullWidth size="small">
-                <InputLabel>Status</InputLabel>
+                <InputLabel>{t("status")}</InputLabel>
                 <Select
-                  label="Status"
+                  label={t("status")}
                   name="status"
                   defaultValue={song.status}
                   onChange={handleStatusChange}
                 >
-                  <MenuItem value="active">Active</MenuItem>
-                  <MenuItem value="inactive">Inactive</MenuItem>
+                  <MenuItem value="active">{t("statusActive")}</MenuItem>
+                  <MenuItem value="inactive">{t("statusInactive")}</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -241,13 +239,11 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
               <TextField
                 size="small"
                 fullWidth
-                label="Lyric"
+                label={t("lyrics")}
                 name="lyrics"
                 defaultValue={song.lyrics || ""}
                 multiline
-                placeholder={
-                  "Nhập định dạng LRC ...\nVí dụ:\n[00:19.12] Một ngày thu đầy gió\n[00:21.78] Trong nắng chiều là màu mắt em"
-                }
+                placeholder={t("lyricsPlaceholder")}
                 minRows={4}
                 maxRows={10}
               />
@@ -257,7 +253,7 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
                 size="small"
                 fullWidth
                 defaultChecked={song.description || ""}
-                label="Description"
+                label={t("description")}
                 name="description"
                 multiline
                 minRows={4}
@@ -286,7 +282,7 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
                     }} // Kích thước cố định
                   />
                   <CardContent>
-                    <Typography>Avatar Preview</Typography>
+                    <Typography>{t("avatarPreview")}</Typography>
                   </CardContent>
                   <IconButton
                     onClick={handleRemoveAvatar}
@@ -315,9 +311,9 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
                   >
                     <audio controls style={{ marginRight: "16px" }}>
                       <source src={audioPreview} type="audio/mpeg" />
-                      Your browser does not support the audio tag.
+                      {t("audioNotSupported")}
                     </audio>
-                    <Typography>Audio Preview</Typography>
+                    <Typography>{t("audioPreview")}</Typography>
                     <IconButton
                       onClick={handleRemoveAudio}
                       sx={{
@@ -384,7 +380,7 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
                 disabled={loading}
                 endIcon={loading ? <CircularProgress size={24} /> : null}
               >
-                {loading ? "Submitting..." : "Submit"}
+                {loading ? t("submitting") : t("submit")}
               </Button>
             </Grid>
           </Grid>
@@ -392,7 +388,7 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
       </DialogContent>
       <DialogActions>
         <Button color="primary" onClick={onClose}>
-          Cancel
+          {t("cancel")}
         </Button>
       </DialogActions>
     </Dialog>

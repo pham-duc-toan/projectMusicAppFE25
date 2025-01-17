@@ -1,15 +1,17 @@
 import { apiBasicServer, getInfoUser } from "@/app/utils/request";
 import ItemControlCard from "@/component/item-control-card-music";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { GetPublicAccessTokenFromCookie } from "@/app/utils/checkRole";
 import PaginationComponent from "@/component/PaginationComponent";
+import { getTranslations } from "next-intl/server";
 
 interface SongsProps {
   searchParams: { page?: string }; // Lấy query `page` từ URL
 }
 
 const Songs = async ({ searchParams }: SongsProps) => {
+  const t = await getTranslations("songsPage"); // Dùng getTranslations cho async component
   const limitItem = 12;
 
   // Lấy giá trị `currentPage` từ query string (mặc định là 1 nếu không có)
@@ -39,9 +41,9 @@ const Songs = async ({ searchParams }: SongsProps) => {
 
   return (
     <>
-      <h1 style={{ marginBottom: "30px", marginTop: "40px" }}>
-        Tất cả bài hát
-      </h1>
+      <Typography variant="h4" sx={{ marginBottom: "30px", marginTop: "40px" }}>
+        {t("allSongs")}
+      </Typography>
       <Grid container>
         {datas.map((data: any, index: number) => (
           <Grid md={4} sm={6} xs={12} key={index}>

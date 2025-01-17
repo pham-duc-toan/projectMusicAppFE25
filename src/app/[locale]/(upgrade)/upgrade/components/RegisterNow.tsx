@@ -10,13 +10,15 @@ import { useAppContext } from "@/context-app";
 import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const RegisterNow = () => {
+  const t = useTranslations("registerNow"); // Dùng useTranslations() cho Client Component
   const [loading, setLoading] = useState(false);
   const { showMessage } = useAppContext();
   const router = useRouter();
   const locale = useLocale();
+
   const handleRegisterNow = async () => {
     setLoading(true);
     const accessToken = getAccessTokenFromLocalStorage();
@@ -33,20 +35,19 @@ const RegisterNow = () => {
         return;
       }
     } catch (error) {
-      showMessage("Không thể thực hiện!", "error");
+      showMessage(t("errorMessage"), "error");
     }
+
     try {
       const res = await apiBasicClient("POST", "/payment");
       if (res?.statusCode == 201) {
         try {
-          //tao order
           const response = await apiBasicClient(
             "POST",
             "/orders/create",
             undefined,
             {
               orderId: res.data.orderId,
-              //vi shortLink dang bi loi
               shortLink: res.data.payUrl,
             }
           );
@@ -60,16 +61,15 @@ const RegisterNow = () => {
           }
           await revalidateByTag("revalidate-tag-orders");
         } catch (error) {
-          showMessage("Lỗi kết nối với server", "error");
+          showMessage(t("serverError"), "error");
           return;
         }
-        //vi shortLink dang bi loi
         router.push(res.data.payUrl);
       } else {
-        showMessage("Không thể thực hiện !", "error");
+        showMessage(t("errorMessage"), "error");
       }
     } catch (error) {
-      showMessage("Không thể thực hiện !", "error");
+      showMessage(t("errorMessage"), "error");
     }
     setLoading(false);
   };
@@ -87,7 +87,7 @@ const RegisterNow = () => {
         borderRadius: "50px",
       }}
     >
-      Thanh toán ngay
+      {t("payNow")}
     </Button>
   );
 };

@@ -1,19 +1,8 @@
-import {
-  Box,
-  Typography,
-  Avatar,
-  Paper,
-  Button,
-  Grid,
-  Divider,
-} from "@mui/material";
-import {
-  apiBasicClient,
-  apiBasicServer,
-  getInfoUser,
-} from "@/app/utils/request";
+import { Box, Typography, Avatar, Paper, Grid } from "@mui/material";
+import { apiBasicServer, getInfoUser } from "@/app/utils/request";
 import { GetPublicAccessTokenFromCookie } from "@/app/utils/checkRole";
 import ItemControlCard from "@/component/item-control-card-music";
+import { getTranslations } from "next-intl/server";
 
 // Định nghĩa kiểu dữ liệu của ca sĩ
 interface ISingerDetail {
@@ -44,6 +33,8 @@ export default async function SingerDetailPage({
 }: {
   params: { id: string };
 }) {
+  const t = await getTranslations("SingerDetailPage");
+
   const singerDetail = await getSingerDetail(params.id);
 
   if (!singerDetail) {
@@ -52,10 +43,11 @@ export default async function SingerDetailPage({
         color="primary"
         sx={{ textAlign: "center", marginTop: "20px" }}
       >
-        Không thể tải thông tin ca sĩ.
+        {t("errors.fetchFailed")}
       </Typography>
     );
   }
+
   const datall: any = await apiBasicServer(
     "GET",
     `/songs/song-of-singer/${singerDetail?._id}`,
@@ -107,7 +99,7 @@ export default async function SingerDetailPage({
         </Typography>
 
         <Typography variant="body2" sx={{ marginBottom: "10px" }}>
-          <strong>Tham gia vào:</strong>{" "}
+          <strong>{t("labels.joinedDate")}:</strong>{" "}
           {new Date(singerDetail.createdAt).toLocaleString("vi-VN")}
         </Typography>
       </Paper>
@@ -132,7 +124,7 @@ export default async function SingerDetailPage({
                 fontStyle: "italic",
               }}
             >
-              Không có bài hát.
+              {t("labels.noSongs")}
             </Typography>
           </Grid>
         )}

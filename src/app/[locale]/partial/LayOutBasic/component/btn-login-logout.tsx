@@ -32,6 +32,7 @@ export default function BtnLoginLogout() {
   const locale = useLocale();
   const [infoUser, setInfoUser] = useState<IUserInfo | undefined>(undefined);
   const t = useTranslations("Layout");
+  const t2 = useTranslations("Notification");
   useEffect(() => {
     const accessToken = getAccessTokenFromLocalStorage();
     if (!accessToken) {
@@ -52,13 +53,13 @@ export default function BtnLoginLogout() {
   };
 
   const handleLogout = async () => {
-    showMessage("Đang đăng xuất ...", "info");
+    showMessage(t2("logout"), "info");
     await logout();
     setIsLogin(null);
     removeTokensFromLocalStorage();
     router.push(`/${locale}/login`);
     handleClose();
-    showMessage("Đã đăng xuất!", "success");
+    showMessage(t2("logged out"), "success");
   };
 
   return (

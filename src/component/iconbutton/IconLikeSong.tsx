@@ -2,11 +2,12 @@
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { apiBasicClient, apiBasicServer } from "@/app/utils/request"; // Thêm import apiBasicServer
+import { apiBasicClient } from "@/app/utils/request";
 import { getAccessTokenFromLocalStorage } from "@/app/helper/localStorageClient";
 import { useEffect, useState } from "react";
 import { revalidateByTag } from "@/app/action";
 import { useAppContext } from "@/context-app";
+import { useTranslations } from "next-intl";
 
 export default function FavoriteButton({
   songId,
@@ -15,21 +16,20 @@ export default function FavoriteButton({
   songId: string;
   fSongs: string[];
 }) {
-  // State to track if the song is in favorites
+  const t = useTranslations("FavoriteButton");
   const [isFavorite, setIsFavorite] = useState(fSongs.includes(songId));
   const { showMessage } = useAppContext();
-  // useEffect to update the state when fSongs changes
+
   useEffect(() => {
     setIsFavorite(fSongs.includes(songId));
   }, [fSongs, songId]);
 
   const handleFavoriteToggle = async () => {
-    showMessage("Đang thực hiện", "info");
+    showMessage(t("processing"), "info");
     const accessToken = getAccessTokenFromLocalStorage();
     if (accessToken) {
       try {
         if (isFavorite) {
-          // Nếu bài hát đã yêu thích, gọi API xóa khỏi yêu thích
           await apiBasicClient(
             "DELETE",
             `/songs/favoriteSongs/remove/${songId}`
@@ -43,15 +43,12 @@ export default function FavoriteButton({
           await revalidateByTag("revalidate-tag-songs");
           setIsFavorite(true);
         }
-        showMessage("Thành công", "success");
+        showMessage(t("success"), "success");
       } catch (error) {
-        console.error("Lỗi khi cập nhật yêu thích:", error);
+        console.error(t("errorUpdatingFavorite"), error);
       }
     } else {
-      showMessage(
-        "Bạn cần đăng nhập mới có thể sử dụng chức năng này",
-        "error"
-      );
+      showMessage(t("loginRequired"), "error");
     }
   };
 

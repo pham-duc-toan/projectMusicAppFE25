@@ -1,6 +1,8 @@
 import { apiBasicServer } from "@/app/utils/request";
 import { Grid } from "@mui/material";
 import { Box } from "@mui/system";
+
+import { getTranslations } from "next-intl/server";
 import ItemControlCardTopic from "./components/ItemControlCardTopic ";
 
 interface Topic {
@@ -13,7 +15,10 @@ interface Topic {
   deleted: boolean;
   songsCount: number;
 }
+
 const AllTopics = async () => {
+  const t = await getTranslations("allTopics"); // Dùng getTranslations() cho Server Component
+
   // Gọi API để lấy danh sách tất cả các topic
   const datall: any = await apiBasicServer(
     "GET",
@@ -28,15 +33,23 @@ const AllTopics = async () => {
 
   return (
     <>
-      <h1 style={{ marginBottom: "30px", marginTop: "40px" }}>Tất cả Topics</h1>
+      <h1 style={{ marginBottom: "30px", marginTop: "40px" }}>{t("title")}</h1>
       <Grid container>
-        {datas.map((data: Topic, index: number) => (
-          <Grid md={4} sm={6} xs={12} key={index}>
-            <Box sx={{ padding: "10px" }}>
-              <ItemControlCardTopic data={data} />
+        {datas.length > 0 ? (
+          datas.map((data: Topic, index: number) => (
+            <Grid md={4} sm={6} xs={12} key={index}>
+              <Box sx={{ padding: "10px" }}>
+                <ItemControlCardTopic data={data} />
+              </Box>
+            </Grid>
+          ))
+        ) : (
+          <Grid item xs={12}>
+            <Box textAlign="center" mt={4}>
+              <h3>{t("noTopics")}</h3>
             </Box>
           </Grid>
-        ))}
+        )}
       </Grid>
     </>
   );

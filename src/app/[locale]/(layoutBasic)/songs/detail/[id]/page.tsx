@@ -1,6 +1,7 @@
 import { Metadata } from "next";
+import { Box, Typography, Avatar } from "@mui/material";
+import { getTranslations } from "next-intl/server";
 import { apiBasicServer, getInfoUser } from "@/app/utils/request";
-import { Box, Typography, Avatar, CircularProgress } from "@mui/material";
 import PlayerControls from "./components/PlayerControls";
 import Lyric from "./components/lyric";
 import FavoriteButton from "@/component/iconbutton/IconLikeSong";
@@ -63,6 +64,7 @@ async function fetchSongDetail(id: string): Promise<SongDetail | null> {
 
 // Page component
 const SongDetailPage = async ({ params }: { params: { id: string } }) => {
+  const t = await getTranslations("SongDetailPage"); // Sử dụng getTranslations() cho Server Component
   const { id } = params;
   const songDetail = await fetchSongDetail(id);
   const access_token = GetPublicAccessTokenFromCookie();
@@ -72,6 +74,7 @@ const SongDetailPage = async ({ params }: { params: { id: string } }) => {
     favoriteSongs =
       dataFs.data.listFavoriteSong.map((song: any) => song._id) || [];
   }
+
   if (!songDetail) {
     return (
       <Box
@@ -86,11 +89,10 @@ const SongDetailPage = async ({ params }: { params: { id: string } }) => {
           variant="h4"
           sx={{
             fontStyle: "italic",
-
             textAlign: "center",
           }}
         >
-          Không tìm thấy bài hát
+          {t("notFound")}
         </Typography>
       </Box>
     );
@@ -130,16 +132,16 @@ const SongDetailPage = async ({ params }: { params: { id: string } }) => {
       {/* Lượt nghe và lượt thích */}
       <Box display="flex" gap={4} mb={2}>
         <Typography variant="subtitle2">
-          <strong>Lượt nghe:</strong> {songDetail.listen}
+          <strong>{t("listenCount")}:</strong> {songDetail.listen}
         </Typography>
         <Typography variant="subtitle2">
-          <strong>Lượt thích:</strong> {songDetail.like}
+          <strong>{t("likeCount")}:</strong> {songDetail.like}
         </Typography>
       </Box>
 
       {/* Lời bài hát */}
       <Typography variant="body1">
-        <strong>Lời bài hát:</strong>
+        <strong>{t("lyrics")}:</strong>
       </Typography>
       <Box
         className="lyrics-container"
@@ -155,9 +157,9 @@ const SongDetailPage = async ({ params }: { params: { id: string } }) => {
       >
         {songDetail.lyrics ? (
           <Typography
+            className="lyrics-content"
             variant="body2"
             whiteSpace="pre-line"
-            className="lyrics-content"
             component="div"
           >
             <Lyric songId={songDetail._id} lyrics={songDetail.lyrics} />
@@ -171,20 +173,20 @@ const SongDetailPage = async ({ params }: { params: { id: string } }) => {
               color: "#1b0c35",
             }}
           >
-            Chưa cập nhật lời cho bài hát
+            {t("noLyrics")}
           </Typography>
         )}
       </Box>
 
       <Box gap={4} mt={2}>
         <Typography variant="body1" mb={2}>
-          <strong>Mô tả:</strong>
+          <strong>{t("descriptionLabel")}:</strong>
         </Typography>
         {songDetail.description ? (
           <Typography variant="body1">{songDetail.description}</Typography>
         ) : (
           <Typography variant="body2" fontStyle="italic">
-            Chưa cập nhật mô tả cho bài hát
+            {t("noDescription")}
           </Typography>
         )}
       </Box>

@@ -19,6 +19,7 @@ import { revalidateByTag } from "@/app/action";
 import { useAppContext } from "@/context-app";
 import EditSongModal from "./EditSongModal";
 import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 interface Topic {
   _id: string;
@@ -45,6 +46,7 @@ interface ButtonActionModalProps {
 
 const ButtonActionModal: React.FC<ButtonActionModalProps> = ({ song }) => {
   const { showMessage } = useAppContext();
+  const t = useTranslations("songActions");
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [isLoading, setIsLoading] = useState(false); // Trạng thái loading khi gọi API
@@ -60,7 +62,7 @@ const ButtonActionModal: React.FC<ButtonActionModalProps> = ({ song }) => {
         showMessage(response.message, "error");
       } else {
         await revalidateByTag("revalidate-tag-songs");
-        showMessage("Xóa bài hát thành công!", "success");
+        showMessage(t("deleteSuccess"), "success");
         setOpenDialog(false);
       }
     } catch (error) {
@@ -72,14 +74,14 @@ const ButtonActionModal: React.FC<ButtonActionModalProps> = ({ song }) => {
 
   return (
     <>
-      <Tooltip title="Xem chi tiết" arrow>
+      <Tooltip title={t("viewDetails")} arrow>
         <Link href={`/songs/detail/${song.slug}`}>
           <IconButton color="primary" disabled={isLoading}>
             <VisibilityIcon />
           </IconButton>
         </Link>
       </Tooltip>
-      <Tooltip title="Chỉnh sửa" arrow>
+      <Tooltip title={t("edit")} arrow>
         <IconButton
           color="primary"
           onClick={() => setOpenEditModal(true)}
@@ -88,7 +90,7 @@ const ButtonActionModal: React.FC<ButtonActionModalProps> = ({ song }) => {
           <EditIcon />
         </IconButton>
       </Tooltip>
-      <Tooltip title="Xóa bài hát" arrow>
+      <Tooltip title={t("delete")} arrow>
         <IconButton
           color="primary"
           onClick={() => setOpenDialog(true)}
@@ -107,9 +109,9 @@ const ButtonActionModal: React.FC<ButtonActionModalProps> = ({ song }) => {
 
       {/* Dialog xác nhận xóa */}
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-        <DialogTitle>Xác nhận xóa</DialogTitle>
+        <DialogTitle>{t("confirmDelete")}</DialogTitle>
         <DialogContent>
-          <Typography>Bạn có chắc muốn xóa bài hát này không?</Typography>
+          <Typography>{t("deletePrompt")}</Typography>
         </DialogContent>
         <DialogActions>
           <Button
@@ -117,7 +119,7 @@ const ButtonActionModal: React.FC<ButtonActionModalProps> = ({ song }) => {
             color="primary"
             disabled={isLoading}
           >
-            Hủy
+            {t("cancel")}
           </Button>
           <Button
             onClick={handleDelete}
@@ -125,7 +127,7 @@ const ButtonActionModal: React.FC<ButtonActionModalProps> = ({ song }) => {
             autoFocus
             disabled={isLoading}
           >
-            Có
+            {t("confirm")}
           </Button>
         </DialogActions>
       </Dialog>

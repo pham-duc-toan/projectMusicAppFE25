@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Container,
   Divider,
   Grid,
@@ -13,12 +12,16 @@ import {
 import RegisterNow from "./components/RegisterNow";
 import { GetAccessTokenFromCookie } from "@/app/utils/checkRole";
 import DoneIcon from "@mui/icons-material/Done";
+import { getTranslations } from "next-intl/server";
+
 export const metadata = {
   title: "Nâng cấp tài khoản",
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const t = await getTranslations("homePage"); // Dùng useTranslations() cho Client Component
   GetAccessTokenFromCookie();
+
   return (
     <>
       <Box
@@ -36,13 +39,13 @@ export default function HomePage() {
       >
         <Box
           sx={{
-            position: "absolute", // Để overlay nằm trên hình nền
+            position: "absolute",
             top: 0,
             left: 0,
             width: "100%",
             height: "100%",
             background:
-              "linear-gradient(to bottom,#170437, rgba(0, 0, 0, 0.8))", // Gradient tím
+              "linear-gradient(to bottom,#170437, rgba(0, 0, 0, 0.8))",
           }}
         />
         <Container
@@ -70,12 +73,12 @@ export default function HomePage() {
             component="h1"
             gutterBottom
           >
-            Âm nhạc
-            <br />
-            không giới hạn
+            {t.rich("unlimitedMusic", {
+              br: () => <br />,
+            })}
           </Typography>
           <Typography variant="subtitle1" gutterBottom>
-            Nâng cấp tài khoản để trải nghiệm các tính năng và nội dung cao cấp
+            {t("upgradeAccount")}
           </Typography>
 
           {/* Plans */}
@@ -93,10 +96,10 @@ export default function HomePage() {
                 }}
               >
                 <Typography variant="h5" gutterBottom>
-                  Trở thành ca sĩ
+                  {t("becomeSinger")}
                 </Typography>
                 <Typography variant="h6" gutterBottom>
-                  Với 289,000đ
+                  {t("price")}
                 </Typography>
                 <RegisterNow />
                 <Divider sx={{ margin: "20px 0", background: "#6a6a6a" }} />
@@ -108,15 +111,15 @@ export default function HomePage() {
                     textAlign: "left",
                   }}
                 >
-                  Đặc quyền đặc biệt:
+                  {t("specialPrivileges")}
                 </Typography>
                 <List sx={{ padding: 0 }}>
                   {[
-                    "Lưu trữ những bài nhạc của chính mình",
-                    "Mọi người có thể thưởng thức bài nhạc của bạn",
-                    "Lưu trữ nhạc không giới hạn",
-                    "Tính năng nghe nhạc nâng cao",
-                    "Mở rộng khả năng Upload",
+                    t("privilege1"),
+                    t("privilege2"),
+                    t("privilege3"),
+                    t("privilege4"),
+                    t("privilege5"),
                   ].map((item, index) => (
                     <ListItem
                       key={index}

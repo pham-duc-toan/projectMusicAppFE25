@@ -35,6 +35,7 @@ import {
   updateNewPlaylist,
 } from "@/app/utils/updateCurrentPLayList";
 import IUserInfo from "@/dataType/infoUser";
+import { useTranslations } from "next-intl";
 
 interface Playlist {
   _id: string;
@@ -68,16 +69,11 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
   const [newPlaylistTitle, setNewPlaylistTitle] = useState("");
   const [isCreatingNew, setIsCreatingNew] = useState(false);
   const [loading, setLoading] = useState(false);
-  // const [infoUser, setInfoUser] = useState<IUserInfo | undefined>(undefined);
-  // useEffect(() => {
-  //   const fetchInfoUser = async () => {
-  //     const infoUserData = await getInfoUser(access_token);
-  //     setInfoUser(infoUserData);
-  //   };
-  //   fetchInfoUser();
-  // }, []);
+
+  const t = useTranslations("PlaylistComponent");
+
   const fetchPlaylists = async () => {
-    setLoading(true); // Bắt đầu loading
+    setLoading(true);
     try {
       const response = await apiBasicClient(
         "GET",
@@ -86,21 +82,18 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
         undefined
       );
       if (response?.data) {
-        setPlaylists(response.data); // Cập nhật danh sách playlist từ API
+        setPlaylists(response.data);
       }
     } catch (error) {
-      showMessage("Lỗi khi lấy danh sách playlist:", "error");
+      showMessage(t("fetchError"), "error");
     } finally {
-      setLoading(false); // Kết thúc loading
+      setLoading(false);
     }
   };
 
   const handleClickOpen = async () => {
     if (!fSongs || !fSongs.some((song: any) => song === songId)) {
-      showMessage(
-        "Bài hát này không có trong danh sách bài hát yêu thích của bạn",
-        "error"
-      );
+      showMessage(t("songNotInFavorites"), "error");
       return;
     }
 
@@ -114,7 +107,7 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
   };
 
   const handleAddNewPlaylist = async () => {
-    if (newPlaylistTitle.trim() === "") return; // Không thêm nếu tiêu đề trống
+    if (newPlaylistTitle.trim() === "") return;
 
     try {
       const response = await apiBasicClient("POST", "/playlists", undefined, {
@@ -125,31 +118,27 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
 
       if (response?.data) {
         setPlaylists([...playlists, response.data]);
-
-        showMessage("Đã tạo playlist mới thành công", "success");
+        showMessage(t("createSuccess"), "success");
       } else {
-        showMessage("Lỗi khi tạo playlist", "error");
+        showMessage(t("createError"), "error");
       }
     } catch (error) {
-      showMessage("Có lỗi xảy ra khi gọi API", "error");
+      showMessage(t("apiError"), "error");
     } finally {
       setNewPlaylistTitle("");
       setIsCreatingNew(false);
     }
   };
 
-  // Xử lý khi nhấn Cancel
   const handleCancelCreate = () => {
-    setIsCreatingNew(false); // Ẩn form tạo mới
-    setNewPlaylistTitle(""); // Xóa nội dung input
+    setIsCreatingNew(false);
+    setNewPlaylistTitle("");
   };
 
-  // Xử lý khi nhấn Lưu
   const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Ngăn chặn hành vi mặc định của form
-    setLoading(true); // Bắt đầu loading khi nhấn "Lưu"
+    e.preventDefault();
+    setLoading(true);
 
-    // Lấy các phần tử từ form
     const form = e.currentTarget;
 
     for (const playlist of playlists) {
@@ -157,39 +146,41 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
       const isChecked = form.elements[playlist._id]?.checked;
       const wasChecked = playlist.listSong.some((song) => song._id === songId);
 
-      // Gọi API dựa trên trạng thái checkbox
       if (isChecked != wasChecked) {
         if (isChecked) {
           const data = await apiBasicClient(
             "POST",
             `/playlists/addSong/${playlist._id}`,
             undefined,
-            { idSong: songId }
+            {
+              idSong: songId,
+            }
           );
           if (data.statusCode >= 300 && data?.message) {
-            showMessage(`${data.message}`, "error");
+            showMessage(data.message, "error");
           } else {
-            showMessage(`Thành công!`, "success");
+            showMessage(t("addSuccess"), "success");
           }
         } else {
           const data = await apiBasicClient(
             "DELETE",
             `/playlists/removeSong/${playlist._id}`,
             undefined,
-            { idSong: songId }
+            {
+              idSong: songId,
+            }
           );
           if (data.statusCode >= 300 && data?.message) {
-            showMessage(`${data.message}`, "error");
+            showMessage(data.message, "error");
           } else {
-            showMessage(`Thành công!`, "success");
+            showMessage(t("removeSuccess"), "success");
           }
         }
       }
     }
 
-    // Gọi revalidation sau khi hoàn tất
     revalidateByTag("revalidate-tag-list-playlist");
-    //CALL API
+
     if (currentPlaylist._id) {
       const res = await apiBasicClient(
         "GET",
@@ -198,18 +189,17 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
       updateNewPlaylist(res.data, dispatch);
     }
 
-    setLoading(false); // Kết thúc loading sau khi hoàn tất gọi API
-    handleClose(); // Đóng modal sau khi lưu
+    setLoading(false);
+    handleClose();
   };
 
-  // Xử lý khi xóa playlist
   const handleDeletePlaylist = async (playlistId: string) => {
     const res = await apiBasicClient("DELETE", `/playlists/${playlistId}`);
     if (playlistId == currentPlaylist._id) exitPlaylist(dispatch);
     revalidateByTag("revalidate-tag-list-playlist");
 
     if (res.data) {
-      showMessage("Đã xóa thành công", "success");
+      showMessage(t("deleteSuccess"), "success");
       setPlaylists((prevPlaylists) =>
         prevPlaylists.filter((playlist) => playlist._id !== playlistId)
       );
@@ -227,11 +217,9 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
       )}
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Chọn playlist để thêm bài hát</DialogTitle>
+        <DialogTitle>{t("selectPlaylist")}</DialogTitle>
         <DialogContent>
           <form onSubmit={handleSave}>
-            {" "}
-            {/* Bọc các ô checkbox trong thẻ form */}
             {/* Danh sách các playlist */}
             <PlaylistList>
               {playlists.map((playlist) => {
@@ -256,7 +244,7 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
                     {/* Nút xóa playlist */}
                     <IconButton
                       edge="end"
-                      aria-label="delete"
+                      aria-label={t("delete")}
                       onClick={() => handleDeletePlaylist(playlist._id)}
                     >
                       <DeleteIcon />
@@ -271,7 +259,7 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
                   <ListItemIcon>
                     <AddIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Tạo danh sách phát mới" />
+                  <ListItemText primary={t("createNewPlaylist")} />
                 </ListItem>
               )}
 
@@ -279,7 +267,7 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
               <Collapse in={isCreatingNew}>
                 <Box mt={1} mb={2} display="flex" alignItems="center">
                   <TextField
-                    label="Tên playlist mới"
+                    label={t("newPlaylistName")}
                     fullWidth
                     value={newPlaylistTitle}
                     onChange={(e) => setNewPlaylistTitle(e.target.value)} // Cập nhật giá trị tiêu đề
@@ -292,7 +280,7 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
                     onClick={handleAddNewPlaylist}
                     sx={{ ml: 1 }}
                   >
-                    Thêm
+                    {t("add")}
                   </Button>
                   <Button
                     variant="outlined"
@@ -300,20 +288,17 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
                     onClick={handleCancelCreate}
                     sx={{ ml: 1 }}
                   >
-                    Hủy
+                    {t("cancel")}
                   </Button>
                 </Box>
               </Collapse>
             </PlaylistList>
             <DialogActions>
               <Button onClick={handleClose} color="primary">
-                Hủy
+                {t("cancel")}
               </Button>
               <Button type="submit" color="primary">
-                {" "}
-                {/* Đặt type là submit để gọi handleSave */}
-                {loading ? <CircularProgress size={20} /> : "Lưu"}{" "}
-                {/* Hiển thị loading nếu đang chờ API */}
+                {loading ? <CircularProgress size={20} /> : t("save")}
               </Button>
             </DialogActions>
           </form>

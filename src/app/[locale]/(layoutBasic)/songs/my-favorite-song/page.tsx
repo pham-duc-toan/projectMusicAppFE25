@@ -2,10 +2,12 @@ import { getInfoUser } from "@/app/utils/request";
 import ItemControlCard from "@/component/item-control-card-music";
 import { Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-
 import { GetPublicAccessTokenFromCookie } from "@/app/utils/checkRole";
+import { getTranslations } from "next-intl/server";
 
 const MyFavoriteSong = async () => {
+  const t = await getTranslations("myFavoriteSongPage"); // Dùng getTranslations cho async component
+
   let favoriteSongs = [];
   let fullInfoFavoriteSongs = [];
   const access_token = GetPublicAccessTokenFromCookie();
@@ -19,9 +21,9 @@ const MyFavoriteSong = async () => {
 
   return (
     <>
-      <h1 style={{ marginBottom: "30px", marginTop: "40px" }}>
-        Các bài hát đã thích
-      </h1>
+      <Typography variant="h4" sx={{ marginBottom: "30px", marginTop: "40px" }}>
+        {t("likedSongs")}
+      </Typography>
       {fullInfoFavoriteSongs.length === 0 ? (
         <Grid
           container
@@ -33,7 +35,7 @@ const MyFavoriteSong = async () => {
             variant="h6"
             style={{ fontStyle: "italic", color: "text.primary" }}
           >
-            Hiện không có bài hát yêu thích nào
+            {t("noFavoriteSongs")}
           </Typography>
         </Grid>
       ) : (

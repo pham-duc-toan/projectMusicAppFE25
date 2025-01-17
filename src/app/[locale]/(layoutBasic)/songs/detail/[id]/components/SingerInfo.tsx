@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Typography, Popover, Paper, Avatar, Box } from "@mui/material";
 import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 interface SingerInfoPopoverProps {
   singer: {
@@ -18,6 +19,7 @@ interface SingerInfoPopoverProps {
 const SingerInfoPopover: React.FC<SingerInfoPopoverProps> = ({ singer }) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [position, setPosition] = React.useState<"top" | "bottom">("bottom");
+  const t = useTranslations("SingerInfoPopover");
 
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -50,7 +52,7 @@ const SingerInfoPopover: React.FC<SingerInfoPopoverProps> = ({ singer }) => {
         onMouseLeave={handlePopoverClose}
       >
         <Link href={`/singers/detailSinger/${singer.slug}`}>
-          Ca sĩ: {singer?.fullName || "Không rõ ca sĩ"}
+          {t("label")}: {singer?.fullName || t("unknownSinger")}
         </Link>
       </Typography>
 
@@ -93,7 +95,7 @@ const SingerInfoPopover: React.FC<SingerInfoPopoverProps> = ({ singer }) => {
           </Typography>
 
           <Typography variant="body2" sx={{ marginBottom: "10px" }}>
-            <strong>Tham gia vào:</strong>{" "}
+            <strong>{t("joinedDate")}:</strong>{" "}
             {new Date(singer.createdAt).toLocaleDateString("vi-VN", {
               day: "2-digit",
               month: "2-digit",

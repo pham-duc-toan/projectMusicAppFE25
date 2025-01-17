@@ -7,8 +7,10 @@ import { Box, Container } from "@mui/system";
 import { redirect } from "next/navigation";
 import CreatePlaylistButton from "./components/createPlayListButton";
 import PlaylistItem from "./components/PlaylistItem";
+import { getTranslations } from "next-intl/server";
 
 const Playlists = async () => {
+  const t = await getTranslations("playlist"); // Load translations
   const access_token = GetAccessTokenFromCookie();
 
   const datall: any = await apiBasicServer(
@@ -24,6 +26,7 @@ const Playlists = async () => {
   if (!datas && datall.redirect) {
     redirect("/login");
   }
+
   interface SongState {
     _id: string;
     title: string;
@@ -55,7 +58,7 @@ const Playlists = async () => {
         }}
       >
         <Typography variant="h4" gutterBottom>
-          Playlists
+          {t("title")}
         </Typography>
         <CreatePlaylistButton />
       </Box>
@@ -70,7 +73,7 @@ const Playlists = async () => {
             variant="h6"
             style={{ fontStyle: "italic", color: "text.primary" }}
           >
-            Hiện không có danh sách phát nào
+            {t("noPlaylists")}
           </Typography>
         </Grid>
       ) : (

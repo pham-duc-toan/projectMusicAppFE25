@@ -4,6 +4,7 @@ import React from "react";
 import { Box, Pagination, PaginationItem, Typography } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 interface PaginationComponentProps {
   totalPages: number; // Tổng số trang
@@ -14,6 +15,7 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const t = useTranslations("PaginationComponent");
 
   // Lấy giá trị page từ URL (mặc định là 1 nếu không có)
   const currentPage = Number(searchParams.get("page")) || 1;
@@ -41,7 +43,7 @@ const PaginationComponent: React.FC<PaginationComponentProps> = ({
         variant="body1"
         sx={{ color: "text.primary", marginRight: "20px" }}
       >
-        Trang {currentPage} / {totalPages}
+        {t("currentPage", { currentPage, totalPages })}
       </Typography>
       <Pagination
         count={totalPages}

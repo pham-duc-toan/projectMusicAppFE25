@@ -4,17 +4,21 @@ import { apiBasicClient } from "@/app/utils/request";
 import { useAppContext } from "@/context-app";
 import { TableCell, Tooltip, Chip } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 const ChangeStatus = ({ song }: any) => {
   const [status, setStatus] = useState(song.status);
   const { showMessage } = useAppContext();
+  const t = useTranslations("changeStatus");
+
   useEffect(() => {
     setStatus(song.status);
   }, [song]);
+
   const handleClick = async () => {
     const newStatus = status === "active" ? "inactive" : "active";
     try {
-      showMessage("Đang thực hiện", "info");
+      showMessage(t("processing"), "info");
       const response = await apiBasicClient(
         "PATCH",
         `/songs/editSong/${song._id}`,
@@ -28,16 +32,16 @@ const ChangeStatus = ({ song }: any) => {
       }
       revalidateByTag("revalidate-by-songs");
       setStatus(newStatus);
-      showMessage("Thay đổi thành công", "success");
+      showMessage(t("success"), "success");
     } catch (error) {
       console.error("Failed to change status:", error);
     }
   };
 
   return (
-    <Tooltip onClick={handleClick} title="Đổi trạng thái" arrow>
+    <Tooltip onClick={handleClick} title={t("tooltip")} arrow>
       <Chip
-        label={status === "active" ? "Hoạt động" : "Không hoạt động"}
+        label={status === "active" ? t("active") : t("inactive")}
         color={status === "active" ? "success" : "error"}
       />
     </Tooltip>

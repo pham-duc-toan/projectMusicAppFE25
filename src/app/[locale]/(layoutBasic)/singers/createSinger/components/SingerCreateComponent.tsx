@@ -16,7 +16,6 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  TextareaAutosize,
   LinearProgress,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -29,9 +28,10 @@ import { revalidateByTag } from "@/app/action";
 import { refreshtoken } from "@/app/utils/request";
 import { useRouter } from "next/navigation";
 import DropzoneComponent from "@/component/customDropzone/dropzoneComponent";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 function SingerCreateComponent() {
+  const t = useTranslations("SingerCreateComponent");
   const { showMessage } = useAppContext();
   const router = useRouter();
   const locale = useLocale();
@@ -40,7 +40,7 @@ function SingerCreateComponent() {
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState<string>("active");
-  // Hàm để xử lý file upload và xem trước avatar/audio
+
   const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
     acceptedFiles.forEach((file) => {
       if (file.type.startsWith("image/")) {
@@ -61,18 +61,15 @@ function SingerCreateComponent() {
     formData.append("fullName", title);
     formData.append("status", status);
 
-    // Thêm file vào formData nếu có
     if (avatarFile) {
       formData.append("avatar", avatarFile);
     } else {
-      //thông báo lỗi
-      showMessage("Thiếu upload ảnh !", "error");
+      showMessage(t("messages.missingAvatar"), "error");
       setLoading(false);
       return;
     }
 
     try {
-      // Sử dụng Axios để upload file và theo dõi tiến trình
       const response = await axios.post(
         process.env.NEXT_PUBLIC_BACK_END_URL + "/singers/create",
         formData,
@@ -84,14 +81,14 @@ function SingerCreateComponent() {
           onUploadProgress: (progressEvent: AxiosProgressEvent) => {
             const { loaded, total } = progressEvent;
             const percentCompleted = Math.round((loaded * 100) / total!);
-            setProgress(percentCompleted); // Cập nhật tiến trình
+            setProgress(percentCompleted);
           },
         }
       );
 
       if (response.status === 201) {
         await revalidateByTag("revalidate-tag-singers");
-        showMessage("Tạo mới thành công !", "success");
+        showMessage(t("messages.createSuccess"), "success");
         setAvatarPreview(null);
         setAvatarFile(null);
         setStatus("active");
@@ -99,10 +96,13 @@ function SingerCreateComponent() {
         form.reset();
         window.location.href = `/${locale}`;
       } else {
-        showMessage(response.data.message || "Something went wrong", "error");
+        showMessage(response.data.message || t("messages.error"), "error");
       }
     } catch (error: any) {
-      showMessage(error.response?.data?.message || "Lỗi khi upload!", "error");
+      showMessage(
+        error.response?.data?.message || t("messages.uploadError"),
+        "error"
+      );
     } finally {
       setLoading(false);
       setProgress(0);
@@ -117,36 +117,34 @@ function SingerCreateComponent() {
   const handleStatusChange = (event: any) => {
     setStatus(event.target.value as string);
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={4}>
           <TextField
-            sx={{
-              width: "100%",
-            }}
+            sx={{ width: "100%" }}
             size="small"
-            label="Họ và tên"
+            label={t("fields.fullName")}
             name="title"
             required
           />
         </Grid>
         <Grid item xs={12} md={4}>
           <FormControl fullWidth size="small">
-            <InputLabel>Status</InputLabel>
+            <InputLabel>{t("fields.status")}</InputLabel>
             <Select
-              label="Status"
+              label={t("fields.status")}
               name="status"
               value={status}
               onChange={handleStatusChange}
             >
-              <MenuItem value="active">Active</MenuItem>
-              <MenuItem value="inactive">Inactive</MenuItem>
+              <MenuItem value="active">{t("status.active")}</MenuItem>
+              <MenuItem value="inactive">{t("status.inactive")}</MenuItem>
             </Select>
           </FormControl>
         </Grid>
 
-        {/* Avatar Upload */}
         {avatarPreview && (
           <Grid xs={12} item>
             <Card
@@ -161,19 +159,14 @@ function SingerCreateComponent() {
                 component="img"
                 image={avatarPreview}
                 alt="Avatar Preview"
-                style={{ width: "200px", height: "200px", objectFit: "cover" }} // Kích thước cố định
+                style={{ width: "200px", height: "200px", objectFit: "cover" }}
               />
               <CardContent>
-                <Typography>Avatar Preview</Typography>
+                <Typography>{t("avatarPreview")}</Typography>
               </CardContent>
               <IconButton
                 onClick={handleRemoveAvatar}
-                sx={{
-                  position: "absolute",
-                  top: 8,
-                  right: 8,
-                  color: "red",
-                }}
+                sx={{ position: "absolute", top: 8, right: 8, color: "red" }}
               >
                 <CloseIcon />
               </IconButton>
@@ -186,13 +179,13 @@ function SingerCreateComponent() {
           xs={12}
           sx={{
             display: !avatarPreview ? "flex" : "none",
-            justifyContent: !avatarPreview ? "center" : undefined,
-            alignItems: !avatarPreview ? "center" : undefined,
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <DropzoneComponent onDrop={onDrop} />
         </Grid>
-        {/* Progress Bar */}
+
         {loading && (
           <Grid
             item
@@ -204,12 +197,10 @@ function SingerCreateComponent() {
             }}
           >
             <LinearProgress
-              sx={{
-                width: "100px",
-              }}
+              sx={{ width: "100px" }}
               variant="determinate"
               value={progress}
-            />{" "}
+            />
             <span style={{ marginLeft: "10px" }}>{progress}%</span>
           </Grid>
         )}
@@ -230,7 +221,7 @@ function SingerCreateComponent() {
             disabled={loading}
             endIcon={loading ? <CircularProgress size={24} /> : null}
           >
-            {loading ? "Submitting..." : "Submit"}
+            {loading ? t("buttons.submitting") : t("buttons.submit")}
           </Button>
         </Grid>
       </Grid>

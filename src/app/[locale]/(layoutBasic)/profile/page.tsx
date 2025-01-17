@@ -1,16 +1,15 @@
-import { Box, Typography, Avatar, Paper, Button, Stack } from "@mui/material";
+import { Box, Typography, Avatar, Paper, Stack } from "@mui/material";
 import { getInfoUser } from "@/app/utils/request";
-import { Link } from "@/i18n/routing";
 import { GetAccessTokenFromCookie } from "@/app/utils/checkRole";
 import IUserInfo from "@/dataType/infoUser";
 import ButtonRedirect from "@/component/buttonRedirect";
+import { getTranslations } from "next-intl/server";
 
 async function fetchProfileData(): Promise<IUserInfo | null> {
   const access_token = GetAccessTokenFromCookie();
 
   try {
     const data = await getInfoUser(access_token.value);
-
     return data?.data || null;
   } catch (error) {
     console.error("Failed to fetch profile data:", error);
@@ -19,9 +18,10 @@ async function fetchProfileData(): Promise<IUserInfo | null> {
 }
 
 export default async function ProfilePage() {
+  const t = await getTranslations("ProfilePage");
   const profileData = await fetchProfileData();
 
-  if (!profileData) return <p>Error loading profile data.</p>;
+  if (!profileData) return <p>{t("errors.loadProfile")}</p>;
 
   return (
     <Box
@@ -38,7 +38,6 @@ export default async function ProfilePage() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-
           marginBottom: "30px",
           padding: "20px",
           maxWidth: "400px",
@@ -57,14 +56,14 @@ export default async function ProfilePage() {
           {profileData.username}
         </Typography>
         <Typography variant="body1">
-          <strong>Vai trò:</strong> {profileData.role.roleName}
+          <strong>{t("fields.role")}:</strong> {profileData.role.roleName}
         </Typography>
         <Typography variant="body2" color="textSecondary" marginBottom={"20px"}>
-          <strong>Loại người dùng:</strong> {profileData.type}
+          <strong>{t("fields.userType")}:</strong> {profileData.type}
         </Typography>
         <ButtonRedirect
           link="/profile/editProfile"
-          content="Chỉnh sửa"
+          content={t("buttons.edit")}
           variant="outlined"
         />
       </Paper>
@@ -77,16 +76,14 @@ export default async function ProfilePage() {
             maxWidth: "400px",
             width: "100%",
             textAlign: "center",
-
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-
             marginBottom: "30px",
           }}
         >
           <Typography variant="h6" sx={{ marginBottom: "10px" }}>
-            Thông tin ca sĩ quản lý
+            {t("singerInfo.title")}
           </Typography>
           <Avatar
             src={
@@ -94,15 +91,15 @@ export default async function ProfilePage() {
                 ? profileData.singerId.avatar
                 : "https://res.cloudinary.com/dsi9ercdo/image/upload/v1731207669/oagc6qxabksf7lzv2wy9.jpg"
             }
-            alt={profileData.singerId?.fullName || "Không rõ ca sĩ"}
+            alt={profileData.singerId?.fullName || t("singerInfo.unknown")}
             sx={{ width: 80, height: 80, marginBottom: "10px" }}
           />
           <Typography variant="h5">
-            {profileData.singerId?.fullName || "Không rõ ca sĩ"}
+            {profileData.singerId?.fullName || t("singerInfo.unknown")}
           </Typography>
           <Typography color="textSecondary" sx={{ marginBottom: "10px" }}>
-            <strong>Trạng thái:</strong>{" "}
-            {profileData.singerId?.status || "Tài khoản đã bị xóa"}
+            <strong>{t("singerInfo.status")}:</strong>{" "}
+            {profileData.singerId?.status || t("singerInfo.deleted")}
           </Typography>
 
           <Stack direction="row" spacing={2} justifyContent="center">
@@ -113,11 +110,11 @@ export default async function ProfilePage() {
                   : "#"
               }
               variant="outlined"
-              content=" Xem chi tiết"
+              content={t("buttons.viewDetails")}
             />
 
             <ButtonRedirect
-              content="Chỉnh sửa"
+              content={t("buttons.edit")}
               link="/profile/editSinger"
               variant="outlined"
               color="primary"

@@ -22,8 +22,8 @@ import { getAccessTokenFromLocalStorage } from "@/app/helper/localStorageClient"
 import axios, { AxiosProgressEvent } from "axios";
 import { apiBasicClient, refreshtoken } from "@/app/utils/request";
 import { decodeToken } from "@/app/helper/jwt";
-import { useRouter } from "next/router";
-import { useLocale } from "next-intl";
+import { useRouter } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 
 interface Singer {
   _id: string;
@@ -36,18 +36,20 @@ interface Singer {
 }
 
 const EditSingerPage: React.FC = () => {
+  const t = useTranslations("EditSinger");
+  const { showMessage } = useAppContext();
+  const router = useRouter();
+  const locale = useLocale();
+  const accessToken = getAccessTokenFromLocalStorage();
   const [singer, setSinger] = useState<Singer | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const { showMessage } = useAppContext();
-  const locale = useLocale();
-  const accessToken = getAccessTokenFromLocalStorage();
 
   useEffect(() => {
     const userInfo = decodeToken(accessToken || undefined) as any;
-    const singerId = userInfo.singerId;
+    const singerId = userInfo?.singerId;
 
     if (singerId) {
       const fetchSingerData = async () => {
@@ -61,18 +63,17 @@ const EditSingerPage: React.FC = () => {
             setAvatarPreview(response.data.avatar || null);
           } else {
             showMessage(
-              response.message || "Failed to fetch singer data",
+              response.message || t("errors.fetchSingerData"),
               "error"
             );
           }
         } catch (error) {
-          showMessage("Error fetching singer data", "error");
+          showMessage(t("errors.serverError"), "error");
         }
       };
 
       fetchSingerData();
     } else {
-      const router = useRouter();
       router.push(`/${locale}/login`);
     }
   }, []);
@@ -126,13 +127,13 @@ const EditSingerPage: React.FC = () => {
       if (response.status === 200) {
         setSinger(response.data.data);
         await refreshtoken();
-        showMessage("Cập nhật thành công!", "success");
+        showMessage(t("messages.updateSuccess"), "success");
       } else {
-        showMessage(response.data.message || "Something went wrong", "error");
+        showMessage(response.data.message || t("errors.updateFailed"), "error");
       }
     } catch (error: any) {
       showMessage(
-        error.response?.data?.message || "Lỗi khi cập nhật!",
+        error.response?.data?.message || t("errors.serverError"),
         "error"
       );
     } finally {
@@ -152,7 +153,7 @@ const EditSingerPage: React.FC = () => {
   return (
     <Box sx={{ maxWidth: 800, margin: "auto", padding: 2 }}>
       <Typography variant="h4" gutterBottom>
-        Edit Singer
+        {t("title")}
       </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
@@ -160,7 +161,7 @@ const EditSingerPage: React.FC = () => {
             <TextField
               fullWidth
               size="small"
-              label="Full Name"
+              label={t("fields.fullName")}
               name="fullName"
               defaultValue={singer.fullName}
               required
@@ -180,7 +181,7 @@ const EditSingerPage: React.FC = () => {
                 <CardMedia
                   component="img"
                   image={avatarPreview}
-                  alt="Avatar Preview"
+                  alt={t("avatarPreview")}
                   style={{
                     width: "200px",
                     height: "200px",
@@ -188,7 +189,7 @@ const EditSingerPage: React.FC = () => {
                   }}
                 />
                 <CardContent>
-                  <Typography>Avatar Preview</Typography>
+                  <Typography>{t("avatarPreview")}</Typography>
                 </CardContent>
                 <IconButton
                   onClick={handleRemoveAvatar}
@@ -234,7 +235,7 @@ const EditSingerPage: React.FC = () => {
               disabled={loading}
               endIcon={loading ? <CircularProgress size={24} /> : null}
             >
-              {loading ? "Updating..." : "Update"}
+              {loading ? t("buttons.updating") : t("buttons.update")}
             </Button>
           </Grid>
         </Grid>

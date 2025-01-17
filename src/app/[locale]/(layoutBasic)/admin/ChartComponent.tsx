@@ -70,7 +70,7 @@ const ChartComponent = ({ data }: { data: any }) => {
   };
 
   return (
-    <Box sx={{ height: 400 }}>
+    <Box sx={{ height: 400, display: "flex", justifyContent: "center" }}>
       <Bar data={data} options={options} />
     </Box>
   );

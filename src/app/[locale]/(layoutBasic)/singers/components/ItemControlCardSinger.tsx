@@ -3,6 +3,7 @@ import * as React from "react";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export default function ItemControlCardSinger({
   data,
@@ -15,6 +16,8 @@ export default function ItemControlCardSinger({
     slug: string;
   };
 }) {
+  const t = useTranslations("ItemControlCardSinger");
+
   return (
     <Card sx={{ display: "flex" }}>
       <Box sx={{ display: "flex", flexDirection: "column", width: "50%" }}>
@@ -42,7 +45,7 @@ export default function ItemControlCardSinger({
           </Typography>
           {/* Hiển thị số bài hát */}
           <Typography variant="body2" color="text.secondary">
-            {data.songsCount || 0} bài hát
+            {t("songCount", { count: data.songsCount || 0 })}
           </Typography>
         </CardContent>
       </Box>

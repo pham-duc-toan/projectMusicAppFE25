@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useRef, useState } from "react";
 import {
   TextField,
@@ -13,16 +14,16 @@ import {
 import { useRouter } from "next/navigation";
 import { Box } from "@mui/system";
 import { apiBasicClient } from "@/app/utils/request";
-
 import { TPropSelector } from "@/dataType/propSelector";
 import { TSuggestAvaSlugId } from "@/dataType/suggest";
 import { useAppContext } from "@/context-app";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const SelectorSuggest = (props: TPropSelector) => {
   const router = useRouter();
   const locale = useLocale();
   const { showMessage } = useAppContext();
+  const t = useTranslations("SelectorSuggest"); // Tích hợp đa ngôn ngữ
   const { name, label, urlFetch, suggestKey, defaultKey } = props;
   const [filteredSuggests, setFilteredSuggests] = useState<TSuggestAvaSlugId[]>(
     []
@@ -30,6 +31,7 @@ const SelectorSuggest = (props: TPropSelector) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [valueId, setValueId] = useState(defaultKey?.id || "");
   const [shrink, setShrink] = useState(!!defaultKey?.value && !!defaultKey?.id);
+
   const handleChangSuggest = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value.toLowerCase();
 
@@ -47,11 +49,9 @@ const SelectorSuggest = (props: TPropSelector) => {
     const listSuggest = await apiBasicClient("GET", `${urlFetch}`, objectParam);
 
     if (!listSuggest?.data) {
-      showMessage(
-        `${listSuggest?.message}` || "Không tìm được dữ liệu",
-        "error"
-      );
+      showMessage(`${listSuggest?.message}` || t("noDataFound"), "error");
       if (listSuggest.redirect) {
+        showMessage(t("loginRedirect"), "info");
         router.push(`/${locale}/login`);
       }
       return;
@@ -59,6 +59,7 @@ const SelectorSuggest = (props: TPropSelector) => {
     setFilteredSuggests(listSuggest.data);
     setShowSuggestions(true);
   };
+
   const handleOnFocus = async (e: React.FocusEvent<HTMLInputElement>) => {
     const input = e.target.value.toLowerCase();
     let objectParam = undefined as any;
@@ -73,11 +74,9 @@ const SelectorSuggest = (props: TPropSelector) => {
     const listSuggest = await apiBasicClient("GET", `${urlFetch}`, objectParam);
 
     if (!listSuggest?.data) {
-      showMessage(
-        `${listSuggest?.message}` || "Không tìm được dữ liệu",
-        "error"
-      );
+      showMessage(`${listSuggest?.message}` || t("noDataFound"), "error");
       if (listSuggest.redirect) {
+        showMessage(t("loginRedirect"), "info");
         router.push(`/${locale}/login`);
       }
       return;
@@ -85,11 +84,13 @@ const SelectorSuggest = (props: TPropSelector) => {
     setFilteredSuggests(listSuggest.data);
     setShowSuggestions(true);
   };
+
   const handleOnBlur = () => {
     setTimeout(() => {
       setShowSuggestions(false);
     }, 200);
   };
+
   const handleSelectSuggest = (suggest: TSuggestAvaSlugId) => {
     setShowSuggestions(false);
     setValueId(suggest._id);
@@ -114,7 +115,7 @@ const SelectorSuggest = (props: TPropSelector) => {
         defaultValue={defaultKey?.value}
         fullWidth
         size="small"
-        label={label}
+        label={label || t("inputLabel", { field: suggestKey })}
         name={name}
         required
       />

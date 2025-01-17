@@ -3,6 +3,7 @@ import * as React from "react";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 // Định nghĩa kiểu dữ liệu Topic để sử dụng trong component
 interface Topic {
@@ -21,6 +22,8 @@ export default function ItemControlCardTopic({
 }: {
   data: Topic; // Sử dụng kiểu dữ liệu Topic
 }) {
+  const t = useTranslations("topicCard"); // Dùng useTranslations cho client component
+
   return (
     <Card sx={{ display: "flex" }}>
       <Box sx={{ display: "flex", flexDirection: "column", width: "50%" }}>
@@ -47,7 +50,7 @@ export default function ItemControlCardTopic({
 
           {/* Hiển thị số lượng bài hát trong topic */}
           <Typography variant="body2" color="text.secondary">
-            {data.songsCount || 0} bài hát
+            {t("songsCount", { count: data.songsCount || 0 })}
           </Typography>
         </CardContent>
       </Box>

@@ -1,10 +1,12 @@
 import { GetAccessTokenFromCookie } from "@/app/utils/checkRole";
 import { apiBasicServer } from "@/app/utils/request";
-
 import { redirect } from "next/navigation";
 import SingerCreateComponent from "./components/SingerCreateComponent";
+import { getTranslations } from "next-intl/server";
 
 const createPage = async () => {
+  const t = await getTranslations("CreateSingerPage");
+
   try {
     const accessToken = GetAccessTokenFromCookie();
     const res = await apiBasicServer(
@@ -23,7 +25,7 @@ const createPage = async () => {
 
   return (
     <>
-      <h1 style={{ marginBottom: "30px", marginTop: "40px" }}>Tạo ca sĩ</h1>
+      <h1 style={{ marginBottom: "30px", marginTop: "40px" }}>{t("title")}</h1>
       <SingerCreateComponent />
     </>
   );

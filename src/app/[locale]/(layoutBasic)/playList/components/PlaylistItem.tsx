@@ -21,6 +21,7 @@ import { revalidateByTag } from "@/app/action";
 import { useAppContext } from "@/context-app";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslations } from "next-intl";
 
 import { RootState } from "@/store/store";
 
@@ -56,6 +57,7 @@ interface PlaylistItemProps {
 }
 
 const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist }) => {
+  const t = useTranslations("Playlist");
   const dispatch = useDispatch();
   const currentPlaylist = useSelector((state: RootState) => state.playlist);
   const { showMessage } = useAppContext();
@@ -71,17 +73,15 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist }) => {
   const handleExitPlayList = () => {
     exitPlaylist(dispatch);
   };
-  // Xử lý mở Menu
+
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  // Đóng Menu
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
 
-  // Xử lý xóa playlist
   const handleDelete = async () => {
     handleMenuClose();
     setLoading(true);
@@ -95,25 +95,23 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist }) => {
       if (response?.data) {
         revalidateByTag("revalidate-tag-list-playlist");
         if (playlist._id == currentPlaylist._id) handleExitPlayList();
-        showMessage("Đã xóa playlist thành công", "success");
+        showMessage(t("messages.deleteSuccess"), "success");
       } else {
-        showMessage("Lỗi khi xóa playlist", "error");
+        showMessage(t("messages.deleteError"), "error");
       }
     } catch (error) {
-      showMessage("Có lỗi xảy ra khi gọi API", "error");
+      showMessage(t("messages.apiError"), "error");
     } finally {
       setLoading(false);
     }
   };
 
-  // Xử lý mở modal chỉnh sửa
   const handleEditClick = () => {
     setNewTitle(playlist.title);
     setIsEditModalOpen(true);
     handleMenuClose();
   };
 
-  // Xử lý submit khi nhấn "Sửa"
   const handleEditSubmit = async () => {
     try {
       setLoading(true);
@@ -126,13 +124,13 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist }) => {
 
       if (response?.data) {
         await revalidateByTag("revalidate-tag-list-playlist");
-        showMessage("Đã sửa playlist thành công", "success");
+        showMessage(t("messages.editSuccess"), "success");
         updateNewPlaylistPartial({ title: newTitle }, dispatch);
       } else {
-        showMessage("Lỗi khi sửa playlist", "error");
+        showMessage(t("messages.editError"), "error");
       }
     } catch (error) {
-      showMessage("Có lỗi xảy ra khi gọi API", "error");
+      showMessage(t("messages.apiError"), "error");
     } finally {
       setIsEditModalOpen(false);
       setLoading(false);
@@ -147,7 +145,6 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist }) => {
         position: "relative",
       }}
     >
-      {/* Nút Icon Menu (3 chấm dọc hoặc Loading khi đang xóa) */}
       <IconButton
         aria-label="menu"
         onClick={handleMenuClick}
@@ -157,7 +154,6 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist }) => {
         {loading ? <CircularProgress size={24} /> : <MoreVertIcon />}
       </IconButton>
 
-      {/* Menu hiển thị các tùy chọn */}
       <Menu
         anchorEl={anchorEl}
         open={open}
@@ -171,35 +167,32 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist }) => {
           horizontal: "right",
         }}
       >
-        <MenuItem onClick={handleDelete}>Xóa</MenuItem>
-        <MenuItem onClick={handleEditClick}>Chỉnh sửa</MenuItem>
+        <MenuItem onClick={handleDelete}>{t("actions.delete")}</MenuItem>
+        <MenuItem onClick={handleEditClick}>{t("actions.edit")}</MenuItem>
       </Menu>
 
-      {/* Box chứa ảnh, với overflow để giới hạn khung */}
       <Box
         sx={{
           position: "relative",
-          width: 170, // Độ rộng khung hình ảnh
+          width: 170,
           height: 170,
-          overflow: "hidden", // Cắt ảnh khi phóng to vượt quá khung
+          overflow: "hidden",
         }}
       >
-        {/* Hình ảnh của playlist với hiệu ứng zoom khi hover */}
         <CardMedia
           component="img"
           sx={{
             width: "100%",
             height: "100%",
-            transition: "transform 0.5s ease", // Thêm transition cho smooth zoom
+            transition: "transform 0.5s ease",
             "&:hover": {
-              transform: "scale(1.2)", // Zoom ảnh khi hover
+              transform: "scale(1.2)",
             },
           }}
           image="https://res.cloudinary.com/dsi9ercdo/image/upload/v1728369637/lxwaiiafcrcwqji0swn6.png"
           alt={playlist.title}
         />
 
-        {/* Overlay hiển thị khi hover */}
         <Box
           onClick={
             currentPlaylist._id === playlist._id
@@ -221,7 +214,7 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist }) => {
             transition: "opacity 0.5s ease",
             zIndex: 1,
             "&:hover": {
-              opacity: 1, // Hiển thị overlay khi hover
+              opacity: 1,
             },
           }}
         >
@@ -232,7 +225,6 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist }) => {
           )}
         </Box>
       </Box>
-
       <Box sx={{ display: "flex", flexDirection: "column", width: "50%" }}>
         <CardContent sx={{ flex: "1 0 auto", padding: "32px 24px 0 24px" }}>
           <Typography
@@ -260,7 +252,7 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist }) => {
             height={"50%"}
             noWrap
           >
-            {playlist.listSong.length} bài hát
+            {playlist.listSong.length} {t("playlist.songs")}
           </Typography>
         </CardContent>
       </Box>
@@ -286,11 +278,11 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist }) => {
           }}
         >
           <Typography variant="h6" gutterBottom>
-            Chỉnh sửa Playlist
+            {t("playlist.editTitle")}
           </Typography>
           <TextField
             fullWidth
-            label="Tên Playlist"
+            label={t("playlist.name")}
             variant="outlined"
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
@@ -306,16 +298,15 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist }) => {
               <CircularProgress size={24} sx={{ marginLeft: "10px" }} />
             ) : (
               <Button variant="contained" onClick={handleEditSubmit}>
-                Sửa
+                {t("playlist.edit")}
               </Button>
             )}
-
             <Button
               variant="outlined"
               color="primary"
               onClick={() => setIsEditModalOpen(false)}
             >
-              Hủy
+              {t("buttons.cancel")}
             </Button>
           </Box>
         </Box>

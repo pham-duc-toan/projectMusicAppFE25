@@ -1,7 +1,14 @@
 {
   "HomePage": {
-    "bxh": "BÀI HÁT THỊNH HÀNH",
-    "btn-top-song": "Top 100 bài hát thịnh hành"
+    "topSongs": "Bảng xếp hạng",
+    "viewTop100": "Xem Top 100 bài hát",
+    "songsForYou": "Có thể bạn muốn nghe",
+    "seeMore": "Xem thêm",
+    "newReleases": "Mới phát hành",
+    "latestTopics": "Những Chủ Đề Mới Nhất",
+    "descriptionUpdating": "Mô tả đang được cập nhật",
+    "featuredSingers": "Nghệ Sĩ Nổi Bật",
+    "artist": "Nghệ sĩ"
   },
   "PlayListPage": {
     "no-playlist": "Hiện không có danh sách phát nào."
@@ -368,6 +375,382 @@
     "description": "Trang bạn tìm kiếm không tồn tại!",
     "goHome": "Về Trang Chủ"
   },
+  "RefreshIcon": {
+    "tooltip": "Làm mới",
+    "messages": {
+      "success": "Đã làm mới thành công",
+      "error": "Lỗi server"
+    }
+  },
+  "HistoryTable": {
+    "title": "Lịch sử giao dịch",
+    "columns": {
+      "orderId": "Đơn hàng",
+      "orderStatus": "Trạng thái đơn hàng",
+      "singerStatus": "Trạng thái ca sĩ",
+      "createdAt": "Thời gian tạo",
+      "updatedAt": "Thời gian cập nhật",
+      "action": "Hành động"
+    },
+    "status": {
+      "notCreated": "Chưa tạo",
+      "created": "Đã tạo"
+    },
+    "actions": {
+      "payNow": "Thanh toán ngay"
+    },
+    "noOrders": "Không có đơn hàng nào"
+  },
+  "CreatePlaylist": {
+    "title": "Tạo Playlist Mới",
+    "fields": {
+      "playlistName": "Tên Playlist"
+    },
+    "buttons": {
+      "createNew": "Tạo mới playlist",
+      "add": "Thêm",
+      "cancel": "Hủy"
+    },
+    "messages": {
+      "success": "Đã tạo playlist mới thành công",
+      "loginRequired": "Bạn cần đăng nhập để tạo Playlist",
+      "apiError": "Có lỗi xảy ra khi gọi API"
+    }
+  },
+  "Playlist": {
+    "actions": {
+      "delete": "Xóa",
+      "edit": "Chỉnh sửa"
+    },
+    "messages": {
+      "deleteSuccess": "Đã xóa playlist thành công",
+      "deleteError": "Lỗi khi xóa playlist",
+      "editSuccess": "Đã sửa playlist thành công",
+      "editError": "Lỗi khi sửa playlist",
+      "apiError": "Có lỗi xảy ra khi gọi API"
+    },
+    "playlist": {
+      "songs": "bài hát",
+      "editTitle": "Chỉnh sửa Playlist",
+      "name": "Tên Playlist",
+      "edit": "Sửa"
+    },
+    "buttons": {
+      "cancel": "Hủy"
+    }
+  },
+  "playlist": {
+    "title": "Danh sách phát",
+    "noPlaylists": "Hiện không có danh sách phát nào"
+  },
+  "ChangePassword": {
+    "title": "Đổi mật khẩu",
+    "fields": {
+      "oldPassword": "Mật khẩu cũ",
+      "newPassword": "Mật khẩu mới",
+      "confirmNewPassword": "Nhập lại mật khẩu mới"
+    },
+    "errors": {
+      "emptyFields": "Vui lòng nhập đủ thông tin",
+      "passwordMismatch": "Mật khẩu mới và xác nhận không khớp",
+      "serverError": "Có lỗi xảy ra"
+    },
+    "messages": {
+      "success": "Đổi mật khẩu thành công!"
+    },
+    "buttons": {
+      "submit": "Đổi mật khẩu",
+      "processing": "Đang xử lý..."
+    }
+  },
+  "EditUser": {
+    "title": "Chỉnh sửa thông tin người dùng",
+    "fields": {
+      "fullName": "Họ và tên"
+    },
+    "avatarPreview": "Xem trước ảnh đại diện",
+    "errors": {
+      "fetchUserData": "Không thể lấy dữ liệu người dùng",
+      "updateFailed": "Cập nhật thất bại",
+      "serverError": "Lỗi máy chủ"
+    },
+    "messages": {
+      "updateSuccess": "Cập nhật thành công!"
+    },
+    "buttons": {
+      "update": "Cập nhật",
+      "updating": "Đang cập nhật..."
+    }
+  },
+  "EditSinger": {
+    "title": "Chỉnh sửa ca sĩ",
+    "fields": {
+      "fullName": "Họ và tên"
+    },
+    "avatarPreview": "Xem trước ảnh đại diện",
+    "errors": {
+      "fetchSingerData": "Không thể lấy dữ liệu ca sĩ",
+      "updateFailed": "Cập nhật thất bại",
+      "serverError": "Lỗi máy chủ"
+    },
+    "messages": {
+      "updateSuccess": "Cập nhật thành công!"
+    },
+    "buttons": {
+      "update": "Cập nhật",
+      "updating": "Đang cập nhật..."
+    }
+  },
+  "ProfilePage": {
+    "errors": {
+      "loadProfile": "Lỗi khi tải dữ liệu hồ sơ."
+    },
+    "fields": {
+      "role": "Vai trò",
+      "userType": "Loại người dùng"
+    },
+    "singerInfo": {
+      "title": "Thông tin ca sĩ quản lý",
+      "status": "Trạng thái",
+      "unknown": "Không rõ ca sĩ",
+      "deleted": "Tài khoản đã bị xóa"
+    },
+    "buttons": {
+      "edit": "Chỉnh sửa",
+      "viewDetails": "Xem chi tiết"
+    }
+  },
+  "ItemControlCardSinger": {
+    "songCount": "{count} bài hát"
+  },
+  "SingerCreateComponent": {
+    "fields": {
+      "fullName": "Họ và tên",
+      "status": "Trạng thái"
+    },
+    "status": {
+      "active": "Hoạt động",
+      "inactive": "Không hoạt động"
+    },
+    "messages": {
+      "missingAvatar": "Thiếu upload ảnh !",
+      "createSuccess": "Tạo mới thành công !",
+      "error": "Có lỗi xảy ra!",
+      "uploadError": "Lỗi khi upload!"
+    },
+    "buttons": {
+      "submit": "Tạo mới",
+      "submitting": "Đang xử lý..."
+    },
+    "avatarPreview": "Ảnh xem trước"
+  },
+  "CreateSingerPage": {
+    "title": "Tạo ca sĩ"
+  },
+  "SingerDetailPage": {
+    "errors": {
+      "fetchFailed": "Không thể tải thông tin ca sĩ."
+    },
+    "labels": {
+      "joinedDate": "Tham gia vào",
+      "noSongs": "Không có bài hát."
+    }
+  },
+  "AllSingers": {
+    "title": "Khám phá tất cả ca sĩ",
+    "noSingers": "Không có ca sĩ nào."
+  },
+  "ManagetopSong": {
+    "heading": "Bảng xếp hạng bài hát",
+    "allSongs": "Khám phá không giới hạn bài hát",
+    "ranking": "Thứ hạng",
+    "image": "Hình ảnh",
+    "songTitle": "Tiêu đề",
+    "views": "Lượt nghe",
+    "topic": "Chủ đề",
+    "singer": "Ca sĩ",
+    "actions": "Hành động",
+    "noSongs": "Hiện không có bài hát nào"
+  },
+  "SingerInfoPopover": {
+    "label": "Ca sĩ",
+    "unknownSinger": "Không rõ ca sĩ",
+    "joinedDate": "Tham gia vào",
+    "singerUnknown": "Không rõ ca sĩ",
+    "singer": "Ca sĩ"
+  },
+  "TopicPopover": {
+    "label": "Chủ đề",
+    "unknownTopic": "Không rõ chủ đề",
+    "noDescription": "Không có mô tả"
+  },
+  "SongDetailPage": {
+    "title": "Chi tiết bài hát",
+    "description": "Thông tin chi tiết về bài hát",
+    "notFound": "Không tìm thấy bài hát",
+    "listenCount": "Lượt nghe",
+    "likeCount": "Lượt thích",
+    "lyrics": "Lời bài hát",
+    "noLyrics": "Chưa cập nhật lời cho bài hát",
+    "descriptionLabel": "Mô tả",
+    "noDescription": "Chưa cập nhật mô tả cho bài hát"
+  },
+  "songActions": {
+    "viewDetails": "Xem chi tiết",
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa",
+    "confirmDelete": "Xác nhận xóa",
+    "deletePrompt": "Bạn có chắc muốn xóa bài hát này không?",
+    "deleteSuccess": "Xóa bài hát thành công!",
+    "cancel": "Hủy",
+    "confirm": "Có"
+  },
+  "changeStatus": {
+    "tooltip": "Đổi trạng thái",
+    "active": "Hoạt động",
+    "inactive": "Không hoạt động",
+    "processing": "Đang thực hiện...",
+    "success": "Thay đổi thành công!"
+  },
+  "editSong": {
+    "editTitle": "Chỉnh sửa bài hát",
+    "songTitle": "Tiêu đề bài hát",
+    "topic": "Chủ đề",
+    "status": "Trạng thái",
+    "active": "Hoạt động",
+    "inactive": "Không hoạt động",
+    "lyrics": "Lời bài hát",
+    "description": "Mô tả",
+    "submitting": "Đang gửi...",
+    "submit": "Gửi",
+    "cancel": "Hủy",
+    "successMessage": "Cập nhật bài hát thành công!",
+    "errorMessage": "Có lỗi xảy ra!",
+    "uploadError": "Lỗi khi tải lên tệp!",
+    "editSongTitle": "Chỉnh sửa bài hát",
+    "title": "Tiêu đề",
+
+    "statusActive": "Hoạt động",
+    "statusInactive": "Không hoạt động",
+
+    "lyricsPlaceholder": "Nhập định dạng LRC ...\nVí dụ:\n[00:19.12] Một ngày thu đầy gió\n[00:21.78] Trong nắng chiều là màu mắt em",
+
+    "avatarPreview": "Xem trước ảnh đại diện",
+    "audioPreview": "Xem trước âm thanh",
+    "audioNotSupported": "Trình duyệt của bạn không hỗ trợ thẻ âm thanh."
+  },
+  "songCreate": {
+    "title": "Tiêu đề",
+    "status": "Trạng thái",
+    "statusActive": "Hoạt động",
+    "statusInactive": "Không hoạt động",
+    "lyrics": "Lời bài hát",
+    "description": "Mô tả",
+    "avatarPreview": "Xem trước ảnh đại diện",
+    "audioPreview": "Xem trước âm thanh",
+    "audioNotSupported": "Trình duyệt của bạn không hỗ trợ thẻ âm thanh.",
+    "submitting": "Đang gửi...",
+    "submit": "Gửi",
+    "uploadImageError": "Vui lòng tải thêm file ảnh.",
+    "uploadAudioError": "Vui lòng tải thêm file audio.",
+    "createSuccess": "Tạo bài hát thành công!",
+    "createError": "Lỗi khi tạo bài hát.",
+    "uploadError": "Lỗi khi tải lên!",
+    "editSongTitle": "Edit Song",
+    "lyricsPlaceholder": "Nhập định dạng LRC ...\nVí dụ:\n[00:19.12] Một ngày thu đầy gió\n[00:21.78] Trong nắng chiều là màu mắt em",
+    "topic": "Chủ đề",
+    "cancel": "Hủy bỏ"
+  },
+  "songCreatePage": {
+    "createSongTitle": "Tạo bài hát mới",
+    "manageSongs": "Quản lý bài hát",
+    "notASinger": "Bạn không phải ca sĩ!"
+  },
+  "managerSongPageClient": {
+    "manageSongs": "Quản lý bài hát",
+    "createSong": "Tạo mới bài hát",
+    "noSongs": "Hiện chưa có bài hát nào.",
+    "stt": "STT",
+    "image": "Hình ảnh",
+    "title": "Tiêu đề",
+    "topic": "Chủ đề",
+    "play": "Phát",
+    "status": "Trạng thái",
+    "actions": "Hành động",
+    "unknown": "Không rõ"
+  },
+  "myFavoriteSongPage": {
+    "likedSongs": "Các bài hát đã thích",
+    "noFavoriteSongs": "Hiện không có bài hát yêu thích nào."
+  },
+  "songsPage": {
+    "allSongs": "Khám phá không giới hạn bài hát"
+  },
+  "topicCard": {
+    "songsCount": "{count} bài hát"
+  },
+  "topicDetail": {
+    "fetchError": "Không thể tải thông tin chủ đề.",
+    "noSongs": "Không có bài hát nào."
+  },
+  "allTopics": {
+    "title": "Khám phá chủ đề âm nhạc",
+    "noTopics": "Không có chủ đề nào."
+  },
+  "registerNow": {
+    "payNow": "Thanh toán ngay",
+    "errorMessage": "Không thể thực hiện!",
+    "serverError": "Lỗi kết nối với server."
+  },
+  "homePage": {
+    "unlimitedMusic": "Âm nhạc{br}không giới hạn",
+    "upgradeAccount": "Nâng cấp tài khoản để trải nghiệm các tính năng và nội dung cao cấp.",
+    "becomeSinger": "Trở thành ca sĩ",
+    "price": "Với 289,000đ",
+    "specialPrivileges": "Đặc quyền đặc biệt:",
+    "privilege1": "Lưu trữ những bài nhạc của chính mình",
+    "privilege2": "Mọi người có thể thưởng thức bài nhạc của bạn",
+    "privilege3": "Lưu trữ nhạc không giới hạn",
+    "privilege4": "Tính năng nghe nhạc nâng cao",
+    "privilege5": "Mở rộng khả năng Upload"
+  },
+  "dropzone": {
+    "dragAndDrop": "Kéo thả file hoặc chọn file cần tải lên"
+  },
+  "PlaylistComponent": {
+    "fetchError": "Lỗi khi lấy danh sách playlist.",
+    "songNotInFavorites": "Bài hát này không có trong danh sách bài hát yêu thích của bạn.",
+    "createSuccess": "Đã tạo playlist mới thành công.",
+    "createError": "Lỗi khi tạo playlist.",
+    "apiError": "Có lỗi xảy ra khi kết nối tới máy chủ.",
+    "addSuccess": "Đã thêm bài hát thành công!",
+    "removeSuccess": "Đã xóa bài hát thành công!",
+    "deleteSuccess": "Đã xóa playlist thành công.",
+    "selectPlaylist": "Chọn playlist để thêm bài hát",
+    "delete": "Xóa",
+    "createNewPlaylist": "Tạo danh sách phát mới",
+    "newPlaylistName": "Tên playlist mới",
+    "add": "Thêm",
+    "cancel": "Hủy",
+    "save": "Lưu"
+  },
+  "FavoriteButton": {
+    "processing": "Đang thực hiện...",
+    "success": "Cập nhật thành công",
+    "errorUpdatingFavorite": "Lỗi khi cập nhật trạng thái yêu thích:",
+    "loginRequired": "Bạn cần đăng nhập mới có thể sử dụng chức năng này"
+  },
+  "PaginationComponent": {
+    "currentPage": "Trang {currentPage} / {totalPages}",
+    "nextPage": "Trang sau",
+    "previousPage": "Trang trước"
+  },
+  "SelectorSuggest": {
+    "noDataFound": "Không tìm được dữ liệu",
+    "inputLabel": "Nhập {field}",
+    "error": "Đã xảy ra lỗi",
+    "loginRedirect": "Chuyển hướng đến trang đăng nhập..."
+  },
 
   "Layout": {
     "header-search": "Tìm kiếm bài hát, nghệ sĩ, lời bài hát...",
@@ -396,7 +779,7 @@
     "siderPlayList-No-Song": "Hiện đang không có danh sách nhạc nào được phát."
   },
   "Notification": {
-    "logout": "Đang đăng xuất",
+    "logout": "Đang đăng xuất...",
     "logged out": "Đã đăng xuất"
   },
   "Button": {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import {
   Box,
   Table,
@@ -10,12 +10,8 @@ import {
   Paper,
   Avatar,
   Typography,
-  IconButton,
-  CircularProgress,
-  Tooltip,
   Button,
 } from "@mui/material";
-import StarIcon from "@mui/icons-material/Star";
 import { Link } from "@/i18n/routing";
 import { apiBasicServer, getInfoUser } from "@/app/utils/request";
 import { TSongDetail } from "@/dataType/song";
@@ -23,8 +19,11 @@ import ActionButton from "./components/ActionButton";
 import { GetPublicAccessTokenFromCookie } from "@/app/utils/checkRole";
 import CellTopicInfo from "../../admin/managerSong/songs-for-you/components/CellTopicInfo";
 import CellSingerInfo from "../../admin/managerSong/songs-for-you/components/CellSingerInfo";
+import { getTranslations } from "next-intl/server";
 
 const ManagetopSong: React.FC = async () => {
+  const t = await getTranslations("ManagetopSong");
+
   const resTop = await apiBasicServer(
     "GET",
     "/songs",
@@ -37,6 +36,7 @@ const ManagetopSong: React.FC = async () => {
     ["revalidate-tag-songs"]
   );
   const topSong = resTop?.data?.data || [];
+
   let favoriteSongs = [];
   const access_token = GetPublicAccessTokenFromCookie();
 
@@ -45,6 +45,7 @@ const ManagetopSong: React.FC = async () => {
     favoriteSongs =
       dataFs.data.listFavoriteSong.map((song: any) => song._id) || [];
   }
+
   return (
     <Box sx={{ padding: 3 }}>
       <Box
@@ -53,10 +54,10 @@ const ManagetopSong: React.FC = async () => {
         marginBottom={"15px"}
       >
         <Typography variant="h4" fontWeight={700} gutterBottom>
-          BẢNG XẾP HẠNG BÀI HÁT
+          {t("heading")}
         </Typography>
         <Button variant="outlined" color="primary">
-          <Link href={"/songs"}>Tất cả các bài hát</Link>
+          <Link href={"/songs"}>{t("allSongs")}</Link>
         </Button>
       </Box>
 
@@ -64,13 +65,13 @@ const ManagetopSong: React.FC = async () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Thứ hạng</TableCell>
-              <TableCell>Hình ảnh</TableCell>
-              <TableCell>Tiêu đề</TableCell>
-              <TableCell>Lượt nghe</TableCell>
-              <TableCell>Chủ đề</TableCell>
-              <TableCell>Ca sĩ</TableCell>
-              <TableCell>Hành động</TableCell>
+              <TableCell>{t("ranking")}</TableCell>
+              <TableCell>{t("image")}</TableCell>
+              <TableCell>{t("songTitle")}</TableCell>
+              <TableCell>{t("views")}</TableCell>
+              <TableCell>{t("topic")}</TableCell>
+              <TableCell>{t("singer")}</TableCell>
+              <TableCell>{t("actions")}</TableCell>
             </TableRow>
           </TableHead>
 
@@ -115,10 +116,10 @@ const ManagetopSong: React.FC = async () => {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={6}
+                  colSpan={7}
                   sx={{ textAlign: "center", color: "gray" }}
                 >
-                  Hiện không có bài hát nào
+                  {t("noSongs")}
                 </TableCell>
               </TableRow>
             )}

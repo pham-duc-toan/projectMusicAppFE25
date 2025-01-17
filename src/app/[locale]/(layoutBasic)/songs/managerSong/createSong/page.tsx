@@ -1,16 +1,19 @@
 import { decodeToken } from "@/app/helper/jwt";
 import { GetAccessTokenFromCookie } from "@/app/utils/checkRole";
 import ButtonRedirect from "@/component/buttonRedirect";
-
-import { Button } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box, Typography } from "@mui/material";
 import SongCreateComponent from "./components/SongCreateComponent";
+import { getTranslations } from "next-intl/server";
+
 interface UserInfo {
   singerId?: string;
 }
-const createPage = () => {
+
+const CreatePage = async () => {
+  const t = await getTranslations("songCreatePage");
   const access_token: any = GetAccessTokenFromCookie();
   const userInfo = decodeToken(access_token.value) as UserInfo | undefined;
+
   return (
     <>
       {userInfo?.singerId ? (
@@ -23,11 +26,14 @@ const createPage = () => {
             }}
             marginBottom={"15px"}
           >
-            <h1 style={{ marginBottom: "30px", marginTop: "40px" }}>
-              Tạo bài hát mới
-            </h1>
+            <Typography
+              variant="h4"
+              sx={{ marginBottom: "30px", marginTop: "40px" }}
+            >
+              {t("createSongTitle")}
+            </Typography>
             <ButtonRedirect
-              content="Quản lý bài hát"
+              content={t("manageSongs")}
               link="/songs/managerSong"
               variant="outlined"
             />
@@ -41,10 +47,13 @@ const createPage = () => {
           justifyContent={"center"}
           alignContent={"center"}
         >
-          <h3>Bạn không phải ca sĩ !</h3>
+          <Typography variant="h6" color="error">
+            {t("notASinger")}
+          </Typography>
         </Box>
       )}
     </>
   );
 };
-export default createPage;
+
+export default CreatePage;
