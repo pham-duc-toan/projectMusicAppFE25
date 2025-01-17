@@ -12,6 +12,7 @@ import {
   IconButton,
   InputAdornment,
   Typography,
+  Divider,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useRouter } from "next/navigation";
@@ -22,7 +23,7 @@ import {
   CustomTextFieldPassword,
   CustomTextFieldUsername,
 } from "./text-field-customize";
-import ListProvider from "./list-btn-login-provider";
+import ListProvider from "./btnLoginWithGoogle";
 import { useLocale, useTranslations } from "next-intl";
 
 export default function FormLoginComponent() {
@@ -95,27 +96,24 @@ export default function FormLoginComponent() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        width: "300px",
+        width: "100%",
+        maxWidth: "600px",
         margin: "0 auto",
         padding: "20px",
         borderRadius: "8px",
-        background:
-          //@ts-ignore
-          theme.palette.mode === "dark"
-            ? "#17002b"
-            : "theme.pallete.background.default",
-        boxShadow:
-          //@ts-ignore
-          theme.palette.mode === "dark"
-            ? "0px 4px 15px rgba(255, 255, 255, 0.05)"
-            : "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        backgroundColor: "primary.A100",
+        "@media (max-width: 768px)": {
+          padding: "15px",
+          width: "90%",
+        },
       }}
     >
       <Typography
         variant="h5"
         sx={{
           marginBottom: "20px",
-          color: "theme.palette.text.primary",
+          color: "text.primary",
+          textAlign: "center",
         }}
       >
         {t("title")}
@@ -160,6 +158,12 @@ export default function FormLoginComponent() {
         justifyContent={"space-between"}
         alignItems={"center"}
         marginTop={"-10px"}
+        sx={{
+          "@media (max-width: 768px)": {
+            flexDirection: "column",
+            gap: "10px",
+          },
+        }}
       >
         <ButtonRedirect
           content={t("buttons.register")}
@@ -189,14 +193,40 @@ export default function FormLoginComponent() {
         color="primary"
         fullWidth
         disabled={isLoading}
+        sx={{
+          "@media (max-width: 768px)": {
+            fontSize: "20px",
+          },
+        }}
         endIcon={isLoading ? <CircularProgress size={24} /> : null}
       >
         {t("buttons.login")}
       </Button>
 
-      <Button onClick={() => router.push(`/${locale}/`)}>
-        {t("buttons.backToHome")}
-      </Button>
+      <Divider
+        sx={{
+          width: "100%",
+          margin: "10px 0",
+          position: "relative",
+          "&::before, &::after": {
+            content: '""',
+            flex: "1",
+            height: "1px",
+          },
+          "&::before": {
+            marginRight: "10px",
+          },
+          "&::after": {
+            marginLeft: "10px",
+          },
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="body2" sx={{ color: "text.secondary" }}>
+          {t("divider.or")}
+        </Typography>
+      </Divider>
 
       <ListProvider />
     </Box>

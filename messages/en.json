@@ -30,6 +30,7 @@
     }
   },
   "resetPassword": {
+    "title": "Reset Password",
     "label": {
       "otp": "OTP Code",
       "newPassword": "New Password",
@@ -337,7 +338,11 @@
       "forgotPassword": "Forgot Password",
       "login": "Login",
       "backToHome": "Back to Home"
-    }
+    },
+    "divider": {
+      "or": "Or"
+    },
+    "loginGoogle": "Login with Google "
   },
   "RegisterPage": {
     "title": "Register an Account",

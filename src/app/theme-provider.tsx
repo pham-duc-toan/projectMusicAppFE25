@@ -48,6 +48,7 @@ const theme = extendTheme({
         primary: {
           main: "#8479F2",
           contrastText: "#fff",
+          A100: "#fff",
         },
         text: {
           primary: "#9A52A0",
@@ -70,6 +71,7 @@ const theme = extendTheme({
         primary: {
           main: "#9b4de0",
           contrastText: "#fff",
+          A100: "#17002b",
         },
         text: {
           primary: "#fff",

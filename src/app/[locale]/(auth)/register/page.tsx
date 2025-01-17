@@ -19,6 +19,7 @@ import {
   CustomTextFieldUsername,
 } from "../login/components/text-field-customize";
 import { useLocale, useTranslations } from "next-intl";
+import { useTheme } from "@emotion/react";
 
 const RegisterPage = () => {
   const { showMessage } = useAppContext();
@@ -26,7 +27,7 @@ const RegisterPage = () => {
   const router = useRouter();
   const locale = useLocale();
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const theme = useTheme();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -101,12 +102,23 @@ const RegisterPage = () => {
   return (
     <Box
       sx={{
-        maxWidth: 400,
+        maxWidth: 600,
         margin: "50px auto",
         textAlign: "center",
         padding: 3,
         borderRadius: 2,
         boxShadow: 2,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        width: "100%",
+
+        backgroundColor: "primary.A100",
+
+        "@media (max-width: 768px)": {
+          padding: "15px",
+          width: "90%",
+        },
       }}
     >
       <Typography variant="h5" sx={{ marginBottom: 3 }}>

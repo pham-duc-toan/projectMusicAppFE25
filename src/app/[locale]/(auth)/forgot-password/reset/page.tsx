@@ -77,11 +77,17 @@ const ResetPasswordPage = () => {
   return (
     <Box
       sx={{
-        maxWidth: 400,
+        maxWidth: 600,
         margin: "50px auto",
         textAlign: "center",
         padding: 3,
         borderRadius: 2,
+        backgroundColor: "primary.A100",
+        width: "100%",
+        "@media (max-width: 768px)": {
+          padding: "15px",
+          width: "90%",
+        },
       }}
     >
       <Typography variant="h5" sx={{ marginBottom: 3 }}>

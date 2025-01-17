@@ -30,6 +30,7 @@
     }
   },
   "resetPassword": {
+    "title": "Đặt lại mật khẩu",
     "label": {
       "otp": "Mã OTP",
       "newPassword": "Mật khẩu mới",
@@ -335,7 +336,11 @@
       "forgotPassword": "Quên mật khẩu",
       "login": "Đăng nhập",
       "backToHome": "Quay lại trang chủ"
-    }
+    },
+    "divider": {
+      "or": "Hoặc"
+    },
+    "loginGoogle": "Đăng nhập với Google "
   },
   "RegisterPage": {
     "title": "Đăng ký tài khoản",
