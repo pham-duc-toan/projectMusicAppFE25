@@ -50,39 +50,35 @@ export default async function HomePage() {
         />
         <Container
           maxWidth="lg"
-          sx={{ py: 8, textAlign: "center", position: "relative", zIndex: 1 }}
+          sx={{ py: 8, position: "relative", zIndex: 1 }}
         >
           {/* Header */}
-          <Typography
-            sx={{
-              fontWeight: "600",
-              xs: {
-                fontSize: "36px",
-                lineHeight: "44px",
-              },
-              sm: {
-                fontSize: "50px",
-                lineHeight: "55px",
-              },
-              md: {
-                fontSize: "60px",
-                lineHeight: "70px",
-              },
-            }}
-            variant="h2"
-            component="h1"
-            gutterBottom
-          >
-            {t.rich("unlimitedMusic", {
-              br: () => <br />,
-            })}
-          </Typography>
-          <Typography variant="subtitle1" gutterBottom>
-            {t("upgradeAccount")}
-          </Typography>
+          <Box sx={{ width: "560px", marginLeft: "auto", marginRight: "auto" }}>
+            <Typography
+              sx={{
+                marginTop: "80px",
+                fontWeight: "600",
+                fontSize: { xs: "40px", sm: "50px", md: "60px" },
+                lineHeight: { xs: "30px", sm: "40px", md: "60px" },
+              }}
+              variant="h3"
+              gutterBottom
+            >
+              {t("unlimitedMusic1")}
+              <Box sx={{ height: "20px" }} />
+              {t("unlimitedMusic2")}
+            </Typography>
+            <Typography
+              variant="h3"
+              gutterBottom
+              sx={{ fontSize: "20px", color: "#FEFFFF99" }}
+            >
+              {t("upgradeAccount")}
+            </Typography>
+          </Box>
 
           {/* Plans */}
-          <Grid container spacing={4} justifyContent="center" sx={{ mt: 4 }}>
+          <Grid container spacing={4} justifyContent="center" sx={{ mt: 1 }}>
             {/* Plan Plus */}
             <Grid item xs={12} sm={6} md={6}>
               <Box

@@ -711,7 +711,8 @@
     "serverError": "Connection error with server."
   },
   "homePage": {
-    "unlimitedMusic": "Unlimited Music{br}Experience",
+    "unlimitedMusic1": "Unlimited",
+    "unlimitedMusic2": "Music Experience",
     "upgradeAccount": "Upgrade your account to enjoy premium features and content.",
     "becomeSinger": "Become a Singer",
     "price": "For 289,000 VND",

@@ -81,6 +81,7 @@ const RegisterNow = () => {
       onClick={handleRegisterNow}
       disabled={loading}
       sx={{
+        fontSize: "20px",
         backgroundColor: "#9457ff",
         ":hover": { backgroundColor: "#9457ff" },
         padding: "20px",

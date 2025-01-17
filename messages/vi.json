@@ -708,7 +708,8 @@
     "serverError": "Lỗi kết nối với server."
   },
   "homePage": {
-    "unlimitedMusic": "Âm nhạc{br}không giới hạn",
+    "unlimitedMusic1": "Âm nhạc",
+    "unlimitedMusic2": "Không giới hạn",
     "upgradeAccount": "Nâng cấp tài khoản để trải nghiệm các tính năng và nội dung cao cấp.",
     "becomeSinger": "Trở thành ca sĩ",
     "price": "Với 289,000đ",
