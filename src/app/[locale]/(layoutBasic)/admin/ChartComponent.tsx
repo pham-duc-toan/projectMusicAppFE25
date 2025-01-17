@@ -13,6 +13,7 @@ import {
 } from "chart.js";
 import { Box } from "@mui/material";
 import { useTheme } from "@emotion/react";
+import { useTranslations } from "next-intl";
 
 // Đăng ký các module của Chart.js
 ChartJS.register(
@@ -25,6 +26,7 @@ ChartJS.register(
 );
 
 const ChartComponent = ({ data }: { data: any }) => {
+  const t = useTranslations("chartComponent");
   const theme = useTheme();
   const options = {
     responsive: true,
@@ -33,35 +35,35 @@ const ChartComponent = ({ data }: { data: any }) => {
         position: "top" as const,
         labels: {
           //@ts-ignore
-          color: theme.palette.text.primary, // Màu chữ của legend
+          color: theme.palette.text.primary,
         },
       },
       title: {
         display: true,
-        text: "Biểu đồ doanh thu theo tháng",
+        text: t("title"), // Sử dụng chuỗi dịch
         //@ts-ignore
-        color: theme.palette.text.primary, // Màu chữ của title
+        color: theme.palette.text.primary,
       },
     },
     scales: {
       x: {
         ticks: {
           //@ts-ignore
-          color: theme.palette.text.primary, // Màu chữ của các nhãn trên trục x
+          color: theme.palette.text.primary,
         },
         grid: {
           //@ts-ignore
-          color: theme.palette.text.primary, // Màu các đường kẻ của trục x
+          color: theme.palette.text.primary,
         },
       },
       y: {
         ticks: {
           //@ts-ignore
-          color: theme.palette.text.primary, // Màu chữ của các nhãn trên trục y
+          color: theme.palette.text.primary,
         },
         grid: {
           //@ts-ignore
-          color: theme.palette.text.primary, // Màu các đường kẻ của trục y
+          color: theme.palette.text.primary,
         },
       },
     },

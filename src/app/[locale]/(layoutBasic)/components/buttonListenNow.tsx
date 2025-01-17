@@ -2,9 +2,9 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { TSongDetail } from "@/dataType/song"; // Import kiểu dữ liệu bài hát (thay thế đường dẫn đúng)
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/store/store";
-import { pause, play, setNewSong } from "@/store/playingMusicSlice";
+import { useDispatch } from "react-redux";
+import { play, setNewSong } from "@/store/playingMusicSlice";
+import { useTranslations } from "next-intl";
 
 interface ButtonListenNowProps {
   song: TSongDetail; // Tham số bài hát
@@ -12,6 +12,7 @@ interface ButtonListenNowProps {
 
 const ButtonListenNow: React.FC<ButtonListenNowProps> = ({ song }) => {
   const dispatch = useDispatch();
+  const t = useTranslations("ButtonListenNow");
 
   const handlePlayPauseClick = () => {
     dispatch(setNewSong(song as any));
@@ -34,9 +35,9 @@ const ButtonListenNow: React.FC<ButtonListenNowProps> = ({ song }) => {
       }}
       variant="outlined"
       color="primary"
-      onClick={handlePlayPauseClick} // Gắn sự kiện click
+      onClick={handlePlayPauseClick}
     >
-      Nghe Ngay
+      {t("buttonText")}
     </Button>
   );
 };

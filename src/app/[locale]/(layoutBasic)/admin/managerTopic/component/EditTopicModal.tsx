@@ -29,6 +29,7 @@ import { getAccessTokenFromLocalStorage } from "@/app/helper/localStorageClient"
 import axios, { AxiosProgressEvent } from "axios";
 import { revalidateByTag } from "@/app/action";
 import { apiBasicClient } from "@/app/utils/request";
+import { useTranslations } from "next-intl";
 
 interface Topic {
   _id: string;
@@ -51,6 +52,7 @@ const EditTopicModal: React.FC<EditTopicModalProps> = ({
   onClose,
   topic,
 }) => {
+  const t = useTranslations("editTopicModal");
   const [mounted, setMounted] = useState<boolean>(false);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
@@ -123,7 +125,7 @@ const EditTopicModal: React.FC<EditTopicModalProps> = ({
         }
         await revalidateByTag("revalidate-tag-topics");
         if (response?.data) {
-          showMessage("Chỉnh sửa thành công!", "success");
+          showMessage(t("messages.success"), "success");
         }
 
         onClose();
@@ -131,7 +133,7 @@ const EditTopicModal: React.FC<EditTopicModalProps> = ({
         showMessage(response.data.message || "Something went wrong", "error");
       }
     } catch (error: any) {
-      showMessage(error.response?.data?.message || "Lỗi khi upload!", "error");
+      showMessage(error.response?.data?.message || "Upload error!", "error");
     } finally {
       setProgress(0);
       setLoading(false);
@@ -151,7 +153,7 @@ const EditTopicModal: React.FC<EditTopicModalProps> = ({
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Edit Topic</DialogTitle>
+      <DialogTitle>{t("dialogTitle")}</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
@@ -164,7 +166,7 @@ const EditTopicModal: React.FC<EditTopicModalProps> = ({
                   },
                 }}
                 size="small"
-                label="Title"
+                label={t("fields.title")}
                 name="title"
                 defaultValue={topic.title}
                 required
@@ -172,15 +174,19 @@ const EditTopicModal: React.FC<EditTopicModalProps> = ({
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth size="small">
-                <InputLabel>Status</InputLabel>
+                <InputLabel>{t("fields.status")}</InputLabel>
                 <Select
-                  label="Status"
+                  label={t("fields.status")}
                   name="status"
                   defaultValue={topic.status}
                   onChange={handleStatusChange}
                 >
-                  <MenuItem value="active">Active</MenuItem>
-                  <MenuItem value="inactive">Inactive</MenuItem>
+                  <MenuItem value="active">
+                    {t("statusOptions.active")}
+                  </MenuItem>
+                  <MenuItem value="inactive">
+                    {t("statusOptions.inactive")}
+                  </MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -189,7 +195,7 @@ const EditTopicModal: React.FC<EditTopicModalProps> = ({
                 size="small"
                 fullWidth
                 defaultValue={topic.description || ""}
-                label="Description"
+                label={t("fields.description")}
                 name="description"
                 multiline
                 minRows={4}
@@ -197,7 +203,6 @@ const EditTopicModal: React.FC<EditTopicModalProps> = ({
               />
             </Grid>
 
-            {/* Avatar Upload */}
             {avatarPreview && (
               <Grid xs={12} item>
                 <Card
@@ -219,7 +224,7 @@ const EditTopicModal: React.FC<EditTopicModalProps> = ({
                     }}
                   />
                   <CardContent>
-                    <Typography>Avatar Preview</Typography>
+                    <Typography>{t("fields.avatarPreview")}</Typography>
                   </CardContent>
                   <IconButton
                     onClick={handleRemoveAvatar}
@@ -287,7 +292,7 @@ const EditTopicModal: React.FC<EditTopicModalProps> = ({
                 disabled={loading}
                 endIcon={loading ? <CircularProgress size={24} /> : null}
               >
-                {loading ? "Submitting..." : "Submit"}
+                {loading ? t("buttons.submitting") : t("buttons.submit")}
               </Button>
             </Grid>
           </Grid>
@@ -295,7 +300,7 @@ const EditTopicModal: React.FC<EditTopicModalProps> = ({
       </DialogContent>
       <DialogActions>
         <Button color="primary" onClick={onClose}>
-          Cancel
+          {t("buttons.cancel")}
         </Button>
       </DialogActions>
     </Dialog>

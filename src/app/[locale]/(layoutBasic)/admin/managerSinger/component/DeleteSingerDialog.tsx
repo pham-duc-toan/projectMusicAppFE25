@@ -14,6 +14,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { apiBasicClient } from "@/app/utils/request";
 import { useAppContext } from "@/context-app";
 import { revalidateByTag } from "@/app/action";
+import { useTranslations } from "next-intl";
 
 interface DeleteSingerDialogProps {
   singerId: string;
@@ -25,6 +26,7 @@ const DeleteSingerDialog: React.FC<DeleteSingerDialogProps> = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { showMessage } = useAppContext();
+  const t = useTranslations("deleteSingerDialog");
 
   const handleDelete = async () => {
     setLoading(true);
@@ -33,15 +35,15 @@ const DeleteSingerDialog: React.FC<DeleteSingerDialogProps> = ({
       if (response?.statusCode >= 300) {
         showMessage(response.message, "error");
       } else {
-        showMessage("Xóa ca sĩ thành công!", "success");
-        await revalidateByTag("revalidate-tag-singers"); // Revalidate dữ liệu
+        showMessage(t("successMessage"), "success");
+        await revalidateByTag("revalidate-tag-singers");
       }
     } catch (error) {
       console.error("Failed to delete singer:", error);
-      showMessage("Đã xảy ra lỗi khi xóa ca sĩ.", "error");
+      showMessage(t("errorMessage"), "error");
     } finally {
       setLoading(false);
-      setOpen(false); // Đóng dialog
+      setOpen(false);
     }
   };
 
@@ -52,15 +54,13 @@ const DeleteSingerDialog: React.FC<DeleteSingerDialogProps> = ({
       </IconButton>
 
       <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>Xóa ca sĩ</DialogTitle>
+        <DialogTitle>{t("title")}</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Bạn có chắc muốn xóa ca sĩ này? Thao tác này không thể hoàn tác.
-          </DialogContentText>
+          <DialogContentText>{t("confirmationText")}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)} color="inherit">
-            Hủy
+            {t("cancelButton")}
           </Button>
           <Button
             onClick={handleDelete}
@@ -68,7 +68,7 @@ const DeleteSingerDialog: React.FC<DeleteSingerDialogProps> = ({
             disabled={loading}
             variant="contained"
           >
-            {loading ? "Đang xóa..." : "Xóa"}
+            {loading ? t("deleting") : t("deleteButton")}
           </Button>
         </DialogActions>
       </Dialog>

@@ -10,9 +10,7 @@ import {
   TableRow,
   Paper,
   Avatar,
-  IconButton,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { apiBasicServer } from "@/app/utils/request";
 
 import { GetAccessTokenFromCookie } from "@/app/utils/checkRole";
@@ -20,10 +18,12 @@ import StatusChip from "./component/StatusChip";
 import DeleteUserButton from "./component/DeleteUserButton";
 import EditRoleUserModal from "./component/EditRoleUserModal";
 import PaginationComponent from "@/component/PaginationComponent";
+import { getTranslations } from "next-intl/server";
 
 interface User {
   _id: string;
   username: string;
+  userId: string;
   avatar: string;
   status: string;
   role: {
@@ -32,11 +32,11 @@ interface User {
   };
 }
 
-const limitItem = 4; // Số lượng người dùng hiển thị trên mỗi trang
+const limitItem = 4;
 
 const fetchUsers = async (page: number) => {
   const access_token = GetAccessTokenFromCookie();
-  const skip = (page - 1) * limitItem; // Tính toán vị trí bắt đầu
+  const skip = (page - 1) * limitItem;
   try {
     const response = await apiBasicServer(
       "GET",
@@ -57,10 +57,11 @@ const fetchUsers = async (page: number) => {
 };
 
 const ManagerUserPage = async ({ searchParams }: { searchParams: any }) => {
-  const currentPage = parseInt(searchParams?.page || "1", 10); // Lấy trang hiện tại từ URL
+  const t = await getTranslations("managerUserPage");
+  const currentPage = parseInt(searchParams?.page || "1", 10);
   const { users, total } = await fetchUsers(currentPage);
 
-  const totalPages = Math.ceil(total / limitItem); // Tính tổng số trang
+  const totalPages = Math.ceil(total / limitItem);
 
   return (
     <Box sx={{ padding: 3 }}>
@@ -70,7 +71,7 @@ const ManagerUserPage = async ({ searchParams }: { searchParams: any }) => {
         marginBottom={"15px"}
       >
         <Typography variant="h4" gutterBottom>
-          Quản lý người dùng
+          {t("title")}
         </Typography>
       </Box>
 
@@ -78,12 +79,12 @@ const ManagerUserPage = async ({ searchParams }: { searchParams: any }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>STT</TableCell>
-              <TableCell>Hình ảnh</TableCell>
-              <TableCell>Tên người dùng</TableCell>
-              <TableCell>Vai trò</TableCell>
-              <TableCell>Trạng thái</TableCell>
-              <TableCell>Hành động</TableCell>
+              <TableCell>{t("tableHeaders.index")}</TableCell>
+              <TableCell>{t("tableHeaders.avatar")}</TableCell>
+              <TableCell>{t("tableHeaders.username")}</TableCell>
+              <TableCell>{t("tableHeaders.role")}</TableCell>
+              <TableCell>{t("tableHeaders.status")}</TableCell>
+              <TableCell>{t("tableHeaders.actions")}</TableCell>
             </TableRow>
           </TableHead>
 
@@ -94,20 +95,18 @@ const ManagerUserPage = async ({ searchParams }: { searchParams: any }) => {
                 <TableCell>
                   <Avatar
                     src={user.avatar}
-                    alt={user.username}
+                    alt={user.userId}
                     variant="rounded"
                   />
                 </TableCell>
-                <TableCell>{user.username}</TableCell>
-                <TableCell>
-                  {user?.role?.roleName || "Không có vai trò"}
-                </TableCell>
+                <TableCell>{user.userId}</TableCell>
+                <TableCell>{user?.role?.roleName || t("noRole")}</TableCell>
                 <TableCell>
                   <StatusChip id={user._id} status={user.status} />
                 </TableCell>
                 <TableCell>
                   <EditRoleUserModal user={user} />
-                  <DeleteUserButton id={user._id} username={user.username} />
+                  <DeleteUserButton id={user._id} username={user.userId} />
                 </TableCell>
               </TableRow>
             ))}

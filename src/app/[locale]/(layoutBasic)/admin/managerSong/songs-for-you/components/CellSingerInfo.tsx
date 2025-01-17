@@ -2,6 +2,7 @@
 import React from "react";
 import { Typography, Popover, Paper, Avatar, TableCell } from "@mui/material";
 import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 interface SingerInfoPopoverProps {
   singer: {
@@ -16,6 +17,7 @@ interface SingerInfoPopoverProps {
 }
 
 const CellSingerInfo: React.FC<SingerInfoPopoverProps> = ({ singer }) => {
+  const t = useTranslations("cellSingerInfo");
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [position, setPosition] = React.useState<"top" | "bottom">("bottom");
 
@@ -49,7 +51,7 @@ const CellSingerInfo: React.FC<SingerInfoPopoverProps> = ({ singer }) => {
         onMouseLeave={handlePopoverClose}
       >
         <Link href={`/singers/detailSinger/${singer.slug}`}>
-          {singer?.fullName || "Không rõ ca sĩ"}
+          {singer?.fullName || t("unknownSinger")}
         </Link>
       </TableCell>
 
@@ -90,7 +92,7 @@ const CellSingerInfo: React.FC<SingerInfoPopoverProps> = ({ singer }) => {
             {singer.fullName}
           </Typography>
           <Typography variant="body2" sx={{ marginBottom: "10px" }}>
-            <strong>Tham gia vào:</strong>{" "}
+            <strong>{t("joinedAt")}</strong>{" "}
             {new Date(singer.createdAt).toLocaleDateString("vi-VN", {
               day: "2-digit",
               month: "2-digit",

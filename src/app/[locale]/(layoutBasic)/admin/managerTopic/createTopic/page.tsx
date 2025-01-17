@@ -2,8 +2,11 @@ import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 import { Link } from "@/i18n/routing";
 import TopicCreateComponent from "./components/TopicCreateComponent";
+import { getTranslations } from "next-intl/server";
 
-const createPage = () => {
+const createPage = async () => {
+  const t = await getTranslations("createPage");
+
   return (
     <>
       <Box
@@ -13,14 +16,15 @@ const createPage = () => {
         alignItems={"center"}
       >
         <h1 style={{ marginBottom: "30px", marginTop: "40px" }}>
-          Tạo chủ đề mới
+          {t("title")}
         </h1>
         <Button variant="contained">
-          <Link href={"/admin/managerTopic"}>Quản lý chủ đề</Link>
+          <Link href={"/admin/managerTopic"}>{t("button")}</Link>
         </Button>
       </Box>
       <TopicCreateComponent />
     </>
   );
 };
+
 export default createPage;

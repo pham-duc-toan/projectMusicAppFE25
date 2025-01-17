@@ -6,7 +6,7 @@ export const GetAccessTokenFromCookie = () => {
   const refresh_token = cookieStore.get("refresh_token");
   const access_token = cookieStore.get("access_token");
   if (!refresh_token) {
-    redirect(`/login`);
+    redirect(`en/login`);
   }
   if (!access_token) {
     redirect(`/`);

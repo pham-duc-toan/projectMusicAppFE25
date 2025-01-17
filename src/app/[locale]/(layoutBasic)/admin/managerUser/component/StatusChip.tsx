@@ -5,6 +5,7 @@ import { Chip, CircularProgress } from "@mui/material";
 import { apiBasicClient } from "@/app/utils/request";
 import { useAppContext } from "@/context-app";
 import { revalidateByTag } from "@/app/action";
+import { useTranslations } from "next-intl";
 
 interface StatusChipProps {
   id: string;
@@ -12,6 +13,7 @@ interface StatusChipProps {
 }
 
 const StatusChip: React.FC<StatusChipProps> = ({ id, status }) => {
+  const t = useTranslations("statusChip");
   const [currentStatus, setCurrentStatus] = useState(status);
   const [loading, setLoading] = useState(false);
   const { showMessage } = useAppContext();
@@ -28,11 +30,11 @@ const StatusChip: React.FC<StatusChipProps> = ({ id, status }) => {
       } else {
         setCurrentStatus(response.data.status); // Cập nhật trạng thái mới
         await revalidateByTag("revalidate-tag-users"); // Revalidate dữ liệu
-        showMessage("Cập nhật trạng thái thành công!", "success");
+        showMessage(t("messages.success"), "success");
       }
     } catch (error) {
       console.error("Failed to change status:", error);
-      showMessage("Đã xảy ra lỗi khi thay đổi trạng thái.", "error");
+      showMessage(t("messages.error"), "error");
     } finally {
       setLoading(false);
     }
@@ -42,7 +44,9 @@ const StatusChip: React.FC<StatusChipProps> = ({ id, status }) => {
     <CircularProgress size={20} />
   ) : (
     <Chip
-      label={currentStatus === "active" ? "Hoạt động" : "Không hoạt động"}
+      label={
+        currentStatus === "active" ? t("label.active") : t("label.inactive")
+      }
       color={currentStatus === "active" ? "success" : "error"}
       onClick={handleStatusChange}
       clickable

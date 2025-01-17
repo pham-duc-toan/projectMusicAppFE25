@@ -6,6 +6,371 @@
   "PlayListPage": {
     "no-playlist": "There is currently no playlist."
   },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "form": {
+      "emailPlaceholder": "Enter your email",
+      "submit": "Send Request",
+      "loading": "Sending..."
+    },
+    "messages": {
+      "emailRequired": "Please enter your email",
+      "requestSuccess": "Password reset request sent. Please check your email.",
+      "error": "An error occurred"
+    },
+    "button": {
+      "back": "Back"
+    }
+  },
+  "resetPassword": {
+    "label": {
+      "otp": "OTP Code",
+      "newPassword": "New Password",
+      "confirmNewPassword": "Confirm New Password"
+    },
+    "button": {
+      "resetPassword": "Reset Password",
+      "back": "Back"
+    },
+    "error": {
+      "requiredFields": "Please fill in all the required fields.",
+      "passwordMismatch": "New password and confirmation password do not match.",
+      "generic": "An error occurred. Please try again."
+    },
+    "success": {
+      "passwordReset": "Your password has been successfully reset!"
+    }
+  },
+
+  "adminPage": {
+    "title": "Admin Dashboard",
+    "chart": {
+      "label": "Revenue (Million VND)",
+      "monthYear": "Month {month}/{year}"
+    }
+  },
+
+  "chartComponent": {
+    "title": "Revenue Chart by Month"
+  },
+
+  "deleteSingerDialog": {
+    "title": "Delete Singer",
+    "confirmationText": "Are you sure you want to delete this singer? This action cannot be undone.",
+    "cancelButton": "Cancel",
+    "deleteButton": "Delete",
+    "deleting": "Deleting...",
+    "successMessage": "Singer deleted successfully!",
+    "errorMessage": "An error occurred while deleting the singer."
+  },
+
+  "statusChip": {
+    "label": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "messages": {
+      "success": "Status updated successfully!",
+      "error": "An error occurred while changing the status."
+    },
+    "tooltip": "Đổi trạng thái"
+  },
+  "managerSingerPage": {
+    "title": "Singer Management",
+    "tableHeaders": {
+      "index": "No.",
+      "avatar": "Avatar",
+      "fullName": "Singer Name",
+      "status": "Status",
+      "actions": "Actions"
+    }
+  },
+  "songForYouButton": {
+    "messages": {
+      "added": "Added to your recommendations!",
+      "removed": "Removed from your recommendations!"
+    }
+  },
+  "cellSingerInfo": {
+    "unknownSinger": "Unknown singer",
+    "joinedAt": "Joined on:"
+  },
+  "cellTopicInfo": {
+    "unknownTopic": "Unknown topic",
+    "noDescription": "No description"
+  },
+  "manageFeaturedSongs": {
+    "title": "Manage Featured Songs",
+    "manageSongs": "Manage Songs",
+    "updateOrder": "Update Current Order",
+    "tableHeaders": {
+      "priority": "Priority Order",
+      "image": "Image",
+      "title": "Title",
+      "topic": "Topic",
+      "singer": "Singer",
+      "featured": "Featured"
+    },
+    "tooltips": {
+      "removeFeatured": "Remove from Featured"
+    },
+    "emptyState": "No featured songs available"
+  },
+  "managerSongPage": {
+    "title": "Manage Songs",
+    "redirectButton": "Manage Featured Songs",
+    "tableHeaders": {
+      "index": "No.",
+      "image": "Image",
+      "title": "Title",
+      "topic": "Topic",
+      "singer": "Singer",
+      "play": "Play",
+      "status": "Status",
+      "featured": "Featured"
+    },
+    "unknown": "Unknown"
+  },
+  "buttonActionModal": {
+    "tooltips": {
+      "view": "View Details",
+      "edit": "Edit",
+      "delete": "Delete Topic"
+    },
+    "messages": {
+      "deleteSuccess": "Topic deleted successfully!"
+    },
+    "dialog": {
+      "confirmDelete": "Confirm Delete",
+      "confirmMessage": "Are you sure you want to delete this topic?",
+      "cancel": "Cancel",
+      "deleting": "Deleting",
+      "confirm": "Yes"
+    }
+  },
+  "editTopicModal": {
+    "dialogTitle": "Edit Topic",
+    "fields": {
+      "title": "Title",
+      "status": "Status",
+      "description": "Description",
+      "avatarPreview": "Avatar Preview"
+    },
+    "statusOptions": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "buttons": {
+      "submit": "Submit",
+      "submitting": "Submitting...",
+      "cancel": "Cancel"
+    }
+  },
+  "viewTopicModal": {
+    "dialogTitle": "Topic Details",
+    "fields": {
+      "title": "Topic Name:",
+      "description": "Description:",
+      "status": "Status:",
+      "active": "Active",
+      "inactive": "Inactive",
+      "slug": "Slug:"
+    },
+    "buttons": {
+      "close": "Close"
+    }
+  },
+  "topicCreateComponent": {
+    "fields": {
+      "title": "Title",
+      "status": "Status",
+      "description": "Description",
+      "avatarPreview": "Avatar Preview"
+    },
+    "statusOptions": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "messages": {
+      "uploadError": "Please upload an image file",
+      "createSuccess": "Created successfully!",
+      "uploadFailure": "Upload error!"
+    },
+    "buttons": {
+      "submit": "Submit",
+      "submitting": "Submitting..."
+    }
+  },
+  "createPage": {
+    "title": "Create New Topic",
+    "button": "Manage Topics"
+  },
+  "managerTopic": {
+    "title": "Manage Topics",
+    "addButton": "Add New Topic",
+    "tableHeaders": {
+      "index": "No.",
+      "image": "Image",
+      "name": "Topic Name",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    }
+  },
+  "deleteUserButton": {
+    "messages": {
+      "success": "Successfully deleted user \"{username}\"!",
+      "error": "An error occurred while deleting the user."
+    },
+    "dialog": {
+      "title": "Confirm Deletion",
+      "content": "Are you sure you want to delete user ",
+      "cancel": "Cancel",
+      "deleting": "Deleting...",
+      "delete": "Delete"
+    }
+  },
+  "editRoleUserModal": {
+    "dialogTitle": "Edit User Role",
+    "form": {
+      "selectRole": "Select Role"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "submitting": "Submitting...",
+      "submit": "Submit"
+    },
+    "messages": {
+      "success": "Role updated successfully",
+      "failure": "Failed to update role",
+      "error": "Error updating role"
+    }
+  },
+  "managerUserPage": {
+    "title": "Manage Users",
+    "tableHeaders": {
+      "index": "No.",
+      "avatar": "Avatar",
+      "username": "Username",
+      "role": "Role",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "noRole": "No role"
+  },
+  "PermissionPage": {
+    "dialogs": {
+      "addPermission": "Add New Permission",
+      "editPermission": "Edit Permission",
+      "viewPermission": "View Permission Details",
+      "addRole": "Add New Role",
+      "deleteConfirmation": "Are you sure you want to delete the permission \"{name}\"?"
+    },
+    "fields": {
+      "name": "Permission Name",
+      "pathName": "Path Name",
+      "method": "Method",
+      "roleName": "Role Name"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "add": "Add",
+      "saveChanges": "Save Changes",
+      "delete": "Delete",
+      "addPermission": "Add Permission",
+      "addRole": "Add Role"
+    },
+    "table": {
+      "feature": "Feature",
+      "actions": "Actions"
+    },
+    "messages": {
+      "updateSuccess": "Roles and permissions updated successfully.",
+      "roleCreateSuccess": "Role created successfully.",
+      "roleDeleteSuccess": "Role deleted successfully."
+    },
+    "errors": {
+      "noRoles": "No roles available",
+      "noPermissions": "No permissions created",
+      "serverConnection": "Server connection error",
+      "fetchError": "Unable to fetch data from API",
+      "addPermission": "Unable to add new permission",
+      "updateFailed": "Failed to update roles and permissions.",
+      "createRoleFailed": "Failed to create role.",
+      "deleteRoleFailed": "Failed to delete role."
+    },
+    "title": "Manage Permissions and Roles",
+    "addPermission": "Add New Permission",
+    "addRole": "Add New Role",
+    "addRoleTitle": "Add New Role",
+    "roleName": "Role Name",
+    "feature": "Feature",
+    "noRoles": "No roles available",
+    "action": "Action",
+    "noPermissions": "No permissions created",
+    "saveChanges": "Save Changes",
+    "cancel": "Cancel",
+    "create": "Create"
+  },
+  "FormLogin": {
+    "title": "Login",
+    "fields": {
+      "username": "Username",
+      "password": "Password"
+    },
+    "errors": {
+      "usernameEmpty": "Username cannot be empty.",
+      "passwordEmpty": "Password cannot be empty."
+    },
+    "buttons": {
+      "register": "Register",
+      "forgotPassword": "Forgot Password",
+      "login": "Login",
+      "backToHome": "Back to Home"
+    }
+  },
+  "RegisterPage": {
+    "title": "Register an Account",
+    "fields": {
+      "username": "Username",
+      "fullName": "Full Name",
+      "userId": "User ID",
+      "password": "Password",
+      "confirmPassword": "Confirm Password"
+    },
+    "buttons": {
+      "register": "Register",
+      "processing": "Processing...",
+      "back": "Back"
+    },
+    "errors": {
+      "missingFields": "Please fill in all the required fields",
+      "passwordMismatch": "Password and confirm password do not match",
+      "unknownError": "An error occurred"
+    }
+  },
+  "ButtonListenNow": {
+    "buttonText": "Listen Now"
+  },
+  "SingerInfo": {
+    "unknownSinger": "Unknown Singer",
+    "singerPrefix": "Singer",
+    "joinedAt": "Joined At"
+  },
+  "Slider": {
+    "rank": "Rank",
+    "createdAt": "Created At"
+  },
+  "NotFoundPage": {
+    "imageAlt": "404 Error Image",
+    "title": "404",
+    "description": "The page you are looking for does not exist!",
+    "goHome": "Go to Home"
+  },
+
   "Layout": {
     "header-search": "Search for songs, artists, lyrics...",
     "header-loggin": "Log in",
@@ -43,9 +408,7 @@
     "ChiTiet": "Details",
     "Huy": "Cancel"
   },
-  "PermissionPage": {
-    "title": "Permission Page"
-  },
+
   "language": {
     "en": "English",
     "vi": "Vietnamese"

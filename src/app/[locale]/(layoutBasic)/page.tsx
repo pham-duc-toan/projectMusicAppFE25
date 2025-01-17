@@ -169,51 +169,51 @@ export default async function Dashboard() {
       <Grid container spacing={2} sx={{ marginBottom: "40px" }}>
         {songsForYou.map((song: TSongDetail, index: number) => (
           <Grid item xs={6} sm={4} md={3} lg={2} key={index}>
-            <Link href={`/songs/detail/${song.slug}`}>
-              <Card sx={{ height: "400px" }}>
-                <CardMedia
-                  component="img"
-                  image={song.avatar}
-                  alt={song.title}
+            <Card sx={{ height: "400px" }}>
+              <CardMedia
+                component="img"
+                image={song.avatar}
+                alt={song.title}
+                sx={{
+                  borderRadius: "4px",
+                  objectFit: "cover",
+                  // width: "200px",
+                  height: "200px",
+                }}
+              />
+              <Box height={"200px"} padding={"20px"}>
+                <Box
+                  display={"flex"}
                   sx={{
-                    borderRadius: "4px",
-                    objectFit: "cover",
-                    // width: "200px",
-                    height: "200px",
+                    height: "100%",
+                    justifyContent: "space-between",
+                    flexDirection: "column",
                   }}
-                />
-                <Box height={"200px"} padding={"20px"}>
-                  <Box
-                    display={"flex"}
-                    sx={{
-                      height: "100%",
-                      justifyContent: "space-between",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <Box>
-                      <Typography
-                        variant="h6"
-                        sx={{
-                          fontWeight: 500,
-                          //combo hien thi 3 cham
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 2,
-                          overflow: "hidden",
-                          wordWrap: "break-word",
-                        }}
-                      >
+                >
+                  <Box>
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: 500,
+                        //combo hien thi 3 cham
+                        display: "-webkit-box",
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: 2,
+                        overflow: "hidden",
+                        wordWrap: "break-word",
+                      }}
+                    >
+                      <Link href={`/songs/detail/${song.slug}`}>
                         {song.title}
-                      </Typography>
-                      <SingerInfo singer={song.singerId} />
-                    </Box>
-
-                    <ButtonListenNow song={song} />
+                      </Link>
+                    </Typography>
+                    <SingerInfo singer={song.singerId} />
                   </Box>
+
+                  <ButtonListenNow song={song} />
                 </Box>
-              </Card>
-            </Link>
+              </Box>
+            </Card>
           </Grid>
         ))}
       </Grid>
@@ -253,63 +253,51 @@ export default async function Dashboard() {
       <Grid container spacing={2} sx={{ marginBottom: "40px" }}>
         {newSong.map((song: TSongDetail, index: number) => (
           <Grid item xs={6} sm={4} md={3} lg={2} key={index}>
-            <Link href={`/songs/detail/${song.slug}`}>
-              <Card sx={{ height: "400px" }}>
-                <CardMedia
-                  component="img"
-                  image={song.avatar}
-                  alt={song.title}
+            <Card sx={{ height: "400px" }}>
+              <CardMedia
+                component="img"
+                image={song.avatar}
+                alt={song.title}
+                sx={{
+                  borderRadius: "4px",
+                  objectFit: "cover",
+                  // width: "200px",
+                  height: "200px",
+                }}
+              />
+              <Box height={"200px"} padding={"20px"}>
+                <Box
+                  display={"flex"}
                   sx={{
-                    borderRadius: "4px",
-                    objectFit: "cover",
-                    // width: "200px",
-                    height: "200px",
+                    height: "100%",
+                    justifyContent: "space-between",
+                    flexDirection: "column",
                   }}
-                />
-                <Box height={"200px"} padding={"20px"}>
-                  <Box
-                    display={"flex"}
-                    sx={{
-                      height: "100%",
-                      justifyContent: "space-between",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <Box>
-                      <Typography
-                        variant="h6"
-                        sx={{
-                          fontWeight: 500,
-                          //combo hien thi 3 cham
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 2,
-                          overflow: "hidden",
-                          wordWrap: "break-word",
-                        }}
-                      >
+                >
+                  <Box>
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: 500,
+                        //combo hien thi 3 cham
+                        display: "-webkit-box",
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: 2,
+                        overflow: "hidden",
+                        wordWrap: "break-word",
+                      }}
+                    >
+                      <Link href={`/songs/detail/${song.slug}`}>
                         {song.title}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        sx={{
-                          //combo hien thi 3 cham
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 1,
-                          overflow: "hidden",
-                          wordWrap: "break-word",
-                        }}
-                      >
-                        <SingerInfo singer={song.singerId} />
-                      </Typography>
-                    </Box>
-                    <ButtonListenNow song={song} />
+                      </Link>
+                    </Typography>
+
+                    <SingerInfo singer={song.singerId} />
                   </Box>
+                  <ButtonListenNow song={song} />
                 </Box>
-              </Card>
-            </Link>
+              </Box>
+            </Card>
           </Grid>
         ))}
       </Grid>

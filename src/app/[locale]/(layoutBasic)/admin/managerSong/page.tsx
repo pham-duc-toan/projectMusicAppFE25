@@ -18,6 +18,7 @@ import { apiBasicServer } from "@/app/utils/request";
 import { GetAccessTokenFromCookie } from "@/app/utils/checkRole";
 import ButtonRedirect from "@/component/buttonRedirect";
 import PaginationComponent from "@/component/PaginationComponent";
+import { getTranslations } from "next-intl/server";
 
 interface Topic {
   _id: string;
@@ -36,13 +37,16 @@ interface Song {
   topicId: Topic;
   status: string;
 }
+
 interface SongsProps {
   searchParams: { page?: string }; // Lấy query `page` từ URL
 }
 
 const ManagerSongPage = async ({ searchParams }: SongsProps) => {
+  const t = await getTranslations("managerSongPage");
   const limitItem = 12;
   const currentPage = parseInt(searchParams?.page || "1", 10);
+
   const fetchSongs = async (): Promise<{
     songs: Song[];
     listSongForYou: string[];
@@ -94,11 +98,11 @@ const ManagerSongPage = async ({ searchParams }: SongsProps) => {
         marginBottom={"15px"}
       >
         <Typography variant="h4" gutterBottom>
-          Quản lý bài hát
+          {t("title")}
         </Typography>
         <ButtonRedirect
           link="/admin/managerSong/songs-for-you"
-          content="Quản lý bài hát đề cử"
+          content={t("redirectButton")}
           variant="outlined"
           color="primary"
         />
@@ -108,14 +112,14 @@ const ManagerSongPage = async ({ searchParams }: SongsProps) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>STT</TableCell>
-              <TableCell>Hình ảnh</TableCell>
-              <TableCell>Tiêu đề</TableCell>
-              <TableCell>Chủ đề</TableCell>
-              <TableCell>Ca sĩ</TableCell>
-              <TableCell>Phát</TableCell>
-              <TableCell>Trạng thái</TableCell>
-              <TableCell>Đề cử</TableCell>
+              <TableCell>{t("tableHeaders.index")}</TableCell>
+              <TableCell>{t("tableHeaders.image")}</TableCell>
+              <TableCell>{t("tableHeaders.title")}</TableCell>
+              <TableCell>{t("tableHeaders.topic")}</TableCell>
+              <TableCell>{t("tableHeaders.singer")}</TableCell>
+              <TableCell>{t("tableHeaders.play")}</TableCell>
+              <TableCell>{t("tableHeaders.status")}</TableCell>
+              <TableCell>{t("tableHeaders.featured")}</TableCell>
             </TableRow>
           </TableHead>
 
@@ -131,8 +135,8 @@ const ManagerSongPage = async ({ searchParams }: SongsProps) => {
                   />
                 </TableCell>
                 <TableCell>{song.title}</TableCell>
-                <TableCell>{song.topicId?.title || "Không rõ"}</TableCell>
-                <TableCell>{song.singerId?.fullName || "Không rõ"}</TableCell>
+                <TableCell>{song.topicId?.title || t("unknown")}</TableCell>
+                <TableCell>{song.singerId?.fullName || t("unknown")}</TableCell>
                 <TableCell>
                   <PlayPauseButton song={song} />
                 </TableCell>

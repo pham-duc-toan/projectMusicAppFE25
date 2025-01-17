@@ -20,6 +20,8 @@ import { apiBasicClient } from "@/app/utils/request";
 import { useAppContext } from "@/context-app";
 import { useRouter } from "next/navigation";
 import { revalidateByTag } from "@/app/action";
+import { useTranslations } from "next-intl";
+
 interface User {
   _id: string;
   username: string;
@@ -35,6 +37,7 @@ interface EditRoleUserModalProps {
 }
 
 const EditRoleUserModal: React.FC<EditRoleUserModalProps> = ({ user }) => {
+  const t = useTranslations("editRoleUserModal");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [roles, setRoles] = useState<any[]>([]);
@@ -80,13 +83,13 @@ const EditRoleUserModal: React.FC<EditRoleUserModalProps> = ({ user }) => {
 
       if (res?.data) {
         await revalidateByTag("revalidate-tag-users");
-        showMessage("Role updated successfully", "success");
+        showMessage(t("messages.success"), "success");
         handleClose();
       } else {
-        showMessage("Failed to update role", "error");
+        showMessage(t("messages.failure"), "error");
       }
     } catch (error) {
-      showMessage("Error updating role", "error");
+      showMessage(t("messages.error"), "error");
     } finally {
       setLoading(false);
     }
@@ -106,16 +109,16 @@ const EditRoleUserModal: React.FC<EditRoleUserModalProps> = ({ user }) => {
           sx: { width: "400px", maxWidth: "100%" },
         }}
       >
-        <DialogTitle>Chỉnh sửa vai trò của người dùng</DialogTitle>
+        <DialogTitle>{t("dialogTitle")}</DialogTitle>
         <DialogContent>
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12} marginTop={"10px"}>
                 <FormControl fullWidth>
-                  <InputLabel>Chọn vai trò</InputLabel>
+                  <InputLabel>{t("form.selectRole")}</InputLabel>
                   <Select
                     name="role"
-                    label="Chọn vai trò"
+                    label={t("form.selectRole")}
                     value={selectedRoleId}
                     onChange={(e) => setSelectedRoleId(e.target.value)}
                   >
@@ -132,11 +135,11 @@ const EditRoleUserModal: React.FC<EditRoleUserModalProps> = ({ user }) => {
         </DialogContent>
         <DialogActions
           sx={{
-            justifyContent: "space-between", // Chia đều khoảng cách giữa các nút
+            justifyContent: "space-between",
           }}
         >
           <Button color="primary" onClick={handleClose}>
-            Cancel
+            {t("buttons.cancel")}
           </Button>
           <Button
             type="submit"
@@ -144,9 +147,9 @@ const EditRoleUserModal: React.FC<EditRoleUserModalProps> = ({ user }) => {
             color="primary"
             disabled={loading}
             endIcon={loading ? <CircularProgress size={24} /> : null}
-            onClick={handleSubmit} // Gọi hàm submit khi bấm nút
+            onClick={handleSubmit}
           >
-            {loading ? "Submitting..." : "Submit"}
+            {loading ? t("buttons.submitting") : t("buttons.submit")}
           </Button>
         </DialogActions>
       </Dialog>

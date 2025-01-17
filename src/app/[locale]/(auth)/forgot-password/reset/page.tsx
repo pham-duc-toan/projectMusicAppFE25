@@ -1,58 +1,54 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
-  TextField,
   Typography,
   CircularProgress,
   IconButton,
 } from "@mui/material";
-import { apiBasicClientPublic } from "@/app/utils/request"; // API client để gửi yêu cầu
-import { useRouter } from "next/navigation";
+import { apiBasicClientPublic } from "@/app/utils/request";
+
 import { useAppContext } from "@/context-app";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {
   CustomTextFieldPassword,
   CustomTextFieldUsername,
 } from "../../login/components/text-field-customize";
-import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/routing";
 
 const ResetPasswordPage = () => {
+  const t = useTranslations("resetPassword");
   const router = useRouter();
-  const locale = useLocale();
   const { showMessage } = useAppContext();
-  const [loading, setLoading] = useState<boolean>(false); // Trạng thái loading khi gửi yêu cầu
-  const [error, setError] = useState<string>(""); // Thông báo lỗi
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Lấy giá trị từ form thông qua e.target
     const formData = new FormData(e.currentTarget);
     const otp = formData.get("otp") as string;
     const newPassword = formData.get("newPassword") as string;
     const confirmNewPassword = formData.get("confirmNewPassword") as string;
 
-    // Kiểm tra dữ liệu nhập
     if (!otp || !newPassword || !confirmNewPassword) {
-      setError("Vui lòng nhập đủ thông tin.");
+      setError(t("error.requiredFields"));
       return;
     }
 
     if (newPassword !== confirmNewPassword) {
-      setError("Mật khẩu mới và xác nhận mật khẩu không khớp.");
+      setError(t("error.passwordMismatch"));
       return;
     }
 
     setLoading(true);
     setError("");
     const savedEmail = localStorage.getItem("emailResetPassword");
-    console.log(savedEmail);
 
     try {
-      // Gửi yêu cầu reset mật khẩu lên backend
       const res = await apiBasicClientPublic(
         "POST",
         "/forgot-password/verify",
@@ -60,24 +56,19 @@ const ResetPasswordPage = () => {
         {
           otp,
           passNew: newPassword,
-          email: savedEmail, // Gửi email đi kèm để thay đổi mật khẩu
+          email: savedEmail,
         }
       );
 
-      // Nếu có lỗi trong response
       if (res?.statusCode >= 300) {
         showMessage(res.message, "error");
       } else {
-        // Reset mật khẩu thành công
-        showMessage("Mật khẩu đã được thay đổi thành công!", "success");
-
-        // Xóa email khỏi localStorage sau khi reset thành công
+        showMessage(t("success.passwordReset"), "success");
         localStorage.removeItem("emailResetPassword");
-
-        router.push(`/${locale}/login`); // Chuyển về trang login sau khi reset thành công
+        router.push(`/login`);
       }
     } catch (error: any) {
-      setError(error?.message || "Có lỗi xảy ra, vui lòng thử lại.");
+      setError(error?.message || t("error.generic"));
     } finally {
       setLoading(false);
     }
@@ -94,10 +85,9 @@ const ResetPasswordPage = () => {
       }}
     >
       <Typography variant="h5" sx={{ marginBottom: 3 }}>
-        Đặt lại mật khẩu
+        {t("title")}
       </Typography>
 
-      {/* Form nhập OTP và mật khẩu mới */}
       <form onSubmit={handleSubmit}>
         {error && (
           <Typography variant="body2" color="primary" sx={{ marginBottom: 2 }}>
@@ -109,7 +99,7 @@ const ResetPasswordPage = () => {
           fullWidth
           type="text"
           name="otp"
-          label="Mã OTP"
+          label={t("label.otp")}
           variant="outlined"
           margin="normal"
           autoFocus
@@ -118,7 +108,7 @@ const ResetPasswordPage = () => {
           fullWidth
           type="password"
           name="newPassword"
-          label="Mật khẩu mới"
+          label={t("label.newPassword")}
           variant="outlined"
           margin="normal"
         />
@@ -126,7 +116,7 @@ const ResetPasswordPage = () => {
           fullWidth
           type="password"
           name="confirmNewPassword"
-          label="Nhập lại mật khẩu mới"
+          label={t("label.confirmNewPassword")}
           variant="outlined"
           margin="normal"
         />
@@ -142,10 +132,10 @@ const ResetPasswordPage = () => {
           {loading ? (
             <CircularProgress size={24} color="inherit" />
           ) : (
-            "Đặt lại mật khẩu"
+            t("button.resetPassword")
           )}
         </Button>
-        <IconButton onClick={() => router.back()} aria-label="Quay lại">
+        <IconButton onClick={() => router.back()} aria-label={t("button.back")}>
           <ArrowBackIcon />
         </IconButton>
       </form>

@@ -5,6 +5,7 @@ import { Chip, CircularProgress } from "@mui/material";
 import { apiBasicClient } from "@/app/utils/request";
 import { useAppContext } from "@/context-app";
 import { revalidateByTag } from "@/app/action";
+import { useTranslations } from "next-intl";
 
 interface StatusChipProps {
   id: string;
@@ -12,6 +13,7 @@ interface StatusChipProps {
 }
 
 const StatusChip: React.FC<StatusChipProps> = ({ id, status }) => {
+  const t = useTranslations("statusChip"); // Ngữ cảnh statusChip
   const [currentStatus, setCurrentStatus] = useState(status);
   const [loading, setLoading] = useState(false);
   const { showMessage } = useAppContext();
@@ -24,15 +26,15 @@ const StatusChip: React.FC<StatusChipProps> = ({ id, status }) => {
         `/singers/changeStatus/${id}`
       );
       if (response?.statusCode >= 300) {
-        showMessage(response.message, "error");
+        showMessage(response.message, "error"); // Lấy message từ API (giữ nguyên)
       } else {
         await revalidateByTag("revalidate-tag-singers");
-        setCurrentStatus(response.data.status); // Cập nhật trạng thái mới
-        showMessage("Cập nhật trạng thái thành công!", "success");
+        setCurrentStatus(response.data.status); // Update trạng thái mới
+        showMessage(t("messages.success"), "success"); // Chuỗi tĩnh song ngữ
       }
     } catch (error) {
       console.error("Failed to change status:", error);
-      showMessage("Đã xảy ra lỗi khi thay đổi trạng thái.", "error");
+      showMessage(t("messages.error"), "error"); // Chuỗi tĩnh song ngữ
     } finally {
       setLoading(false);
     }
@@ -42,7 +44,9 @@ const StatusChip: React.FC<StatusChipProps> = ({ id, status }) => {
     <CircularProgress size={20} />
   ) : (
     <Chip
-      label={currentStatus === "active" ? "Hoạt động" : "Không hoạt động"}
+      label={
+        currentStatus === "active" ? t("label.active") : t("label.inactive")
+      }
       color={currentStatus === "active" ? "success" : "error"}
       onClick={handleStatusChange}
       clickable

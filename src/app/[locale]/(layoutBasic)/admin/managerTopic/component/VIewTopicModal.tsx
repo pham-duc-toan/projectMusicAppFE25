@@ -8,6 +8,7 @@ import {
   Avatar,
   Typography,
 } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 interface ViewTopicModalProps {
   open: boolean;
@@ -27,9 +28,11 @@ const ViewTopicModal: React.FC<ViewTopicModalProps> = ({
   onClose,
   topic,
 }) => {
+  const t = useTranslations("viewTopicModal");
+
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Chi tiết chủ đề</DialogTitle>
+      <DialogTitle>{t("dialogTitle")}</DialogTitle>
       <DialogContent>
         <Grid container spacing={2}>
           <Grid item xs={12} textAlign="center">
@@ -40,27 +43,29 @@ const ViewTopicModal: React.FC<ViewTopicModalProps> = ({
             />
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="h6">Tên chủ đề:</Typography>
+            <Typography variant="h6">{t("fields.title")}</Typography>
             <Typography>{topic.title}</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="h6">Mô tả:</Typography>
+            <Typography variant="h6">{t("fields.description")}</Typography>
             <Typography>{topic.description}</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="h6">Trạng thái:</Typography>
+            <Typography variant="h6">{t("fields.status")}</Typography>
             <Typography>
-              {topic.status === "active" ? "Hoạt động" : "Không hoạt động"}
+              {topic.status === "active"
+                ? t("fields.active")
+                : t("fields.inactive")}
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="h6">Slug:</Typography>
+            <Typography variant="h6">{t("fields.slug")}</Typography>
             <Typography>{topic.slug}</Typography>
           </Grid>
         </Grid>
       </DialogContent>
       <Button onClick={onClose} color="primary" sx={{ margin: 2 }}>
-        Đóng
+        {t("buttons.close")}
       </Button>
     </Dialog>
   );

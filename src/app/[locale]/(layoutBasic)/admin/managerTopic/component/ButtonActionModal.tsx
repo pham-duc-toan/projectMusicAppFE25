@@ -19,6 +19,7 @@ import { apiBasicClient } from "@/app/utils/request";
 import { revalidateByTag } from "@/app/action";
 import { useAppContext } from "@/context-app";
 import ViewTopicModal from "./VIewTopicModal";
+import { useTranslations } from "next-intl";
 
 interface Topic {
   _id: string;
@@ -35,11 +36,13 @@ interface ButtonActionModalProps {
 }
 
 const ButtonActionModal: React.FC<ButtonActionModalProps> = ({ topic }) => {
+  const t = useTranslations("buttonActionModal");
   const { showMessage } = useAppContext();
   const [openViewModal, setOpenViewModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(false);
+
   const handleDelete = async () => {
     setLoading(true);
     try {
@@ -48,7 +51,7 @@ const ButtonActionModal: React.FC<ButtonActionModalProps> = ({ topic }) => {
         showMessage(response.message, "error");
       } else {
         await revalidateByTag("revalidate-tag-topics");
-        showMessage("Xóa chủ đề thành công!", "success");
+        showMessage(t("messages.deleteSuccess"), "success");
         setOpenDialog(false);
       }
     } catch (error) {
@@ -59,17 +62,17 @@ const ButtonActionModal: React.FC<ButtonActionModalProps> = ({ topic }) => {
 
   return (
     <>
-      <Tooltip title="Xem chi tiết" arrow>
+      <Tooltip title={t("tooltips.view")} arrow>
         <IconButton color="primary" onClick={() => setOpenViewModal(true)}>
           <VisibilityIcon />
         </IconButton>
       </Tooltip>
-      <Tooltip title="Chỉnh sửa" arrow>
+      <Tooltip title={t("tooltips.edit")} arrow>
         <IconButton color="primary" onClick={() => setOpenEditModal(true)}>
           <EditIcon />
         </IconButton>
       </Tooltip>
-      <Tooltip title="Xóa chủ đề" arrow>
+      <Tooltip title={t("tooltips.delete")} arrow>
         <IconButton color="primary" onClick={() => setOpenDialog(true)}>
           <DeleteIcon />
         </IconButton>
@@ -87,13 +90,13 @@ const ButtonActionModal: React.FC<ButtonActionModalProps> = ({ topic }) => {
         topic={topic}
       />
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-        <DialogTitle>Xác nhận xóa</DialogTitle>
+        <DialogTitle>{t("dialog.confirmDelete")}</DialogTitle>
         <DialogContent>
-          <Typography>Bạn có chắc muốn xóa chủ đề này không?</Typography>
+          <Typography>{t("dialog.confirmMessage")}</Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpenDialog(false)} color="primary">
-            Hủy
+            {t("dialog.cancel")}
           </Button>
           <Button
             onClick={handleDelete}
@@ -101,7 +104,7 @@ const ButtonActionModal: React.FC<ButtonActionModalProps> = ({ topic }) => {
             autoFocus
             disabled={loading}
           >
-            {loading ? "Đang xóa" : "Có"}
+            {loading ? t("dialog.deleting") : t("dialog.confirm")}
           </Button>
         </DialogActions>
       </Dialog>

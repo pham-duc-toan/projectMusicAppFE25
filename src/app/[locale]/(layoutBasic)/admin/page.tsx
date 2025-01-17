@@ -2,6 +2,8 @@ import React from "react";
 import { Container, Typography } from "@mui/material";
 import ChartComponent from "./ChartComponent";
 import { apiBasicServer } from "@/app/utils/request";
+import { getTranslations } from "next-intl/server";
+
 interface ChartData {
   labels: string[];
   datasets: {
@@ -10,16 +12,18 @@ interface ChartData {
     backgroundColor: string;
   }[];
 }
+
 const AdminPage = async () => {
+  const t = await getTranslations("adminPage"); // Lấy t bằng getTranslations
   const currentDate = new Date();
-  const currentMonth = currentDate.getMonth() + 1; // Lấy tháng hiện tại (0-based, cần +1)
+  const currentMonth = currentDate.getMonth() + 1;
   const currentYear = currentDate.getFullYear();
 
   let chartData: ChartData = {
     labels: [],
     datasets: [
       {
-        label: "Doanh thu (Triệu VND)",
+        label: t("chart.label"), // Thay chuỗi cứng bằng t
         data: [],
         backgroundColor: "#9b4de0",
       },
@@ -31,12 +35,10 @@ const AdminPage = async () => {
     const dataset: number[] = [];
 
     for (let i = 0; i < 6; i++) {
-      // Tính toán tháng và năm
       const month =
         currentMonth - i <= 0 ? currentMonth - i + 12 : currentMonth - i;
       const year = currentMonth - i <= 0 ? currentYear - 1 : currentYear;
 
-      // Gọi API từng tháng
       const res = await apiBasicServer(
         "GET",
         `/orders/month/${year}/${month}`,
@@ -45,19 +47,18 @@ const AdminPage = async () => {
         undefined,
         ["revalidate-tag-orders"]
       );
-      const doanhThuThang = (res.data.length || 0) * 0.289; // Công thức tính doanh thu
+      const doanhThuThang = (res.data.length || 0) * 0.289;
 
-      // Đẩy dữ liệu vào labels và dataset
-      labels.unshift(`Tháng ${month}/${year}`); // Thêm nhãn vào đầu mảng
-      dataset.unshift(parseFloat(doanhThuThang.toFixed(2))); // Làm tròn doanh thu và thêm vào đầu mảng
+      // Sử dụng t để format tháng/năm
+      labels.unshift(t("chart.monthYear", { month, year }));
+      dataset.unshift(parseFloat(doanhThuThang.toFixed(2)));
     }
 
-    // Cập nhật chartData với dữ liệu vừa lấy
     chartData = {
       labels,
       datasets: [
         {
-          label: "Doanh thu (Triệu VND)",
+          label: t("chart.label"),
           data: dataset,
           backgroundColor: "#9b4de0",
         },
@@ -70,7 +71,7 @@ const AdminPage = async () => {
   return (
     <Container maxWidth="lg" sx={{ marginTop: 4 }}>
       <Typography variant="h4" align="center" gutterBottom>
-        Trang Chủ Admin
+        {t("title")}
       </Typography>
       <ChartComponent data={chartData} />
     </Container>

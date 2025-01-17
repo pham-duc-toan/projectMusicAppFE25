@@ -109,90 +109,90 @@ const Slider: React.FC<SliderProps> = ({ topSong }) => {
         >
           {topSong.map((song: TSongDetail, index: number) => (
             <Box sx={{ flex: `0 0 ${boxWidth}%`, padding: "10px" }} key={index}>
-              <Link href={`/songs/detail/${song.slug}`}>
-                <Card
+              <Card
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  image={song.avatar}
+                  alt={song.title}
                   sx={{
+                    margin: "10px",
+                    marginLeft: "15px",
+                    width: "120px",
+                    aspectRatio: 1 / 1,
+                    borderRadius: "8px",
+                    marginRight: "20px",
+                  }}
+                />
+                <Box
+                  sx={{
+                    padding: "5px",
+                    flexGrow: 1,
                     display: "flex",
-                    alignItems: "center",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
                   }}
                 >
-                  <CardMedia
-                    component="img"
-                    image={song.avatar}
-                    alt={song.title}
-                    sx={{
-                      margin: "10px",
-                      marginLeft: "15px",
-                      width: "120px",
-                      aspectRatio: 1 / 1,
-                      borderRadius: "8px",
-                      marginRight: "20px",
-                    }}
-                  />
-                  <Box
-                    sx={{
-                      padding: "5px",
-                      flexGrow: 1,
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Box>
-                      <Typography
-                        variant="h6"
-                        sx={{
-                          fontWeight: 500,
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 1,
-                          lineHeight: 2,
-                          overflow: "hidden",
-                          wordWrap: "break-word",
-                        }}
-                      >
-                        {song.title}
-                      </Typography>
-                      <SingerInfo singer={song.singerId} />
-                    </Box>
-                    <Box
+                  <Box>
+                    <Typography
+                      variant="h6"
                       sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
+                        fontWeight: 500,
+                        display: "-webkit-box",
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: 1,
+                        lineHeight: 2,
+                        overflow: "hidden",
+                        wordWrap: "break-word",
                       }}
                     >
-                      <Typography
-                        variant="h4"
-                        sx={{
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 1,
-                          lineHeight: 2,
-                          overflow: "hidden",
-                          wordWrap: "break-word",
-                        }}
-                      >
-                        #{index + 1}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          marginTop: "10px",
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 1,
-                          lineHeight: 2,
-                          overflow: "hidden",
-                          wordWrap: "break-word",
-                        }}
-                      >
-                        {new Date(song.createdAt).toLocaleDateString("en-GB")}
-                      </Typography>
-                    </Box>
+                      <Link href={`/songs/detail/${song.slug}`}>
+                        {song.title}
+                      </Link>
+                    </Typography>
+                    <SingerInfo singer={song.singerId} />
                   </Box>
-                </Card>
-              </Link>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography
+                      variant="h4"
+                      sx={{
+                        display: "-webkit-box",
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: 1,
+                        lineHeight: 2,
+                        overflow: "hidden",
+                        wordWrap: "break-word",
+                      }}
+                    >
+                      #{index + 1}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        marginTop: "10px",
+                        display: "-webkit-box",
+                        WebkitBoxOrient: "vertical",
+                        WebkitLineClamp: 1,
+                        lineHeight: 2,
+                        overflow: "hidden",
+                        wordWrap: "break-word",
+                      }}
+                    >
+                      {new Date(song.createdAt).toLocaleDateString("en-GB")}
+                    </Typography>
+                  </Box>
+                </Box>
+              </Card>
             </Box>
           ))}
         </Box>

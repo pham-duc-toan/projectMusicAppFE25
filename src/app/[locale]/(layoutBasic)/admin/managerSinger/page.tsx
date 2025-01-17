@@ -10,14 +10,12 @@ import {
   TableRow,
   Paper,
   Avatar,
-  IconButton,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete"; // Import icon delete
 import { apiBasicServer } from "@/app/utils/request";
 import StatusChip from "./component/StatusChip";
-
 import { GetAccessTokenFromCookie } from "@/app/utils/checkRole";
 import DeleteSingerDialog from "./component/DeleteSingerDialog";
+import { getTranslations } from "next-intl/server";
 
 interface Singer {
   _id: string;
@@ -46,6 +44,7 @@ const fetchSingers = async () => {
 
 const ManagerSingerPage = async () => {
   const singers = await fetchSingers();
+  const t = await getTranslations("managerSingerPage");
 
   return (
     <Box sx={{ padding: 3 }}>
@@ -55,7 +54,7 @@ const ManagerSingerPage = async () => {
         marginBottom={"15px"}
       >
         <Typography variant="h4" gutterBottom>
-          Quản lý ca sĩ
+          {t("title")}
         </Typography>
       </Box>
 
@@ -63,11 +62,11 @@ const ManagerSingerPage = async () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>STT</TableCell>
-              <TableCell>Hình ảnh</TableCell>
-              <TableCell>Tên ca sĩ</TableCell>
-              <TableCell>Trạng thái</TableCell>
-              <TableCell>Hành động</TableCell>
+              <TableCell>{t("tableHeaders.index")}</TableCell>
+              <TableCell>{t("tableHeaders.avatar")}</TableCell>
+              <TableCell>{t("tableHeaders.fullName")}</TableCell>
+              <TableCell>{t("tableHeaders.status")}</TableCell>
+              <TableCell>{t("tableHeaders.actions")}</TableCell>
             </TableRow>
           </TableHead>
 

@@ -7,6 +7,7 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { apiBasicClient } from "@/app/utils/request";
 import { useAppContext } from "@/context-app";
 import { revalidateByTag } from "@/app/action";
+import { useTranslations } from "next-intl";
 
 interface SongForYouButtonProps {
   songId: string;
@@ -17,6 +18,7 @@ const SongForYouButton: React.FC<SongForYouButtonProps> = ({
   songId,
   initialForYou,
 }) => {
+  const t = useTranslations("songForYouButton");
   const { showMessage } = useAppContext();
   const [isForYou, setIsForYou] = useState(initialForYou);
 
@@ -28,14 +30,12 @@ const SongForYouButton: React.FC<SongForYouButtonProps> = ({
       const method = isForYou ? "DELETE" : "POST";
       const response = await apiBasicClient(method, endpoint);
       if (response?.statusCode >= 300) {
-        showMessage(response.message, "error");
+        showMessage(response.message, "error"); // Giữ nguyên từ API
       } else {
         setIsForYou(!isForYou);
         await revalidateByTag("revalidate-tag-song-for-you");
         showMessage(
-          isForYou
-            ? "Đã xóa khỏi danh sách đề cử!"
-            : "Đã thêm vào danh sách đề cử!",
+          isForYou ? t("messages.removed") : t("messages.added"),
           "success"
         );
       }

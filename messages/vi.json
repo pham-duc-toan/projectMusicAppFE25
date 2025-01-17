@@ -6,9 +6,372 @@
   "PlayListPage": {
     "no-playlist": "Hiện không có danh sách phát nào."
   },
+  "forgotPassword": {
+    "title": "Quên mật khẩu",
+    "form": {
+      "emailPlaceholder": "Nhập email của bạn",
+      "submit": "Gửi yêu cầu",
+      "loading": "Đang gửi..."
+    },
+    "messages": {
+      "emailRequired": "Vui lòng nhập email",
+      "requestSuccess": "Yêu cầu đặt lại mật khẩu đã được gửi, vui lòng kiểm tra email.",
+      "error": "Có lỗi xảy ra"
+    },
+    "button": {
+      "back": "Quay lại"
+    }
+  },
+  "resetPassword": {
+    "label": {
+      "otp": "Mã OTP",
+      "newPassword": "Mật khẩu mới",
+      "confirmNewPassword": "Nhập lại mật khẩu mới"
+    },
+    "button": {
+      "resetPassword": "Đặt lại mật khẩu",
+      "back": "Quay lại"
+    },
+    "error": {
+      "requiredFields": "Vui lòng nhập đầy đủ thông tin.",
+      "passwordMismatch": "Mật khẩu mới và xác nhận mật khẩu không khớp.",
+      "generic": "Đã xảy ra lỗi. Vui lòng thử lại."
+    },
+    "success": {
+      "passwordReset": "Mật khẩu của bạn đã được thay đổi thành công!"
+    }
+  },
+  "adminPage": {
+    "title": "Trang Chủ Admin",
+    "chart": {
+      "label": "Doanh thu (Triệu VND)",
+      "monthYear": "Tháng {month}/{year}"
+    }
+  },
+
+  "chartComponent": {
+    "title": "Biểu đồ doanh thu theo tháng"
+  },
+  "deleteSingerDialog": {
+    "title": "Xóa ca sĩ",
+    "confirmationText": "Bạn có chắc muốn xóa ca sĩ này? Thao tác này không thể hoàn tác.",
+    "cancelButton": "Hủy",
+    "deleteButton": "Xóa",
+    "deleting": "Đang xóa...",
+    "successMessage": "Xóa ca sĩ thành công!",
+    "errorMessage": "Đã xảy ra lỗi khi xóa ca sĩ."
+  },
+  "statusChip": {
+    "label": {
+      "active": "Hoạt động",
+      "inactive": "Không hoạt động"
+    },
+    "tooltip": "Đổi trạng thái",
+    "messages": {
+      "success": "Cập nhật trạng thái thành công!",
+      "error": "Đã xảy ra lỗi khi thay đổi trạng thái."
+    }
+  },
+  "managerSingerPage": {
+    "title": "Quản lý ca sĩ",
+    "tableHeaders": {
+      "index": "STT",
+      "avatar": "Hình ảnh",
+      "fullName": "Tên ca sĩ",
+      "status": "Trạng thái",
+      "actions": "Hành động"
+    }
+  },
+  "songForYouButton": {
+    "messages": {
+      "added": "Đã thêm vào danh sách đề cử!",
+      "removed": "Đã xóa khỏi danh sách đề cử!"
+    }
+  },
+  "cellSingerInfo": {
+    "unknownSinger": "Không rõ ca sĩ",
+    "joinedAt": "Tham gia vào:"
+  },
+  "cellTopicInfo": {
+    "unknownTopic": "Không rõ chủ đề",
+    "noDescription": "Không có mô tả"
+  },
+  "manageFeaturedSongs": {
+    "title": "Quản lý bài hát đề cử",
+    "manageSongs": "Quản lý bài hát",
+    "updateOrder": "Cập nhật thứ tự hiện tại",
+    "tableHeaders": {
+      "priority": "Thứ tự ưu tiên",
+      "image": "Hình ảnh",
+      "title": "Tiêu đề",
+      "topic": "Chủ đề",
+      "singer": "Ca sĩ",
+      "featured": "Đề cử"
+    },
+    "tooltips": {
+      "removeFeatured": "Xóa khỏi đề cử"
+    },
+    "emptyState": "Hiện không có bài hát đề cử nào"
+  },
+  "managerSongPage": {
+    "title": "Quản lý bài hát",
+    "redirectButton": "Quản lý bài hát đề cử",
+    "tableHeaders": {
+      "index": "STT",
+      "image": "Hình ảnh",
+      "title": "Tiêu đề",
+      "topic": "Chủ đề",
+      "singer": "Ca sĩ",
+      "play": "Phát",
+      "status": "Trạng thái",
+      "featured": "Đề cử"
+    },
+    "unknown": "Không rõ"
+  },
+  "buttonActionModal": {
+    "tooltips": {
+      "view": "Xem chi tiết",
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa chủ đề"
+    },
+    "messages": {
+      "deleteSuccess": "Xóa chủ đề thành công!"
+    },
+    "dialog": {
+      "confirmDelete": "Xác nhận xóa",
+      "confirmMessage": "Bạn có chắc muốn xóa chủ đề này không?",
+      "cancel": "Hủy",
+      "deleting": "Đang xóa",
+      "confirm": "Có"
+    }
+  },
+  "editTopicModal": {
+    "dialogTitle": "Chỉnh sửa chủ đề",
+    "fields": {
+      "title": "Tiêu đề",
+      "status": "Trạng thái",
+      "description": "Mô tả",
+      "avatarPreview": "Xem trước Avatar"
+    },
+    "statusOptions": {
+      "active": "Hoạt động",
+      "inactive": "Không hoạt động"
+    },
+    "buttons": {
+      "submit": "Lưu",
+      "submitting": "Đang lưu...",
+      "cancel": "Hủy"
+    }
+  },
+  "viewTopicModal": {
+    "dialogTitle": "Chi tiết chủ đề",
+    "fields": {
+      "title": "Tên chủ đề:",
+      "description": "Mô tả:",
+      "status": "Trạng thái:",
+      "active": "Hoạt động",
+      "inactive": "Không hoạt động",
+      "slug": "Slug:"
+    },
+    "buttons": {
+      "close": "Đóng"
+    }
+  },
+  "topicCreateComponent": {
+    "fields": {
+      "title": "Tiêu đề",
+      "status": "Trạng thái",
+      "description": "Mô tả",
+      "avatarPreview": "Xem trước Avatar"
+    },
+    "statusOptions": {
+      "active": "Hoạt động",
+      "inactive": "Không hoạt động"
+    },
+    "messages": {
+      "uploadError": "Vui lòng tải thêm file ảnh",
+      "createSuccess": "Tạo mới thành công !",
+      "uploadFailure": "Lỗi khi upload!"
+    },
+    "buttons": {
+      "submit": "Lưu",
+      "submitting": "Đang lưu..."
+    }
+  },
+  "createPage": {
+    "title": "Tạo chủ đề mới",
+    "button": "Quản lý chủ đề"
+  },
+  "managerTopic": {
+    "title": "Quản lý chủ đề",
+    "addButton": "Thêm mới chủ đề",
+    "tableHeaders": {
+      "index": "STT",
+      "image": "Hình ảnh",
+      "name": "Tên chủ đề",
+      "status": "Trạng thái",
+      "actions": "Hành động"
+    },
+    "status": {
+      "active": "Hoạt động",
+      "inactive": "Không hoạt động"
+    }
+  },
+  "deleteUserButton": {
+    "messages": {
+      "success": "Xóa người dùng \"{username}\" thành công!",
+      "error": "Đã xảy ra lỗi khi xóa người dùng."
+    },
+    "dialog": {
+      "title": "Xác nhận xóa",
+      "content": "Bạn có chắc chắn muốn xóa người dùng ",
+      "cancel": "Hủy",
+      "deleting": "Đang xóa...",
+      "delete": "Xóa"
+    }
+  },
+  "editRoleUserModal": {
+    "dialogTitle": "Chỉnh sửa vai trò của người dùng",
+    "form": {
+      "selectRole": "Chọn vai trò"
+    },
+    "buttons": {
+      "cancel": "Hủy",
+      "submitting": "Đang xử lý...",
+      "submit": "Lưu"
+    },
+    "messages": {
+      "success": "Cập nhật vai trò thành công",
+      "failure": "Cập nhật vai trò thất bại",
+      "error": "Lỗi khi cập nhật vai trò"
+    }
+  },
+  "managerUserPage": {
+    "title": "Quản lý người dùng",
+    "tableHeaders": {
+      "index": "STT",
+      "avatar": "Hình ảnh",
+      "username": "Tài khoản",
+      "role": "Vai trò",
+      "status": "Trạng thái",
+      "actions": "Hành động"
+    },
+    "noRole": "Không có vai trò"
+  },
+  "PermissionPage": {
+    "dialogs": {
+      "addPermission": "Thêm mới quyền",
+      "editPermission": "Chỉnh sửa quyền",
+      "viewPermission": "Xem chi tiết quyền",
+      "addRole": "Thêm mới vai trò",
+      "deleteConfirmation": "Bạn có chắc muốn xóa quyền \"{name}\" không?"
+    },
+    "fields": {
+      "name": "Tên quyền",
+      "pathName": "Đường dẫn",
+      "method": "Phương thức",
+      "roleName": "Tên vai trò"
+    },
+    "buttons": {
+      "cancel": "Hủy",
+      "add": "Thêm",
+      "saveChanges": "Lưu thay đổi",
+      "delete": "Xóa",
+      "addPermission": "Thêm quyền",
+      "addRole": "Thêm vai trò"
+    },
+    "table": {
+      "feature": "Tính năng",
+      "actions": "Hành động"
+    },
+    "messages": {
+      "updateSuccess": "Cập nhật vai trò và quyền thành công.",
+      "roleCreateSuccess": "Tạo vai trò mới thành công.",
+      "roleDeleteSuccess": "Xóa vai trò thành công."
+    },
+
+    "errors": {
+      "noRoles": "Chưa có vai trò nào",
+      "noPermissions": "Chưa khởi tạo quyền nào",
+      "serverConnection": "Lỗi kết nối với máy chủ",
+      "fetchError": "Không thể lấy dữ liệu từ API",
+      "addPermission": "Không thể thêm quyền mới",
+      "updateFailed": "Cập nhật vai trò và quyền thất bại.",
+      "createRoleFailed": "Không thể tạo vai trò mới.",
+      "deleteRoleFailed": "Không thể xóa vai trò."
+    },
+    "title": "Quản lý Quyền và Vai trò",
+    "addPermission": "Thêm Quyền Mới",
+    "addRole": "Thêm Vai trò Mới",
+    "addRoleTitle": "Thêm Vai trò Mới",
+    "roleName": "Tên Vai trò",
+    "feature": "Tính năng",
+    "noRoles": "Không có vai trò nào",
+    "action": "Hành động",
+    "noPermissions": "Chưa có quyền nào được tạo",
+    "saveChanges": "Lưu Thay Đổi",
+    "cancel": "Hủy",
+    "create": "Tạo mới"
+  },
+  "FormLogin": {
+    "title": "Đăng nhập",
+    "fields": {
+      "username": "Tài khoản",
+      "password": "Mật khẩu"
+    },
+    "errors": {
+      "usernameEmpty": "Tài khoản không được để trống.",
+      "passwordEmpty": "Mật khẩu không được để trống."
+    },
+    "buttons": {
+      "register": "Đăng ký",
+      "forgotPassword": "Quên mật khẩu",
+      "login": "Đăng nhập",
+      "backToHome": "Quay lại trang chủ"
+    }
+  },
+  "RegisterPage": {
+    "title": "Đăng ký tài khoản",
+    "fields": {
+      "username": "Tên đăng nhập",
+      "fullName": "Họ và tên",
+      "userId": "ID người dùng",
+      "password": "Mật khẩu",
+      "confirmPassword": "Xác nhận mật khẩu"
+    },
+    "buttons": {
+      "register": "Đăng ký",
+      "processing": "Đang xử lý...",
+      "back": "Quay lại"
+    },
+    "errors": {
+      "missingFields": "Vui lòng nhập đầy đủ thông tin",
+      "passwordMismatch": "Mật khẩu và xác nhận mật khẩu không khớp",
+      "unknownError": "Có lỗi xảy ra"
+    }
+  },
+  "ButtonListenNow": {
+    "buttonText": "Nghe Ngay"
+  },
+  "SingerInfo": {
+    "unknownSinger": "Không rõ ca sĩ",
+    "singerPrefix": "Ca sĩ",
+    "joinedAt": "Tham gia vào"
+  },
+  "Slider": {
+    "rank": "Hạng",
+    "createdAt": "Ngày tạo"
+  },
+  "NotFoundPage": {
+    "imageAlt": "Hình ảnh lỗi 404",
+    "title": "404",
+    "description": "Trang bạn tìm kiếm không tồn tại!",
+    "goHome": "Về Trang Chủ"
+  },
+
   "Layout": {
     "header-search": "Tìm kiếm bài hát, nghệ sĩ, lời bài hát...",
-    "header-loggin":"Đăng nhập",
+    "header-loggin": "Đăng nhập",
     "header-unknow-author": "Tác giả không rõ",
     "header-artists": "Nghệ sĩ",
     "header-dang-ky-ca-si": "Đăng ký ca sĩ",
@@ -17,36 +380,33 @@
     "header-menu-quan-ly-bai-hat": "Quản lý bài hát của tôi",
     "header-menu-doi-mat-khau": "Đổi mật khẩu",
     "header-menu-dang-xuat": "Đăng xuất",
-    "sider-home":"Trang chủ",
-    "sider-playlist":"Danh sách phát của tôi",
-    "sider-favorite-songs":"Các bài hát đã thích",
-    "sider-songs":"Bài hát",
-    "sider-singer":"Ca sĩ",
+    "sider-home": "Trang chủ",
+    "sider-playlist": "Danh sách phát của tôi",
+    "sider-favorite-songs": "Các bài hát đã thích",
+    "sider-songs": "Bài hát",
+    "sider-singer": "Ca sĩ",
     "sider-topic": "Chủ đề",
-    "sider-quan-ly-bai-hat":"Quản lý bài hát",
-    "sider-quan-ly-chu-de":"Quản lý chủ đề",
-    "sider-quan-ly-ca-si":"Quản lý ca sĩ",
-    "sider-quan-ly-nguoi-dung":"Quản lý người dùng",
-    "sider-quan-ly-quyen":"Quản lý các quyền",
-    "siderPlayList":"Danh sách phát",
-    "siderPlayList-Null":"Danh sách nhạc này đang rỗng.",
-    "siderPlayList-No-Song":"Hiện đang không có danh sách nhạc nào được phát."
-    
+    "sider-quan-ly-bai-hat": "Quản lý bài hát",
+    "sider-quan-ly-chu-de": "Quản lý chủ đề",
+    "sider-quan-ly-ca-si": "Quản lý ca sĩ",
+    "sider-quan-ly-nguoi-dung": "Quản lý người dùng",
+    "sider-quan-ly-quyen": "Quản lý các quyền",
+    "siderPlayList": "Danh sách phát",
+    "siderPlayList-Null": "Danh sách nhạc này đang rỗng.",
+    "siderPlayList-No-Song": "Hiện đang không có danh sách nhạc nào được phát."
   },
   "Notification": {
     "logout": "Đang đăng xuất",
     "logged out": "Đã đăng xuất"
   },
-  "Button":{
-    "Them":"Thêm",
-    "Sua":"Sửa",
-    "Xoa":"Xóa",
-    "ChiTiet":"Chi tiết",
-    "Huy":"Hủy"
+  "Button": {
+    "Them": "Thêm",
+    "Sua": "Sửa",
+    "Xoa": "Xóa",
+    "ChiTiet": "Chi tiết",
+    "Huy": "Hủy"
   },
-  "PermissionPage": {
-    "title": "Trang quyền"
-  },
+
   "language": {
     "en": "English",
     "vi": "Tiếng Việt"

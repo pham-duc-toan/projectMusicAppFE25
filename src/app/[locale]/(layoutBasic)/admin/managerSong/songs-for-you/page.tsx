@@ -12,7 +12,6 @@ import {
   Avatar,
   Typography,
   IconButton,
-  CircularProgress,
   Tooltip,
   Button,
   Skeleton,
@@ -23,6 +22,7 @@ import { Link } from "@/i18n/routing";
 import { useAppContext } from "@/context-app";
 import CellSingerInfo from "./components/CellSingerInfo";
 import CellTopicInfo from "./components/CellTopicInfo";
+import { useTranslations } from "next-intl";
 
 interface Topic {
   _id: string;
@@ -59,17 +59,17 @@ interface Song {
 }
 
 const ManageFeaturedSongs: React.FC = () => {
+  const t = useTranslations("manageFeaturedSongs");
   const { showMessage } = useAppContext();
   const [featuredSongs, setFeaturedSongs] = useState<Song[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  // Fetch danh sách bài hát "Đề cử"
   const fetchFeaturedSongs = useCallback(async () => {
     setLoading(true);
     try {
       const response = await apiBasicClient("GET", "/song-for-you");
       if (response?.data) {
-        setFeaturedSongs(response.data.listSong || []); // Lấy danh sách bài hát đề cử
+        setFeaturedSongs(response.data.listSong || []);
       }
       if (response.statusCode >= 300) {
         showMessage(response.message, "error");
@@ -81,7 +81,6 @@ const ManageFeaturedSongs: React.FC = () => {
     }
   }, []);
 
-  // Xóa bài hát khỏi danh sách "Đề cử"
   const handleRemoveFromFeatured = async (songId: string) => {
     setLoading(true);
     try {
@@ -92,7 +91,6 @@ const ManageFeaturedSongs: React.FC = () => {
       if (response.statusCode >= 300) {
         showMessage(response.message, "error");
       } else {
-        // Cập nhật lại danh sách bài hát sau khi xóa
         setFeaturedSongs((prev) => prev.filter((song) => song._id !== songId));
       }
     } catch (error) {
@@ -102,7 +100,6 @@ const ManageFeaturedSongs: React.FC = () => {
     }
   };
 
-  // Cập nhật lại danh sách bài hát sau khi kéo thả
   const handleDragStart = (
     event: React.DragEvent<HTMLDivElement>,
     index: number
@@ -122,24 +119,20 @@ const ManageFeaturedSongs: React.FC = () => {
     setFeaturedSongs(updatedList);
   };
 
-  // Gửi yêu cầu cập nhật thứ tự bài hát
   const updateSongOrder = async () => {
     setLoading(true);
-
     try {
       const updatedIds = featuredSongs.map((song) => song._id);
       const response = await apiBasicClient(
         "PATCH",
         "/song-for-you/update-order",
         undefined,
-        {
-          listSong: updatedIds,
-        }
+        { listSong: updatedIds }
       );
       if (response.statusCode >= 300) {
         showMessage(response.message, "error");
       } else {
-        showMessage("Cập nhật thứ tự thành công!", "success");
+        showMessage(t("updateOrder"), "success");
       }
     } catch (error) {
       console.error("Error updating song order", error);
@@ -148,7 +141,6 @@ const ManageFeaturedSongs: React.FC = () => {
     }
   };
 
-  // Lấy danh sách bài hát đề cử khi component load
   useEffect(() => {
     fetchFeaturedSongs();
   }, [fetchFeaturedSongs]);
@@ -162,10 +154,10 @@ const ManageFeaturedSongs: React.FC = () => {
         marginBottom={"15px"}
       >
         <Typography variant="h4" gutterBottom>
-          Quản lý bài hát đề cử
+          {t("title")}
         </Typography>
         <Button variant="contained" color="primary">
-          <Link href={"/admin/managerSong"}>Quản lý bài hát</Link>
+          <Link href={"/admin/managerSong"}>{t("manageSongs")}</Link>
         </Button>
       </Box>
 
@@ -175,7 +167,7 @@ const ManageFeaturedSongs: React.FC = () => {
         onClick={updateSongOrder}
         sx={{ marginBottom: "20px" }}
       >
-        Cập nhật thứ tự hiện tại
+        {t("updateOrder")}
       </Button>
 
       <TableContainer component={Paper}>
@@ -224,12 +216,12 @@ const ManageFeaturedSongs: React.FC = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Thứ tự ưu tiên</TableCell>
-                <TableCell>Hình ảnh</TableCell>
-                <TableCell>Tiêu đề</TableCell>
-                <TableCell>Chủ đề</TableCell>
-                <TableCell>Ca sĩ</TableCell>
-                <TableCell>Đề cử</TableCell>
+                <TableCell>{t("tableHeaders.priority")}</TableCell>
+                <TableCell>{t("tableHeaders.image")}</TableCell>
+                <TableCell>{t("tableHeaders.title")}</TableCell>
+                <TableCell>{t("tableHeaders.topic")}</TableCell>
+                <TableCell>{t("tableHeaders.singer")}</TableCell>
+                <TableCell>{t("tableHeaders.featured")}</TableCell>
               </TableRow>
             </TableHead>
 
@@ -255,7 +247,7 @@ const ManageFeaturedSongs: React.FC = () => {
                             : "inherit",
                       }}
                     >
-                      <h1>{index + 1}</h1>
+                      <Typography>{index + 1}</Typography>
                     </TableCell>
                     <TableCell>
                       <Avatar
@@ -273,7 +265,7 @@ const ManageFeaturedSongs: React.FC = () => {
                     <CellTopicInfo topicDetail={song.topicId} />
 
                     <TableCell>
-                      <Tooltip title="Xóa khỏi đề cử" arrow>
+                      <Tooltip title={t("tooltips.removeFeatured")} arrow>
                         <IconButton
                           color="secondary"
                           onClick={() => handleRemoveFromFeatured(song._id)}
@@ -290,7 +282,7 @@ const ManageFeaturedSongs: React.FC = () => {
                     colSpan={6}
                     sx={{ textAlign: "center", color: "gray" }}
                   >
-                    Hiện không có bài hát đề cử nào
+                    {t("emptyState")}
                   </TableCell>
                 </TableRow>
               )}

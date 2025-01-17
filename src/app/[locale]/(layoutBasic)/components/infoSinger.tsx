@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Typography, Popover, Paper, Avatar, Box } from "@mui/material";
 import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 interface SingerInfoPopoverProps {
   singer: {
@@ -16,6 +17,7 @@ interface SingerInfoPopoverProps {
 }
 
 const SingerInfo: React.FC<SingerInfoPopoverProps> = ({ singer }) => {
+  const t = useTranslations("SingerInfo");
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [position, setPosition] = React.useState<"top" | "bottom">("bottom");
 
@@ -23,7 +25,6 @@ const SingerInfo: React.FC<SingerInfoPopoverProps> = ({ singer }) => {
     const rect = event.currentTarget.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
 
-    // Kiểm tra vị trí để hiển thị Popover
     if (rect.bottom + 300 > viewportHeight) {
       setPosition("top");
     } else {
@@ -44,7 +45,6 @@ const SingerInfo: React.FC<SingerInfoPopoverProps> = ({ singer }) => {
         variant="body2"
         color="text.secondary"
         sx={{
-          //combo hien thi 3 cham
           display: "-webkit-box",
           WebkitBoxOrient: "vertical",
           WebkitLineClamp: 1,
@@ -58,7 +58,7 @@ const SingerInfo: React.FC<SingerInfoPopoverProps> = ({ singer }) => {
         onMouseLeave={handlePopoverClose}
       >
         <Link href={`/singers/detailSinger/${singer.slug}`}>
-          Ca sĩ: {singer?.fullName || "Không rõ ca sĩ"}
+          {t("singerPrefix")}: {singer?.fullName || t("unknownSinger")}
         </Link>
       </Typography>
 
@@ -101,7 +101,7 @@ const SingerInfo: React.FC<SingerInfoPopoverProps> = ({ singer }) => {
           </Typography>
 
           <Typography variant="body2" sx={{ marginBottom: "10px" }}>
-            <strong>Tham gia vào:</strong>{" "}
+            <strong>{t("joinedAt")}:</strong>{" "}
             {new Date(singer.createdAt).toLocaleDateString("vi-VN", {
               day: "2-digit",
               month: "2-digit",

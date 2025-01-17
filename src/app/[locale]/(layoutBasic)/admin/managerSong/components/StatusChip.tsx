@@ -5,6 +5,7 @@ import { Chip, Tooltip } from "@mui/material";
 import { apiBasicClient } from "@/app/utils/request";
 import { revalidateByTag } from "@/app/action";
 import { useAppContext } from "@/context-app";
+import { useTranslations } from "next-intl";
 
 interface StatusChipProps {
   songId: string;
@@ -12,6 +13,7 @@ interface StatusChipProps {
 }
 
 const StatusChip: React.FC<StatusChipProps> = ({ songId, status }) => {
+  const t = useTranslations("statusChip");
   const { showMessage } = useAppContext();
   const [currentStatus, setCurrentStatus] = useState(status);
 
@@ -22,12 +24,12 @@ const StatusChip: React.FC<StatusChipProps> = ({ songId, status }) => {
         `/songs/changeStatus/${songId}`
       );
       if (response?.statusCode >= 300) {
-        showMessage(response.message, "error");
+        showMessage(response.message, "error"); // Dùng message từ API
       } else {
         const newStatus = currentStatus === "active" ? "inactive" : "active";
         setCurrentStatus(newStatus);
         revalidateByTag("revalidate-tag-songs");
-        showMessage("Đổi trạng thái thành công!", "success");
+        showMessage(t("messages.success"), "success"); // Sử dụng lại chuỗi thành công
       }
     } catch (error) {
       console.error("Failed to change status:", error);
@@ -35,9 +37,13 @@ const StatusChip: React.FC<StatusChipProps> = ({ songId, status }) => {
   };
 
   return (
-    <Tooltip title="Đổi trạng thái" arrow>
+    <Tooltip title={t("tooltip")} arrow>
       <Chip
-        label={currentStatus === "active" ? "Hoạt động" : "Không hoạt động"}
+        label={
+          currentStatus === "active"
+            ? t("label.active") // Sử dụng lại chuỗi "Hoạt động"
+            : t("label.inactive") // Sử dụng lại chuỗi "Không hoạt động"
+        }
         color={currentStatus === "active" ? "success" : "error"}
         onClick={handleClick}
       />

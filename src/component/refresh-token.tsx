@@ -1,8 +1,9 @@
 "use client";
 import { checkAndRefreshToken } from "@/app/utils/checkAndRefreshToken";
 import { useAppContext } from "@/context-app";
+import { useRouter } from "@/i18n/routing";
 import { useLocale } from "next-intl";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 // Những page sau sẽ không check refesh token
@@ -11,7 +12,6 @@ export default function RefreshToken() {
   const { showMessage } = useAppContext();
   const pathname = usePathname();
   const router = useRouter();
-  const locale = useLocale();
   useEffect(() => {
     if (UNAUTHENTICATED_PATH.includes(pathname)) return;
     let interval: any = null;
@@ -19,7 +19,7 @@ export default function RefreshToken() {
     checkAndRefreshToken({
       onError: () => {
         clearInterval(interval);
-        router.push(`/${locale}/login`);
+        router.push(`/login`);
       },
     });
     // Timeout interval phải bé hơn thời gian hết hạn của access token
@@ -34,7 +34,7 @@ export default function RefreshToken() {
               "Hết phiên đăng nhập! Vui lòng đăng nhập lại!",
               "error"
             );
-            router.push(`/${locale}/login`);
+            router.push(`/login`);
           },
         }),
       TIMEOUT

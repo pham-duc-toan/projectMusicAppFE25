@@ -1,14 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import {
-  Typography,
-  Popover,
-  Paper,
-  Avatar,
-  Box,
-  TableCell,
-} from "@mui/material";
+import { Typography, Popover, Paper, Avatar, TableCell } from "@mui/material";
 import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 
 interface TopicPopoverProps {
   topicDetail: {
@@ -23,6 +17,7 @@ interface TopicPopoverProps {
 }
 
 const CellTopicInfo: React.FC<TopicPopoverProps> = ({ topicDetail }) => {
+  const t = useTranslations("cellTopicInfo");
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [position, setPosition] = React.useState<"top" | "bottom">("bottom");
 
@@ -56,7 +51,7 @@ const CellTopicInfo: React.FC<TopicPopoverProps> = ({ topicDetail }) => {
         onMouseLeave={handlePopoverClose}
       >
         <Link href={`/topics/detail/${topicDetail.slug}`}>
-          {topicDetail?.title || "Không rõ chủ đề"}
+          {topicDetail?.title || t("unknownTopic")}
         </Link>
       </TableCell>
 
@@ -104,7 +99,7 @@ const CellTopicInfo: React.FC<TopicPopoverProps> = ({ topicDetail }) => {
               color: "text.secondary",
             }}
           >
-            {topicDetail.description || "Không có mô tả"}
+            {topicDetail.description || t("noDescription")}
           </Typography>
         </Paper>
       </Popover>

@@ -98,8 +98,8 @@ export default function Permissions() {
       setRoles(rolesData);
       setPermissionsList(permissionsData);
     } catch (error) {
-      showMessage("Lỗi kết nối với server", "error");
-      console.error("Không thể lấy dữ liệu từ API:", error);
+      showMessage(t("errors.serverConnection"), "error");
+      console.error(t("errors.fetchError"), error);
     } finally {
       setLoading(false); // Kết thúc tải
     }
@@ -132,10 +132,7 @@ export default function Permissions() {
         showMessage(res.message, "error");
       }
     } catch (error: any) {
-      showMessage(
-        error?.message || "Bạn không thể thực hiện chức năng này",
-        "error"
-      );
+      showMessage(t("errors.addPermission"), "error");
     }
     setSaving(false);
     handleClose();
@@ -162,6 +159,7 @@ export default function Permissions() {
 
     setOpenEditModal(false);
   };
+
   const handleSaveChanges = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSaving(true);
@@ -195,9 +193,9 @@ export default function Permissions() {
           })
         )
       );
-      showMessage("Cập nhật thành công", "success");
+      showMessage(t("messages.updateSuccess"), "success");
     } catch (error) {
-      console.error("Failed to update permissions for roles:", error);
+      console.error(t("errors.updateFailed"), error);
     }
     setSaving(false);
     await fetchRolesAndPermissions();
@@ -218,6 +216,7 @@ export default function Permissions() {
     setCurrentPermission(permission); // Lưu quyền đang chỉnh sửa
     setOpenEditModal(true);
   };
+
   // Hàm xử lý tạo mới role
   const handleAddRole = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -231,28 +230,29 @@ export default function Permissions() {
       if (res.statusCode >= 300) {
         showMessage(res.message, "error");
       } else {
-        showMessage("Tạo mới vai trò thành công!", "success");
+        showMessage(t("messages.roleCreateSuccess"), "success");
         await revalidateByTag("revalidate-tag-roles");
         setOpenRoleModal(false);
 
         await fetchRolesAndPermissions();
       }
     } catch (error: any) {
-      showMessage(error?.message || "Không thể tạo vai trò", "error");
+      showMessage(error?.message || t("errors.createRoleFailed"), "error");
     }
   };
+
   const handleDeleteRole = async (roleId: string) => {
     try {
       const res = await apiBasicClient("DELETE", `/roles/${roleId}`);
       if (res.statusCode >= 300) {
         showMessage(res.message, "error");
       } else {
-        showMessage("Vai trò đã được xóa thành công!", "success");
+        showMessage(t("messages.roleDeleteSuccess"), "success");
         await revalidateByTag("revalidate-tag-roles");
         await fetchRolesAndPermissions(); // Cập nhật lại danh sách vai trò
       }
     } catch (error: any) {
-      showMessage(error?.message || "Không thể xóa vai trò", "error");
+      showMessage(error?.message || t("errors.deleteRoleFailed"), "error");
     }
   };
 
@@ -272,7 +272,7 @@ export default function Permissions() {
           sx={{ mt: 2 }}
           onClick={handleOpen}
         >
-          Thêm quyền mới
+          {t("addPermission")}
         </Button>
         <Button
           variant="outlined"
@@ -280,26 +280,28 @@ export default function Permissions() {
           sx={{ mt: 2 }}
           onClick={() => setOpenRoleModal(true)}
         >
-          Tạo mới vai trò
+          {t("addRole")}
         </Button>
       </Box>
       <Dialog open={openRoleModal} onClose={() => setOpenRoleModal(false)}>
         <form onSubmit={handleAddRole}>
-          <DialogTitle>Thêm mới vai trò</DialogTitle>
+          <DialogTitle>{t("addRoleTitle")}</DialogTitle>
           <DialogContent>
             <TextField
               autoFocus
               margin="dense"
               name="roleName"
-              label="Tên vai trò"
+              label={t("roleName")}
               fullWidth
               required
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setOpenRoleModal(false)}>Hủy</Button>
+            <Button onClick={() => setOpenRoleModal(false)}>
+              {t("cancel")}
+            </Button>
             <Button type="submit" color="primary">
-              Tạo mới
+              {t("create")}
             </Button>
           </DialogActions>
         </form>
@@ -315,43 +317,23 @@ export default function Permissions() {
                 flexDirection: "column",
               }}
             >
-              <Skeleton
-                variant="rectangular"
-                width="100%"
-                height={60}
-                sx={{ marginBottom: 2 }}
-              />
-              <Skeleton
-                variant="rectangular"
-                width="100%"
-                height={60}
-                sx={{ marginBottom: 2 }}
-              />
-              <Skeleton
-                variant="rectangular"
-                width="100%"
-                height={60}
-                sx={{ marginBottom: 2 }}
-              />
-              <Skeleton
-                variant="rectangular"
-                width="100%"
-                height={60}
-                sx={{ marginBottom: 2 }}
-              />
-              <Skeleton
-                variant="rectangular"
-                width="100%"
-                height={60}
-                sx={{ marginBottom: 2 }}
-              />
-              <Skeleton variant="rectangular" width="100%" height={60} />
+              {Array(6)
+                .fill(0)
+                .map((_, idx) => (
+                  <Skeleton
+                    key={idx}
+                    variant="rectangular"
+                    width="100%"
+                    height={60}
+                    sx={{ marginBottom: 2 }}
+                  />
+                ))}
             </Box>
           ) : (
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Tính năng</TableCell>
+                  <TableCell>{t("feature")}</TableCell>
                   {roles.length > 0 ? (
                     roles.map((role, index) => (
                       <TableCell key={index}>
@@ -368,10 +350,9 @@ export default function Permissions() {
                       </TableCell>
                     ))
                   ) : (
-                    <TableCell>Chưa có vai trò nào</TableCell>
+                    <TableCell>{t("noRoles")}</TableCell>
                   )}
-
-                  <TableCell>Hành động</TableCell>
+                  <TableCell>{t("action")}</TableCell>
                 </TableRow>
               </TableHead>
 
@@ -418,7 +399,7 @@ export default function Permissions() {
                 ) : (
                   <TableRow>
                     <TableCell colSpan={roles.length + 2}>
-                      Chưa khởi tạo quyền nào
+                      {t("noPermissions")}
                     </TableCell>
                   </TableRow>
                 )}
@@ -433,89 +414,90 @@ export default function Permissions() {
           disabled={saving ? true : false}
           sx={{ mt: 2 }}
         >
-          Lưu thay đổi
+          {t("saveChanges")}
         </Button>
       </form>
 
       <Dialog open={open} onClose={handleClose}>
         <form onSubmit={handleAddPermission}>
-          <DialogTitle>Thêm mới quyền</DialogTitle>
+          <DialogTitle>{t("dialogs.addPermission")}</DialogTitle>
           <DialogContent>
             <TextField
               autoFocus
               margin="dense"
               name="name"
-              label="Tên quyền"
+              label={t("fields.name")}
               fullWidth
             />
             <TextField
               margin="dense"
               name="pathName"
-              label="Path Name"
+              label={t("fields.pathName")}
               fullWidth
             />
-            <TextField margin="dense" name="method" label="Method" fullWidth />
+            <TextField
+              margin="dense"
+              name="method"
+              label={t("fields.method")}
+              fullWidth
+            />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Hủy</Button>
-            <Button
-              disabled={saving ? true : false}
-              type="submit"
-              color="primary"
-            >
-              Thêm
+            <Button onClick={handleClose}>{t("buttons.cancel")}</Button>
+            <Button disabled={saving} type="submit" color="primary">
+              {t("buttons.add")}
             </Button>
           </DialogActions>
         </form>
       </Dialog>
+
       {permissionsList.length > 0 && (
         <>
           <Dialog open={openEditModal} onClose={() => setOpenEditModal(false)}>
             <form onSubmit={handleEditPermission}>
-              <DialogTitle>Chỉnh sửa quyền</DialogTitle>
+              <DialogTitle>{t("dialogs.editPermission")}</DialogTitle>
               <DialogContent>
                 <TextField
                   autoFocus
                   margin="dense"
                   name="name"
-                  label="Tên quyền"
+                  label={t("fields.name")}
                   defaultValue={currentPermission?.name}
                   fullWidth
                 />
                 <TextField
                   margin="dense"
                   name="pathName"
-                  label="Path Name"
+                  label={t("fields.pathName")}
                   defaultValue={currentPermission?.pathName.substring(8)}
                   fullWidth
                 />
                 <TextField
                   margin="dense"
                   name="method"
-                  label="Method"
+                  label={t("fields.method")}
                   defaultValue={currentPermission?.method}
                   fullWidth
                 />
               </DialogContent>
               <DialogActions>
-                <Button onClick={() => setOpenEditModal(false)}>Hủy</Button>
-                <Button
-                  disabled={loading ? true : false}
-                  type="submit"
-                  color="primary"
-                >
-                  Lưu thay đổi
+                <Button onClick={() => setOpenEditModal(false)}>
+                  {t("buttons.cancel")}
+                </Button>
+                <Button disabled={loading} type="submit" color="primary">
+                  {t("buttons.saveChanges")}
                 </Button>
               </DialogActions>
             </form>
           </Dialog>
+
           <Dialog open={openViewModal} onClose={() => setOpenViewModal(false)}>
-            <DialogTitle>Xem chi tiết quyền</DialogTitle>
+            <DialogTitle>{t("dialogs.viewPermission")}</DialogTitle>
             <DialogContent>
               <TextField
                 margin="dense"
                 name="name"
-                label="Tên quyền"
+                label={t("fields.name")}
                 value={currentPermission?.name}
                 fullWidth
                 disabled
@@ -523,7 +505,7 @@ export default function Permissions() {
               <TextField
                 margin="dense"
                 name="pathName"
-                label="Path Name"
+                label={t("fields.pathName")}
                 value={currentPermission?.pathName}
                 fullWidth
                 disabled
@@ -531,30 +513,34 @@ export default function Permissions() {
               <TextField
                 margin="dense"
                 name="method"
-                label="Method"
+                label={t("fields.method")}
                 value={currentPermission?.method}
                 fullWidth
                 disabled
               />
             </DialogContent>
             <DialogActions>
-              <Button onClick={() => setOpenViewModal(false)}>Đóng</Button>
+              <Button onClick={() => setOpenViewModal(false)}>
+                {t("buttons.cancel")}
+              </Button>
             </DialogActions>
           </Dialog>
+
           <Dialog
             open={openDeleteModal}
             onClose={() => setOpenDeleteModal(false)}
           >
-            <DialogTitle>Xác nhận xóa quyền</DialogTitle>
-            <DialogContent>
-              <Typography>
-                Bạn có chắc muốn xóa quyền "{currentPermission?.name}" không?
-              </Typography>
-            </DialogContent>
+            <DialogTitle>
+              {t("dialogs.deleteConfirmation", {
+                name: currentPermission?.name,
+              })}
+            </DialogTitle>
             <DialogActions>
-              <Button onClick={() => setOpenDeleteModal(false)}>Hủy</Button>
+              <Button onClick={() => setOpenDeleteModal(false)}>
+                {t("buttons.cancel")}
+              </Button>
               <Button
-                disabled={loading ? true : false}
+                disabled={loading}
                 color="primary"
                 onClick={async () => {
                   if (currentPermission) {
@@ -567,7 +553,7 @@ export default function Permissions() {
                   }
                 }}
               >
-                Xóa
+                {t("buttons.delete")}
               </Button>
             </DialogActions>
           </Dialog>

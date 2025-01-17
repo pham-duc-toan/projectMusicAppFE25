@@ -4,24 +4,23 @@ import React, { useState } from "react";
 import {
   Box,
   Button,
-  TextField,
   Typography,
   CircularProgress,
   IconButton,
 } from "@mui/material";
-import { useAppContext } from "@/context-app"; // Context để hiển thị thông báo
-import { apiBasicClient, apiBasicClientPublic } from "@/app/utils/request";
-
+import { useAppContext } from "@/context-app";
+import { apiBasicClientPublic } from "@/app/utils/request";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { CustomTextFieldUsername } from "../login/components/text-field-customize";
-import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/routing";
 
 const ForgotPasswordPage = () => {
-  const locale = useLocale();
+  const t = useTranslations("forgotPassword");
   const { showMessage } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -29,7 +28,7 @@ const ForgotPasswordPage = () => {
     const email = formData.get("email") as string;
 
     if (!email) {
-      showMessage("Vui lòng nhập email", "error");
+      showMessage(t("messages.emailRequired"), "error");
       return;
     }
 
@@ -45,15 +44,12 @@ const ForgotPasswordPage = () => {
       if (res?.statusCode >= 300) {
         showMessage(res.message, "error");
       } else {
-        showMessage(
-          "Yêu cầu đặt lại mật khẩu đã được gửi, vui lòng kiểm tra email.",
-          "success"
-        );
+        showMessage(t("messages.requestSuccess"), "success");
         localStorage.setItem("emailResetPassword", email);
         router.push(`/forgot-password/reset`);
       }
     } catch (error: any) {
-      showMessage(error?.message || "Có lỗi xảy ra", "error");
+      showMessage(error?.message || t("messages.error"), "error");
     } finally {
       setIsLoading(false);
     }
@@ -70,14 +66,14 @@ const ForgotPasswordPage = () => {
       }}
     >
       <Typography variant="h5" sx={{ marginBottom: 3 }}>
-        Quên mật khẩu
+        {t("title")}
       </Typography>
       <form onSubmit={handleSubmit}>
         <CustomTextFieldUsername
           fullWidth
           type="email"
           name="email"
-          label="Nhập email của bạn"
+          label={t("form.emailPlaceholder")}
           variant="outlined"
           margin="normal"
         />
@@ -92,9 +88,9 @@ const ForgotPasswordPage = () => {
             isLoading && <CircularProgress size={20} color="inherit" />
           }
         >
-          {isLoading ? "Đang gửi..." : "Gửi yêu cầu"}
+          {isLoading ? t("form.loading") : t("form.submit")}
         </Button>
-        <IconButton onClick={() => router.back()} aria-label="Quay lại">
+        <IconButton onClick={() => router.back()} aria-label={t("button.back")}>
           <ArrowBackIcon />
         </IconButton>
       </form>

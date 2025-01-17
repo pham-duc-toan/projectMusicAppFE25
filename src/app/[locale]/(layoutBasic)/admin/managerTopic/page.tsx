@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Box,
   Table,
@@ -13,10 +13,11 @@ import {
   Chip,
 } from "@mui/material";
 
-import { apiBasicClient, apiBasicServer } from "@/app/utils/request";
+import { apiBasicServer } from "@/app/utils/request";
 import ButtonRedirect from "@/component/buttonRedirect";
-import { GetAccessTokenFromCookie } from "@/app/utils/checkRole";
 import ButtonActionModal from "./component/ButtonActionModal";
+import { getTranslations } from "next-intl/server";
+import { GetAccessTokenFromCookie } from "@/app/utils/checkRole";
 
 interface Topic {
   _id: string;
@@ -27,6 +28,7 @@ interface Topic {
   slug: string;
   deleted: boolean;
 }
+
 const fetchTopics = async () => {
   const access_token = GetAccessTokenFromCookie();
   try {
@@ -44,8 +46,11 @@ const fetchTopics = async () => {
     return [];
   }
 };
+
 const ManagerTopic = async () => {
+  const t = await getTranslations("managerTopic");
   const topics = await fetchTopics();
+
   return (
     <Box sx={{ padding: 3 }}>
       <Box
@@ -55,12 +60,12 @@ const ManagerTopic = async () => {
         marginBottom={"15px"}
       >
         <Typography variant="h4" gutterBottom>
-          Quản lý chủ đề
+          {t("title")}
         </Typography>
         <ButtonRedirect
           variant="outlined"
           link="/admin/managerTopic/createTopic"
-          content="Thêm mới chủ đề"
+          content={t("addButton")}
         />
       </Box>
 
@@ -68,11 +73,11 @@ const ManagerTopic = async () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>STT</TableCell>
-              <TableCell>Hình ảnh</TableCell>
-              <TableCell>Tên chủ đề</TableCell>
-              <TableCell>Trạng thái</TableCell>
-              <TableCell>Hành động</TableCell>
+              <TableCell>{t("tableHeaders.index")}</TableCell>
+              <TableCell>{t("tableHeaders.image")}</TableCell>
+              <TableCell>{t("tableHeaders.name")}</TableCell>
+              <TableCell>{t("tableHeaders.status")}</TableCell>
+              <TableCell>{t("tableHeaders.actions")}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -91,8 +96,8 @@ const ManagerTopic = async () => {
                   <Chip
                     label={
                       topic.status === "active"
-                        ? "Hoạt động"
-                        : "Không hoạt động"
+                        ? t("status.active")
+                        : t("status.inactive")
                     }
                     color={topic.status === "active" ? "success" : "error"}
                   />

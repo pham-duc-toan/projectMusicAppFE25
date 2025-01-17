@@ -1,10 +1,16 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
-
 import Image from "next/image";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
-const NotFoundPage = () => {
+export const metadata = {
+  title: "404 - Not Found",
+};
+
+const NotFoundPage = async () => {
+  const t = await getTranslations("NotFoundPage");
+
   return (
     <Box
       sx={{
@@ -14,7 +20,6 @@ const NotFoundPage = () => {
         justifyContent: "center",
         height: "100vh", // Chiếm toàn bộ chiều cao của màn hình
         textAlign: "center",
-
         padding: 2,
       }}
     >
@@ -23,7 +28,7 @@ const NotFoundPage = () => {
         src="https://res.cloudinary.com/dsi9ercdo/image/upload/v1733576990/orcc8iivkfoe8vw50gcg.png"
         width={160}
         height={200}
-        alt="404"
+        alt={t("imageAlt")}
         style={{
           marginBottom: "20px",
         }}
@@ -31,15 +36,15 @@ const NotFoundPage = () => {
 
       {/* Tiêu đề 404 */}
       <Typography variant="h1" color="error" gutterBottom>
-        404
+        {t("title")}
       </Typography>
       <Typography variant="h5" gutterBottom>
-        Trang bạn tìm kiếm không tồn tại!
+        {t("description")}
       </Typography>
 
       {/* Nút quay lại trang chủ */}
       <Button variant="contained" color="primary" component={Link} href="/">
-        Về Trang Chủ
+        {t("goHome")}
       </Button>
     </Box>
   );

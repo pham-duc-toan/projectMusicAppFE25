@@ -4,7 +4,6 @@ import {
   setAccessTokenToLocalStorage,
 } from "@/app/helper/localStorageClient";
 import { login, logout } from "@/app/utils/request";
-
 import { useAppContext } from "@/context-app";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
@@ -16,9 +15,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useRouter } from "next/navigation";
-
 import { useEffect, useState } from "react";
-
 import { useTheme } from "@emotion/react";
 import ButtonRedirect from "@/component/buttonRedirect";
 import {
@@ -26,10 +23,11 @@ import {
   CustomTextFieldUsername,
 } from "./text-field-customize";
 import ListProvider from "./list-btn-login-provider";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export default function FormLoginComponent() {
   const { showMessage } = useAppContext();
+  const t = useTranslations("FormLogin");
   const locale = useLocale();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -38,6 +36,7 @@ export default function FormLoginComponent() {
   const [isErrorPassword, setIsErrorPassword] = useState<boolean>(false);
   const [errorUserName, setErrorUserName] = useState<string>("");
   const [errorPassword, setErrorPassword] = useState<string>("");
+
   useEffect(() => {
     const clearToken = async () => {
       removeTokensFromLocalStorage();
@@ -45,6 +44,7 @@ export default function FormLoginComponent() {
     };
     clearToken();
   }, []);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsErrorPassword(false);
@@ -53,22 +53,23 @@ export default function FormLoginComponent() {
     setErrorUserName("");
     const user = e.currentTarget.username.value;
     const password = e.currentTarget.password.value;
+
     if (!user) {
       setIsErrorUsername(true);
-      setErrorUserName("Username is not empty.");
+      setErrorUserName(t("errors.usernameEmpty"));
       return;
     }
     if (!password) {
       setIsErrorPassword(true);
-      setErrorPassword("Password is not empty.");
+      setErrorPassword(t("errors.passwordEmpty"));
       return;
     }
+
     setIsLoading(true);
     const data = await login({
       username: user,
       password: password,
     });
-    console.log(data);
 
     if (data.data) {
       setAccessTokenToLocalStorage(data.data.access_token);
@@ -84,6 +85,7 @@ export default function FormLoginComponent() {
       setIsLoading(false);
     }
   };
+
   const theme = useTheme();
   return (
     <Box
@@ -116,11 +118,11 @@ export default function FormLoginComponent() {
           color: "theme.palette.text.primary",
         }}
       >
-        Đăng nhập
+        {t("title")}
       </Typography>
 
       <CustomTextFieldUsername
-        label="Tài khoản"
+        label={t("fields.username")}
         variant="outlined"
         name="username"
         defaultValue={"a@a.com"}
@@ -132,7 +134,7 @@ export default function FormLoginComponent() {
       />
 
       <CustomTextFieldPassword
-        label="Mật khẩu"
+        label={t("fields.password")}
         defaultValue={"aaa"}
         type={showPassword ? "text" : "password"}
         variant="outlined"
@@ -151,6 +153,7 @@ export default function FormLoginComponent() {
           ),
         }}
       />
+
       <Box
         width={"100%"}
         display={"flex"}
@@ -159,7 +162,7 @@ export default function FormLoginComponent() {
         marginTop={"-10px"}
       >
         <ButtonRedirect
-          content="Đăng ký"
+          content={t("buttons.register")}
           link="/register"
           sx={{
             marginLeft: "10px",
@@ -169,7 +172,7 @@ export default function FormLoginComponent() {
           }}
         />
         <ButtonRedirect
-          content="Quên mật khẩu"
+          content={t("buttons.forgotPassword")}
           link="/forgot-password"
           sx={{
             marginRight: "10px",
@@ -179,6 +182,7 @@ export default function FormLoginComponent() {
           }}
         />
       </Box>
+
       <Button
         type="submit"
         variant="contained"
@@ -187,12 +191,13 @@ export default function FormLoginComponent() {
         disabled={isLoading}
         endIcon={isLoading ? <CircularProgress size={24} /> : null}
       >
-        Đăng nhập
+        {t("buttons.login")}
       </Button>
 
       <Button onClick={() => router.push(`/${locale}/`)}>
-        Back to HomePage
+        {t("buttons.backToHome")}
       </Button>
+
       <ListProvider />
     </Box>
   );

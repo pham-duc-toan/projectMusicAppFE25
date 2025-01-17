@@ -10,11 +10,7 @@ import {
   CircularProgress,
   IconButton,
 } from "@mui/material";
-import {
-  apiBasicClient,
-  apiBasicClientPublic,
-  login,
-} from "@/app/utils/request";
+import { apiBasicClientPublic, login } from "@/app/utils/request";
 import { useAppContext } from "@/context-app";
 import { useRouter } from "next/navigation";
 import { setAccessTokenToLocalStorage } from "@/app/helper/localStorageClient";
@@ -22,18 +18,18 @@ import {
   CustomTextFieldPassword,
   CustomTextFieldUsername,
 } from "../login/components/text-field-customize";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const RegisterPage = () => {
   const { showMessage } = useAppContext();
+  const t = useTranslations("RegisterPage");
   const router = useRouter();
   const locale = useLocale();
-  const [isSubmitting, setIsSubmitting] = useState(false); // State để kiểm soát hiệu ứng disable
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Lấy dữ liệu từ form
     const formData = new FormData(e.currentTarget);
     const data = {
       username: formData.get("username") as string,
@@ -43,7 +39,6 @@ const RegisterPage = () => {
       userId: formData.get("userId") as string,
     };
 
-    // Kiểm tra dữ liệu
     if (
       !data.username ||
       !data.password ||
@@ -51,19 +46,18 @@ const RegisterPage = () => {
       !data.fullName ||
       !data.userId
     ) {
-      showMessage("Vui lòng nhập đầy đủ thông tin", "error");
+      showMessage(t("errors.missingFields"), "error");
       return;
     }
 
     if (data.password !== data.confirmPassword) {
-      showMessage("Mật khẩu và xác nhận mật khẩu không khớp", "error");
+      showMessage(t("errors.passwordMismatch"), "error");
       return;
     }
 
     try {
-      setIsSubmitting(true); // Hiển thị trạng thái "Đang xử lý"
+      setIsSubmitting(true);
 
-      // Gửi API
       const res = await apiBasicClientPublic(
         "POST",
         "/users/create",
@@ -79,10 +73,9 @@ const RegisterPage = () => {
 
       if (res?.statusCode >= 300) {
         if (Array.isArray(res.message)) {
-          // Lặp qua từng phần tử trong mảng và hiển thị
           res.message.forEach((msg: string) => showMessage(msg, "error"));
         } else {
-          showMessage(res.message, "error"); // Trường hợp `message` không phải mảng
+          showMessage(res.message, "error");
         }
       } else {
         const res = await login({
@@ -94,15 +87,14 @@ const RegisterPage = () => {
         } else {
           if (res.data) {
             setAccessTokenToLocalStorage(res.data.access_token);
-
             window.location.href = `/${locale}`;
           }
         }
       }
     } catch (error: any) {
-      showMessage(error?.message || "Có lỗi xảy ra", "error");
+      showMessage(error?.message || t("errors.unknownError"), "error");
     } finally {
-      setIsSubmitting(false); // Tắt trạng thái "Đang xử lý"
+      setIsSubmitting(false);
     }
   };
 
@@ -118,13 +110,13 @@ const RegisterPage = () => {
       }}
     >
       <Typography variant="h5" sx={{ marginBottom: 3 }}>
-        Đăng ký tài khoản
+        {t("title")}
       </Typography>
       <form onSubmit={handleSubmit}>
         <CustomTextFieldUsername
           fullWidth
           name="username"
-          label="Tên đăng nhập"
+          label={t("fields.username")}
           variant="outlined"
           margin="normal"
           autoFocus
@@ -133,7 +125,7 @@ const RegisterPage = () => {
           size="small"
           fullWidth
           name="fullName"
-          label="Họ và tên"
+          label={t("fields.fullName")}
           variant="outlined"
           margin="normal"
           autoFocus
@@ -142,7 +134,7 @@ const RegisterPage = () => {
           size="small"
           fullWidth
           name="userId"
-          label="ID người dùng"
+          label={t("fields.userId")}
           variant="outlined"
           margin="normal"
           autoFocus
@@ -150,7 +142,7 @@ const RegisterPage = () => {
         <CustomTextFieldPassword
           fullWidth
           name="password"
-          label="Mật khẩu"
+          label={t("fields.password")}
           type="password"
           variant="outlined"
           margin="normal"
@@ -159,7 +151,7 @@ const RegisterPage = () => {
           size="small"
           fullWidth
           name="confirmPassword"
-          label="Xác nhận mật khẩu"
+          label={t("fields.confirmPassword")}
           type="password"
           variant="outlined"
           margin="normal"
@@ -170,12 +162,15 @@ const RegisterPage = () => {
           variant="contained"
           color="primary"
           sx={{ marginTop: 2 }}
-          disabled={isSubmitting} // Disable nút khi đang xử lý
-          startIcon={isSubmitting ? <CircularProgress size={20} /> : null} // Spinner trong nút
+          disabled={isSubmitting}
+          startIcon={isSubmitting ? <CircularProgress size={20} /> : null}
         >
-          {isSubmitting ? "Đang xử lý..." : "Đăng ký"}
+          {isSubmitting ? t("buttons.processing") : t("buttons.register")}
         </Button>
-        <IconButton onClick={() => router.back()} aria-label="Quay lại">
+        <IconButton
+          onClick={() => router.back()}
+          aria-label={t("buttons.back")}
+        >
           <ArrowBackIcon />
         </IconButton>
       </form>

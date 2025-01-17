@@ -26,15 +26,17 @@ import { getAccessTokenFromLocalStorage } from "@/app/helper/localStorageClient"
 
 import { revalidateByTag } from "@/app/action";
 import DropzoneComponent from "@/component/customDropzone/dropzoneComponent";
+import { useTranslations } from "next-intl";
 
 function TopicCreateComponent() {
+  const t = useTranslations("topicCreateComponent");
   const { showMessage } = useAppContext();
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState<string>("active");
-  // Hàm để xử lý file upload và xem trước avatar/audio
+
   const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
     acceptedFiles.forEach((file) => {
       if (file.type.startsWith("image/")) {
@@ -58,17 +60,15 @@ function TopicCreateComponent() {
     formData.append("description", description);
     formData.append("status", status);
 
-    // Thêm file vào formData nếu có
     if (avatarFile) {
       formData.append("avatar", avatarFile);
     } else {
-      //thông báo lỗi
-      showMessage("Vui lòng tải thêm file ảnh", "error");
+      showMessage(t("messages.uploadError"), "error");
+      setLoading(false);
+      return;
     }
 
-    // Gửi formData lên server
     try {
-      // Sử dụng Axios để upload file và theo dõi tiến trình
       const response = await axios.post(
         process.env.NEXT_PUBLIC_BACK_END_URL + "/topics/create",
         formData,
@@ -80,7 +80,7 @@ function TopicCreateComponent() {
           onUploadProgress: (progressEvent: AxiosProgressEvent) => {
             const { loaded, total } = progressEvent;
             const percentCompleted = Math.round((loaded * 100) / total!);
-            setProgress(percentCompleted); // Cập nhật tiến trình
+            setProgress(percentCompleted);
           },
         }
       );
@@ -91,12 +91,18 @@ function TopicCreateComponent() {
         setAvatarFile(null);
         setStatus("active");
         form.reset();
-        showMessage("Tạo mới thành công !", "success");
+        showMessage(t("messages.createSuccess"), "success");
       } else {
-        showMessage(response.data.message || "Something went wrong", "error");
+        showMessage(
+          response.data.message || t("messages.uploadFailure"),
+          "error"
+        );
       }
     } catch (error: any) {
-      showMessage(error.response?.data?.message || "Lỗi khi upload!", "error");
+      showMessage(
+        error.response?.data?.message || t("messages.uploadFailure"),
+        "error"
+      );
     } finally {
       setLoading(false);
       setProgress(0);
@@ -111,33 +117,32 @@ function TopicCreateComponent() {
   const handleStatusChange = (event: any) => {
     setStatus(event.target.value as string);
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <TextField
-            sx={{
-              width: {
-                xs: "100%",
-              },
-            }}
+            sx={{ width: "100%" }}
             size="small"
-            label="Title"
+            label={t("fields.title")}
             name="title"
             required
           />
         </Grid>
         <Grid item xs={12} md={6}>
           <FormControl fullWidth size="small">
-            <InputLabel>Status</InputLabel>
+            <InputLabel>{t("fields.status")}</InputLabel>
             <Select
-              label="Status"
+              label={t("fields.status")}
               name="status"
               value={status}
               onChange={handleStatusChange}
             >
-              <MenuItem value="active">Active</MenuItem>
-              <MenuItem value="inactive">Inactive</MenuItem>
+              <MenuItem value="active">{t("statusOptions.active")}</MenuItem>
+              <MenuItem value="inactive">
+                {t("statusOptions.inactive")}
+              </MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -146,7 +151,7 @@ function TopicCreateComponent() {
           <TextField
             size="small"
             fullWidth
-            label="Description"
+            label={t("fields.description")}
             name="description"
             multiline
             minRows={4}
@@ -167,11 +172,11 @@ function TopicCreateComponent() {
               <CardMedia
                 component="img"
                 image={avatarPreview}
-                alt="Avatar Preview"
-                style={{ width: "200px", height: "200px", objectFit: "cover" }} // Kích thước cố định
+                alt={t("fields.avatarPreview")}
+                style={{ width: "200px", height: "200px", objectFit: "cover" }}
               />
               <CardContent>
-                <Typography>Avatar Preview</Typography>
+                <Typography>{t("fields.avatarPreview")}</Typography>
               </CardContent>
               <IconButton
                 onClick={handleRemoveAvatar}
@@ -188,17 +193,19 @@ function TopicCreateComponent() {
           </Grid>
         )}
 
-        <Grid
-          item
-          xs={12}
-          sx={{
-            display: !avatarPreview ? "flex" : "none",
-            justifyContent: !avatarPreview ? "center" : undefined,
-            alignItems: !avatarPreview ? "center" : undefined,
-          }}
-        >
-          <DropzoneComponent onDrop={onDrop} />
-        </Grid>
+        {!avatarPreview && (
+          <Grid
+            item
+            xs={12}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <DropzoneComponent onDrop={onDrop} />
+          </Grid>
+        )}
 
         {loading && (
           <Grid
@@ -211,12 +218,10 @@ function TopicCreateComponent() {
             }}
           >
             <LinearProgress
-              sx={{
-                width: "100px",
-              }}
+              sx={{ width: "100px" }}
               variant="determinate"
               value={progress}
-            />{" "}
+            />
             <span style={{ marginLeft: "10px" }}>{progress}%</span>
           </Grid>
         )}
@@ -236,7 +241,7 @@ function TopicCreateComponent() {
             disabled={loading}
             endIcon={loading ? <CircularProgress size={24} /> : null}
           >
-            {loading ? "Submitting..." : "Submit"}
+            {loading ? t("buttons.submitting") : t("buttons.submit")}
           </Button>
         </Grid>
       </Grid>
