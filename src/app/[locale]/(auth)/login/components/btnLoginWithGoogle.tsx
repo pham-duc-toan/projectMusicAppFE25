@@ -16,7 +16,6 @@ const ListProvider = () => {
   return (
     <>
       <Button
-        type="submit"
         variant="contained"
         color="secondary"
         fullWidth
