@@ -4,6 +4,7 @@ import React from "react";
 import { useDropzone, FileWithPath } from "react-dropzone";
 import { styled } from "@mui/material/styles";
 import { Box, Button } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 const bcolorLight = "#ffffff";
 const bcolorDark = "#1b0c35";
@@ -46,15 +47,14 @@ const DropzoneContainer = styled(Box)(({ theme }) => ({
 
 interface DropzoneComponentProps {
   onDrop: (acceptedFiles: FileWithPath[]) => void;
-  t: (key: string) => string; // Thêm hàm `t` để lấy nội dung song ngữ
 }
 
-const DropzoneComponent: React.FC<DropzoneComponentProps> = ({ onDrop, t }) => {
+const DropzoneComponent: React.FC<DropzoneComponentProps> = ({ onDrop }) => {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: { "image/*": [], "audio/*": [] },
   });
-
+  const t = useTranslations("dropzone");
   return (
     <DropzoneContainer {...getRootProps()}>
       <input {...getInputProps()} />

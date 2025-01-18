@@ -1,6 +1,3 @@
-"use client";
-
-import React from "react";
 import {
   Box,
   Typography,
@@ -88,7 +85,7 @@ const ManagerSongPage = async () => {
         />
       </Box>
 
-      {songs.length === 0 ? (
+      {!songs || songs.length === 0 ? (
         <Typography
           variant="h6"
           color="textSecondary"

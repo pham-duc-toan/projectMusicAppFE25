@@ -23,13 +23,13 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 
 import { FileWithPath } from "react-dropzone";
-import DropzoneComponent from "@/component/customDropzone/dropzoneComponent";
 import { useAppContext } from "@/context-app";
 import { getAccessTokenFromLocalStorage } from "@/app/helper/localStorageClient";
 import axios, { AxiosProgressEvent } from "axios";
 import { revalidateByTag } from "@/app/action";
 import { apiBasicClient } from "@/app/utils/request";
 import { useTranslations } from "next-intl";
+import DropzoneComponent from "@/component/customDropzone/dropzoneComponent";
 
 interface Topic {
   _id: string;

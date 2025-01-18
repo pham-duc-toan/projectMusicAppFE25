@@ -16,11 +16,9 @@ import {
   Divider,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useTheme } from "@emotion/react";
 import ButtonRedirect from "@/component/buttonRedirect";
-
+import { styled } from "@mui/material/styles";
 import { useLocale, useTranslations } from "next-intl";
 import {
   CustomTextFieldPassword,
@@ -32,7 +30,6 @@ export default function Login() {
   const { showMessage } = useAppContext();
   const t = useTranslations("FormLogin");
   const locale = useLocale();
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isErrorUsername, setIsErrorUsername] = useState<boolean>(false);
@@ -47,6 +44,23 @@ export default function Login() {
     };
     clearToken();
   }, []);
+  const BackgroundBox = styled(Box)(({ theme }) => ({
+    width: "60%",
+    height: "100vh",
+    display: "flex",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundImage: `url('/lightloginback2.jpg')`, // Default cho Light Mode
+
+    // Áp dụng CSS đúng dựa trên theme của MUI
+    [`[data-mui-color-scheme='dark'] &`]: {
+      backgroundImage: `url('/backlogin.jpeg')`,
+    },
+
+    [`@media (max-width: 768px)`]: {
+      display: "none",
+    },
+  }));
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -89,7 +103,6 @@ export default function Login() {
     }
   };
 
-  const theme = useTheme();
   return (
     <Box
       sx={{
@@ -107,22 +120,7 @@ export default function Login() {
         },
       }}
     >
-      <Box
-        sx={{
-          width: "60%",
-          height: "100vh",
-
-          display: { xs: "none", md: "flex" },
-          backgroundImage: (theme) =>
-            `url(${
-              theme.palette.mode === "dark"
-                ? "/backlogin.jpeg"
-                : "/lightloginback2.jpg"
-            })`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
+      <BackgroundBox />
       <Box
         component="form"
         onSubmit={handleSubmit}

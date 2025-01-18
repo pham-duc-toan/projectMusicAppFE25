@@ -24,7 +24,7 @@ const MyFavoriteSong = async () => {
       <Typography variant="h4" sx={{ marginBottom: "30px", marginTop: "40px" }}>
         {t("likedSongs")}
       </Typography>
-      {fullInfoFavoriteSongs.length === 0 ? (
+      {!fullInfoFavoriteSongs || fullInfoFavoriteSongs.length === 0 ? (
         <Grid
           container
           justifyContent="center"

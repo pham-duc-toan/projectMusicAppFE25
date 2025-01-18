@@ -22,7 +22,6 @@ const Playlists = async () => {
     ["revalidate-tag-list-playlist"]
   );
   const datas = datall?.data || undefined;
-
   if (!datas && datall.redirect) {
     redirect("/login");
   }
@@ -62,7 +61,7 @@ const Playlists = async () => {
         </Typography>
         <CreatePlaylistButton />
       </Box>
-      {datas.length === 0 ? (
+      {!datas || datas.length === 0 ? (
         <Grid
           container
           justifyContent="center"

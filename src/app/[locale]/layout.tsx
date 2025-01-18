@@ -12,7 +12,9 @@ export const metadata = {
   title: "My Project Next",
   description: "Perfect Dark Theme With Next.js and MUI",
 };
-
+export function generateStaticParams() {
+  return [{ locale: "vi" }, { locale: "en" }];
+}
 export default async function RootLayout({
   children,
   params: { locale },
