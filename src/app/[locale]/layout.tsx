@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import OrientationGuard from "./OrientationGuard";
 
 export const metadata = {
   title: "My Project Next",
@@ -43,7 +44,9 @@ export default async function RootLayout({
         <InitColorSchemeScript defaultMode="system" />
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
-            <ContextApp>{children}</ContextApp>
+            <ContextApp>
+              <OrientationGuard>{children}</OrientationGuard>
+            </ContextApp>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
