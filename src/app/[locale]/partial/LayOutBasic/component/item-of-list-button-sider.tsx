@@ -1,14 +1,13 @@
 "use client";
 import { Link } from "@/i18n/routing";
-import {
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Tooltip,
-} from "@mui/material";
 
-import { usePathname } from "next/navigation"; // Dùng usePathname thay vì useRouter
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Tooltip from "@mui/material/Tooltip";
+
+import { usePathname } from "next/navigation";
 
 interface I {
   open: boolean;
@@ -23,7 +22,9 @@ const ItemSider = (props: I) => {
   const { open, data, children } = props;
   const pathname = usePathname(); // Lấy đường dẫn hiện tại
 
-  const isActive = pathname.substring(3) === data.router;
+  const isActive =
+    pathname.substring(3) === data.router ||
+    (data.router == "/" && pathname.length == 3);
 
   return (
     <ListItem

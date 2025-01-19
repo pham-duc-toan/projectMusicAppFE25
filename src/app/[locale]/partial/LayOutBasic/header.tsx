@@ -3,23 +3,22 @@ import React, { useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import {
-  Box,
-  Container,
-  Button,
-  InputBase,
-  IconButton,
-  Paper,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  ListItemIcon,
-  Avatar,
-} from "@mui/material";
+
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import InputBase from "@mui/material/InputBase";
+import Paper from "@mui/material/Paper";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Avatar from "@mui/material/Avatar";
+
 import SearchIcon from "@mui/icons-material/Search";
+
 import ButtonUpdateSingerHeader from "./component/buttonUpdateSinger";
-import { apiBasicClient, apiBasicClientPublic } from "@/app/utils/request"; // Assuming this is for API calls
+import { apiBasicClientPublic } from "@/app/utils/request"; // Assuming this is for API calls
 import { TSuggestAvaSlugId } from "@/dataType/suggest"; // Adjust based on your data types
 
 import NavigationButtons from "./component/btnHeaderForWardAndBack";

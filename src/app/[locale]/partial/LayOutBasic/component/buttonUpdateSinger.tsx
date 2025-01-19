@@ -1,8 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
+
 import { decodeToken } from "@/app/helper/jwt";
 import { getAccessTokenFromLocalStorage } from "@/app/helper/localStorageClient";
-import { Button } from "@mui/material";
+
+import Button from "@mui/material/Button";
+
 import IUserInfo from "@/dataType/infoUser";
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";

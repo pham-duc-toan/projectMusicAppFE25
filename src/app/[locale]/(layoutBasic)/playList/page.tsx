@@ -1,8 +1,10 @@
 import { GetAccessTokenFromCookie } from "@/app/utils/checkRole";
 import { apiBasicServer } from "@/app/utils/request";
 
-import { Grid, Typography } from "@mui/material";
-import { Box, Container } from "@mui/system";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 
 import { redirect } from "next/navigation";
 import CreatePlaylistButton from "./components/createPlayListButton";

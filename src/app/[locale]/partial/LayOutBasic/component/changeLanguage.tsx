@@ -3,13 +3,21 @@
 import { useLocale } from "next-intl";
 
 import { useTransition, useState } from "react";
-import { FormControl, IconButton, Menu, MenuItem } from "@mui/material";
+
+import FormControl from "@mui/material/FormControl";
+import IconButton from "@mui/material/IconButton";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+
 import TranslateIcon from "@mui/icons-material/Translate";
+import DoneIcon from "@mui/icons-material/Done";
+
 import { locales, usePathname, useRouter } from "@/i18n/routing"; // Nhập danh sách locales từ routing.ts
 import { useTranslations } from "next-intl";
+
 import { SelectChangeEvent } from "@mui/material/Select";
-import DoneIcon from "@mui/icons-material/Done";
 import { useParams } from "next/navigation";
+
 export default function LocaleSwitcher() {
   const [isPending, startTransition] = useTransition();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

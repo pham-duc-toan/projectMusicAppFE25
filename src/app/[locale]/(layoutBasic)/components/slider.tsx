@@ -1,13 +1,23 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Box, Card, CardMedia, IconButton, Typography } from "@mui/material";
+
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+
 import { TSongDetail } from "@/dataType/song";
 import { Link } from "@/i18n/routing";
-import { useMediaQuery } from "@mui/material";
-import { useTheme } from "@mui/system";
+
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+
 import SingerInfo from "./infoSinger";
+
 interface SliderProps {
   topSong: TSongDetail[];
 }

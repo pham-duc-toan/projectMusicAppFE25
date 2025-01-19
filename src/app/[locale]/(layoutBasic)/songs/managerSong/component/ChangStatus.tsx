@@ -2,7 +2,10 @@
 import { revalidateByTag } from "@/app/action";
 import { apiBasicClient } from "@/app/utils/request";
 import { useAppContext } from "@/context-app";
-import { TableCell, Tooltip, Chip } from "@mui/material";
+
+import Tooltip from "@mui/material/Tooltip";
+import Chip from "@mui/material/Chip";
+
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 

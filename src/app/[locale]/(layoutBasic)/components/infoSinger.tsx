@@ -1,6 +1,11 @@
 "use client";
-import React, { useState } from "react";
-import { Typography, Popover, Paper, Avatar, Box } from "@mui/material";
+import React from "react";
+
+import Typography from "@mui/material/Typography";
+import Popover from "@mui/material/Popover";
+import Paper from "@mui/material/Paper";
+import Avatar from "@mui/material/Avatar";
+
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 

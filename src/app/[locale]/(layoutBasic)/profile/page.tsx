@@ -1,4 +1,9 @@
-import { Box, Typography, Avatar, Paper, Stack } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+
 import { getInfoUser } from "@/app/utils/request";
 import { GetAccessTokenFromCookie } from "@/app/utils/checkRole";
 import IUserInfo from "@/dataType/infoUser";

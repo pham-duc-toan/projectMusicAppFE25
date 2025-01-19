@@ -1,17 +1,18 @@
-import {
-  Box,
-  Container,
-  Divider,
-  Grid,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Typography from "@mui/material/Typography";
+
 import RegisterNow from "./components/RegisterNow";
 import { GetAccessTokenFromCookie } from "@/app/utils/checkRole";
+
 import DoneIcon from "@mui/icons-material/Done";
+
 import { getTranslations } from "next-intl/server";
 
 export const metadata = {

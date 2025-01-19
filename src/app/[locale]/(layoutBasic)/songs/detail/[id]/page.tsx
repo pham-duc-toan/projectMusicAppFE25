@@ -1,12 +1,19 @@
 import { Metadata } from "next";
-import { Box, Typography, Avatar } from "@mui/material";
+
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
+
 import { getTranslations } from "next-intl/server";
 import { apiBasicServer, getInfoUser } from "@/app/utils/request";
+
 import PlayerControls from "./components/PlayerControls";
 import Lyric from "./components/lyric";
 import FavoriteButton from "@/component/iconbutton/IconLikeSong";
 import IconAddToPlayList from "@/component/iconbutton/IconAddToPlayList";
+
 import { GetPublicAccessTokenFromCookie } from "@/app/utils/checkRole";
+
 import SingerInfoPopover from "./components/SingerInfo";
 import TopicPopover from "./components/TopicInfo";
 

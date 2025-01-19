@@ -1,6 +1,12 @@
 "use client";
 import React from "react";
-import { Typography, Popover, Paper, Avatar, TableCell } from "@mui/material";
+
+import Typography from "@mui/material/Typography";
+import Popover from "@mui/material/Popover";
+import Paper from "@mui/material/Paper";
+import Avatar from "@mui/material/Avatar";
+import TableCell from "@mui/material/TableCell";
+
 import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 

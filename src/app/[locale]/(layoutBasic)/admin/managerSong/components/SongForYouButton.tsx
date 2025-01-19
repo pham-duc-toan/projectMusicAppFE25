@@ -1,9 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { IconButton } from "@mui/material";
+
+import IconButton from "@mui/material/IconButton";
+
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+
 import { apiBasicClient } from "@/app/utils/request";
 import { useAppContext } from "@/context-app";
 import { revalidateByTag } from "@/app/action";

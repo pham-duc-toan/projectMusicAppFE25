@@ -1,7 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { Chip, CircularProgress } from "@mui/material";
+
+import Chip from "@mui/material/Chip";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import { apiBasicClient } from "@/app/utils/request";
 import { useAppContext } from "@/context-app";
 import { revalidateByTag } from "@/app/action";

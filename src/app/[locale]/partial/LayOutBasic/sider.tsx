@@ -1,21 +1,25 @@
 "use client";
 import * as React from "react";
 import { styled, Theme, CSSObject, useTheme } from "@mui/material/styles";
+
 import MuiDrawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
-import QueueMusicIcon from "@mui/icons-material/QueueMusic";
+import Skeleton from "@mui/material/Skeleton";
 
+import QueueMusicIcon from "@mui/icons-material/QueueMusic";
 import HomeIcon from "@mui/icons-material/Home";
-import { Link } from "@/i18n/routing";
-import Image from "next/image";
-import { Skeleton } from "@mui/material";
 import PlaylistPlayIcon from "@mui/icons-material/PlaylistPlay";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MicIcon from "@mui/icons-material/Mic";
 import TopicIcon from "@mui/icons-material/Topic";
+
+import { Link } from "@/i18n/routing";
+import Image from "next/image";
+
 import ItemSider from "./component/item-of-list-button-sider";
 import { useTranslations } from "next-intl";
+
 const drawerWidth = 280;
 
 const openedMixin = (theme: Theme): CSSObject => ({

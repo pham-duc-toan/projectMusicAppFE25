@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Bar } from "react-chartjs-2";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,7 +12,9 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Box } from "@mui/material";
+
+import Box from "@mui/material/Box";
+
 import { useTheme } from "@emotion/react";
 import { useTranslations } from "next-intl";
 

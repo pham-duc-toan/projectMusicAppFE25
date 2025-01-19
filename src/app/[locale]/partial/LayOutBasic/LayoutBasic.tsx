@@ -1,10 +1,10 @@
 "use client";
 import * as React from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";
-import { useMediaQuery } from "@mui/system";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import HeaderComponent from "./header";
 import SiderComponent from "./sider";
 import FooterComponent from "./footer";

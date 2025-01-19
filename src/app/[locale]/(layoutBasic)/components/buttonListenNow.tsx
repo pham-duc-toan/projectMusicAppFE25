@@ -1,9 +1,12 @@
 "use client";
 import React from "react";
-import { Button } from "@mui/material";
-import { TSongDetail } from "@/dataType/song"; // Import kiểu dữ liệu bài hát (thay thế đường dẫn đúng)
+
+import Button from "@mui/material/Button";
+
+import { TSongDetail } from "@/dataType/song";
 import { useDispatch } from "react-redux";
 import { play, setNewSong } from "@/store/playingMusicSlice";
+
 import { useTranslations } from "next-intl";
 
 interface ButtonListenNowProps {

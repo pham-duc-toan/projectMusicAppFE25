@@ -1,7 +1,10 @@
 import { decodeToken } from "@/app/helper/jwt";
 import { GetAccessTokenFromCookie } from "@/app/utils/checkRole";
 import ButtonRedirect from "@/component/buttonRedirect";
-import { Box, Typography } from "@mui/material";
+
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+
 import SongCreateComponent from "./components/SongCreateComponent";
 import { getTranslations } from "next-intl/server";
 

@@ -1,31 +1,31 @@
 "use client";
 import React, { useState, MouseEvent } from "react";
-import {
-  Avatar,
-  CircularProgress,
-  IconButton,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Menu,
-  MenuItem,
-} from "@mui/material";
-import { Box } from "@mui/system";
+
+import Avatar from "@mui/material/Avatar";
+import CircularProgress from "@mui/material/CircularProgress";
+import IconButton from "@mui/material/IconButton";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Box from "@mui/material/Box";
 
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
+
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { pause, play, setNewSong } from "@/store/playingMusicSlice";
 import { TSongDetail } from "@/dataType/song";
-import theme from "@/app/theme-provider";
+
 import { useTheme } from "@emotion/react";
 import { revalidateByTag } from "@/app/action";
 import { apiBasicClient } from "@/app/utils/request";
 import { updateNewPlaylist } from "@/app/utils/updateCurrentPLayList";
-import { useRouter } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 
 // Định nghĩa kiểu cho props của component

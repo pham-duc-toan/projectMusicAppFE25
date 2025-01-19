@@ -1,7 +1,10 @@
 "use client";
-import { Button, useColorScheme } from "@mui/material";
+import Button from "@mui/material/Button";
+import { useColorScheme } from "@mui/material/styles";
+
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
+
 import { useEffect, useState } from "react";
 
 export function SwitchThemeButton() {

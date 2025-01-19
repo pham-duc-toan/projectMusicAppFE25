@@ -1,5 +1,6 @@
-import { Button } from "@mui/material";
-import { Box } from "@mui/system";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+
 import { Link } from "@/i18n/routing";
 import TopicCreateComponent from "./components/TopicCreateComponent";
 import { getTranslations } from "next-intl/server";

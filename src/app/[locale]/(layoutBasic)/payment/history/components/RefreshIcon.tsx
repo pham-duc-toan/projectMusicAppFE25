@@ -2,8 +2,12 @@
 import { revalidateByTag } from "@/app/action";
 import { apiBasicClient } from "@/app/utils/request";
 import { useAppContext } from "@/context-app";
+
 import RefreshIcon2 from "@mui/icons-material/Refresh";
-import { IconButton, Tooltip } from "@mui/material";
+
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+
 import { useTranslations } from "next-intl";
 
 interface RefreshTokenProps {

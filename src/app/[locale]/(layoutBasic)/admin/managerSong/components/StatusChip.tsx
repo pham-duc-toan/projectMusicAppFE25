@@ -1,7 +1,9 @@
 "use client";
-
 import React, { useState } from "react";
-import { Chip, Tooltip } from "@mui/material";
+
+import Chip from "@mui/material/Chip";
+import Tooltip from "@mui/material/Tooltip";
+
 import { apiBasicClient } from "@/app/utils/request";
 import { revalidateByTag } from "@/app/action";
 import { useAppContext } from "@/context-app";

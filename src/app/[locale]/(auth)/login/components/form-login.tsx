@@ -5,32 +5,34 @@ import {
 } from "@/app/helper/localStorageClient";
 import { login, logout } from "@/app/utils/request";
 import { useAppContext } from "@/context-app";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import {
-  Button,
-  CircularProgress,
-  IconButton,
-  InputAdornment,
-  Typography,
-  Divider,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import { useRouter } from "next/navigation";
+
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+
+import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import Box from "@mui/material/Box";
+
 import { useEffect, useState } from "react";
 import { useTheme } from "@emotion/react";
+
 import ButtonRedirect from "@/component/buttonRedirect";
 import {
   CustomTextFieldPassword,
   CustomTextFieldUsername,
 } from "./text-field-customize";
 import ListProvider from "./btnLoginWithGoogle";
+
 import { useLocale, useTranslations } from "next-intl";
 
 export default function FormLoginComponent() {
   const { showMessage } = useAppContext();
   const t = useTranslations("FormLogin");
   const locale = useLocale();
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isErrorUsername, setIsErrorUsername] = useState<boolean>(false);

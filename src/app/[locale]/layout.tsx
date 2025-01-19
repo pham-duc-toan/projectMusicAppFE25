@@ -1,11 +1,14 @@
 import "../globals.css";
 import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
+
 import { ThemeProvider } from "../theme-provider";
 import ContextApp from "@/context-app";
 import NextTopLoader from "nextjs-toploader";
+
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
+
 import { routing } from "@/i18n/routing";
 import OrientationGuard from "./OrientationGuard";
 

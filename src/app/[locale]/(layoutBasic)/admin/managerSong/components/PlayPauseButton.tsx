@@ -1,10 +1,14 @@
 "use client";
 
 import React from "react";
+
 import { useDispatch, useSelector } from "react-redux";
-import { IconButton } from "@mui/material";
+
+import IconButton from "@mui/material/IconButton";
+
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
+
 import { pause, play, setNewSong } from "@/store/playingMusicSlice";
 import { RootState } from "@/store/store";
 

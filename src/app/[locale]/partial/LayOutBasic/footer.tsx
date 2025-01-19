@@ -1,6 +1,7 @@
 import { useHasMounted } from "@/app/utils/customHook";
 
 import { TSongDetail } from "@/dataType/song";
+
 import {
   pause,
   play,
@@ -8,15 +9,24 @@ import {
   setNewSong,
 } from "@/store/playingMusicSlice";
 import { AppDispatch, RootState } from "@/store/store";
-import { useTheme } from "@mui/material";
-import { Box, Container, styled } from "@mui/system";
+
+import { useTheme } from "@mui/material/styles";
+
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import styled from "@mui/system/styled";
+
 import { useEffect, useRef } from "react";
 import H5AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
+
 import { useDispatch, useSelector } from "react-redux";
+
 import DivNavigation from "./component/footerComponent";
+
 import { apiBasicClientPublic } from "@/app/utils/request";
 import { revalidateByTag } from "@/app/action";
+
 import RightSlider from "./component/siderPlayList";
 
 const StyledAudioPlayer = styled(H5AudioPlayer)(({ theme }) => ({

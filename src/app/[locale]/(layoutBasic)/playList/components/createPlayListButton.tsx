@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Button,
-  Modal,
-  Box,
-  TextField,
-  Typography,
-  CircularProgress,
-} from "@mui/material";
+
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import { getAccessTokenFromLocalStorage } from "@/app/helper/localStorageClient";
 import { decodeToken } from "@/app/helper/jwt";
 import { useAppContext } from "@/context-app";

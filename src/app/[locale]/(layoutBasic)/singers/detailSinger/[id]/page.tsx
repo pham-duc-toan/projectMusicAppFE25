@@ -1,6 +1,12 @@
-import { Box, Typography, Avatar, Paper, Grid } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+
 import { apiBasicServer, getInfoUser } from "@/app/utils/request";
 import { GetPublicAccessTokenFromCookie } from "@/app/utils/checkRole";
+
 import ItemControlCard from "@/component/item-control-card-music";
 import { getTranslations } from "next-intl/server";
 

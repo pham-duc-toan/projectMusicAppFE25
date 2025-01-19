@@ -1,23 +1,17 @@
 "use client";
 import * as React from "react";
-import { useTheme } from "@mui/material/styles";
+
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
-import { Link } from "@/i18n/routing";
+
 import { TSongDetail } from "@/dataType/song";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { pause, play, setNewSong } from "@/store/playingMusicSlice";
-import Image from "next/image";
+
 import IconAddToPlayList from "@/component/iconbutton/IconAddToPlayList";
 import IconLikeSong from "@/component/iconbutton/IconLikeSong";
 

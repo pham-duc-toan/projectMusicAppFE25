@@ -1,25 +1,29 @@
 "use client";
-import { SyntheticEvent, useState, DragEvent } from "react"; // Thêm DragEvent
-import {
-  Drawer,
-  Button,
-  IconButton,
-  useMediaQuery,
-  List,
-  Box,
-} from "@mui/material";
+import { SyntheticEvent, useState, DragEvent } from "react";
+
+import Drawer from "@mui/material/Drawer";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import List from "@mui/material/List";
+import Box from "@mui/material/Box";
+
 import NotInterestedOutlinedIcon from "@mui/icons-material/NotInterestedOutlined";
 import MultipleStopOutlinedIcon from "@mui/icons-material/MultipleStopOutlined";
 import RepeatOutlinedIcon from "@mui/icons-material/RepeatOutlined";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
+
 import { useTheme } from "@emotion/react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+
 import ItemSongInSlider from "./ItemSongInSider";
 import { toggleLooping, updatePlaylist } from "@/store/playListSlice";
 import { exitPlaylist } from "@/app/utils/updateCurrentPLayList";
 import { apiBasicClient } from "@/app/utils/request";
 import { revalidateByTag } from "@/app/action";
+
 import { useTranslations } from "next-intl";
 
 // Định nghĩa kiểu cho bài hát

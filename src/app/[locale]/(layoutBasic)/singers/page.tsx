@@ -1,6 +1,8 @@
 import { apiBasicServer } from "@/app/utils/request";
-import { Grid } from "@mui/material";
-import { Box } from "@mui/system";
+
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+
 import ItemControlCardSinger from "./components/ItemControlCardSinger";
 import { getTranslations } from "next-intl/server";
 

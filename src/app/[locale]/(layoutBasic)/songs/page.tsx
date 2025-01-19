@@ -1,9 +1,13 @@
 import { apiBasicServer, getInfoUser } from "@/app/utils/request";
 import ItemControlCard from "@/component/item-control-card-music";
-import { Grid, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+
 import { GetPublicAccessTokenFromCookie } from "@/app/utils/checkRole";
 import PaginationComponent from "@/component/PaginationComponent";
+
 import { getTranslations } from "next-intl/server";
 
 interface SongsProps {

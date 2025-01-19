@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import LayOutBasic from "../partial/LayOutBasic/LayoutBasic";
 import RefreshToken from "@/component/refresh-token";
 
 export const metadata: Metadata = {

@@ -1,27 +1,30 @@
 "use client";
 import React, { useState, useEffect, useCallback } from "react";
-import {
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Avatar,
-  Typography,
-  IconButton,
-  Tooltip,
-  Button,
-  Skeleton,
-} from "@mui/material";
+
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import Button from "@mui/material/Button";
+import Skeleton from "@mui/material/Skeleton";
+
 import StarIcon from "@mui/icons-material/Star";
+
 import { apiBasicClient } from "@/app/utils/request";
 import { Link } from "@/i18n/routing";
 import { useAppContext } from "@/context-app";
+
 import CellSingerInfo from "./components/CellSingerInfo";
 import CellTopicInfo from "./components/CellTopicInfo";
+
 import { useTranslations } from "next-intl";
 
 interface Topic {

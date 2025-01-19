@@ -1,13 +1,15 @@
 "use client";
-import "@fontsource/inter"; // Mặc định weight 400
-import "@fontsource/inter/600.css"; // Nếu cần các weight khác
+import "@fontsource/inter";
+import "@fontsource/inter/600.css";
 
 import { revalidateByTag } from "@/app/action";
 import { decodeToken } from "@/app/helper/jwt";
 import { getAccessTokenFromLocalStorage } from "@/app/helper/localStorageClient";
 import { apiBasicClient } from "@/app/utils/request";
 import { useAppContext } from "@/context-app";
-import { Button } from "@mui/material";
+
+import Button from "@mui/material/Button";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";

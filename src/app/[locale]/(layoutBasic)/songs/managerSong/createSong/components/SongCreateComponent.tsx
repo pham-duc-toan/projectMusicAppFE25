@@ -2,27 +2,26 @@
 import axios, { AxiosProgressEvent } from "axios";
 import React, { useState, useCallback } from "react";
 import { FileWithPath } from "react-dropzone";
-import {
-  TextField,
-  Button,
-  Grid,
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  CircularProgress,
-  IconButton,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  LinearProgress,
-} from "@mui/material";
+
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
+import IconButton from "@mui/material/IconButton";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import LinearProgress from "@mui/material/LinearProgress";
+
 import CloseIcon from "@mui/icons-material/Close";
 
 import { useAppContext } from "@/context-app";
 import { getAccessTokenFromLocalStorage } from "@/app/helper/localStorageClient";
-import { apiBackEndCreateWithFile } from "@/app/utils/request";
 
 import { revalidateByTag } from "@/app/action";
 import DropzoneComponent from "@/component/customDropzone/dropzoneComponent";

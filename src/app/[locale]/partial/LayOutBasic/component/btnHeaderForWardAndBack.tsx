@@ -1,6 +1,10 @@
 "use client";
-import { IconButton, Grid, Box } from "@mui/material";
-import { ArrowBack, ArrowForward } from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+
+import ArrowBack from "@mui/icons-material/ArrowBack";
+import ArrowForward from "@mui/icons-material/ArrowForward";
 
 export default function NavigationButtons() {
   const handleBackClick = () => {

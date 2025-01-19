@@ -1,7 +1,9 @@
 "use client";
-import { TextField, TextFieldProps } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import type { TextFieldProps } from "@mui/material/TextField";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
+
 const bcolorInputDark = "#0e0025";
 const bcolorInputLight = "#fff";
 const TextFieldStyledPassword = styled(TextField)<TextFieldProps>(

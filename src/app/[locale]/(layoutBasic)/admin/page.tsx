@@ -1,5 +1,8 @@
 import React from "react";
-import { Box, Container, Typography } from "@mui/material";
+
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+
 import ChartComponent from "./ChartComponent";
 import { apiBasicServer } from "@/app/utils/request";
 import { getTranslations } from "next-intl/server";

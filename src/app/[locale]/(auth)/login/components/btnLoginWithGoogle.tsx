@@ -1,7 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Box, Button, CircularProgress } from "@mui/material";
-import GitHubIcon from "@mui/icons-material/GitHub";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import GoogleIcon from "@mui/icons-material/Google";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
