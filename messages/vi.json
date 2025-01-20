@@ -1,14 +1,25 @@
 {
-  "HomePage": {
-    "topSongs": "Bảng xếp hạng",
-    "viewTop100": "Xem Top 100 bài hát",
-    "songsForYou": "Có thể bạn muốn nghe",
-    "seeMore": "Xem thêm",
-    "newReleases": "Mới phát hành",
-    "latestTopics": "Những Chủ Đề Mới Nhất",
-    "descriptionUpdating": "Mô tả đang được cập nhật",
-    "featuredSingers": "Nghệ Sĩ Nổi Bật",
-    "artist": "Nghệ sĩ"
+  "metadata": {
+    "layout": {
+      "detailTitle": "Ứng dụng nghe nhạc Toandeptrai",
+      "detailDescription": "Website nghe nhạc mới, HOT nhất và tải nhạc miễn phí "
+    },
+    "home": {
+      "detailTitle": "Trang chủ",
+      "detailDescription": "Trang chủ của website Toandeptrai"
+    },
+    "login": {
+      "detailTitle": "Đăng nhập",
+      "detailDescription": "Trang đăng nhập vào website Toandeptrai"
+    },
+    "register": {
+      "detailTitle": "Đăng ký",
+      "detailDescription": "Trang đăng ký tài khoản trên website Toandeptrai"
+    },
+    "forgotPassword": {
+      "detailTitle": "Quên mật khẩu",
+      "detailDescription": "Khôi phục tài khoản trên website Toandeptrai"
+    }
   },
   "PlayListPage": {
     "no-playlist": "Hiện không có danh sách phát nào."

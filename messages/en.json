@@ -1,4 +1,26 @@
 {
+  "metadata": {
+    "layout": {
+      "detailTitle": "Music App Toandeptrai",
+      "detailDescription": "The newest and hottest music streaming website with free downloads"
+    },
+    "home": {
+      "detailTitle": "Home Page",
+      "detailDescription": "HomePage website Toandeptrai"
+    },
+    "login": {
+      "detailTitle": "Login Page",
+      "detailDescription": "Login website Toandeptrai"
+    },
+    "register": {
+      "detailTitle": "Register Page",
+      "detailDescription": "Register to access website Toandeptrai"
+    },
+    "forgotPassword": {
+      "detailTitle": "Forgot Password",
+      "detailDescription": "Recover your account on website Toandeptrai"
+    }
+  },
   "HomePage": {
     "topSongs": "Top Songs",
     "viewTop100": "View Top 100 Songs",

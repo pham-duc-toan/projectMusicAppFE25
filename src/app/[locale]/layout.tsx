@@ -6,16 +6,35 @@ import ContextApp from "@/context-app";
 import NextTopLoader from "nextjs-toploader";
 
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 import { routing } from "@/i18n/routing";
 import OrientationGuard from "./OrientationGuard";
 
-export const metadata = {
-  title: "My Project Next",
-  description: "Perfect Dark Theme With Next.js and MUI",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}) {
+  const t = await getTranslations({
+    locale: params.locale,
+    namespace: "metadata.layout",
+  });
+
+  return {
+    title: `${t("detailTitle")}`,
+    description: t("detailDescription"),
+    openGraph: {
+      title: t("detailTitle"),
+      description: t("detailDescription"),
+      images: [
+        "https://res.cloudinary.com/dsi9ercdo/image/upload/v1733296299/xnwsxfhvkgsy3njpsyat.png",
+      ],
+      type: "website",
+    },
+  };
+}
 export function generateStaticParams() {
   return [{ locale: "vi" }, { locale: "en" }];
 }

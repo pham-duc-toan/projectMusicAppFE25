@@ -15,6 +15,7 @@ import { apiBasicServer } from "@/app/utils/request";
 import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 import SingerInfo from "./components/infoSinger";
+import { Metadata } from "next";
 
 interface Topic {
   _id: string;
@@ -35,6 +36,29 @@ interface ISingerDetail {
   deleted: boolean;
   updatedAt: string;
   createdAt: string;
+}
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}) {
+  const t = await getTranslations({
+    locale: params.locale,
+    namespace: "metadata.home",
+  });
+
+  return {
+    title: `${t("detailTitle")}`,
+    description: t("detailDescription"),
+    openGraph: {
+      title: t("detailTitle"),
+      description: t("detailDescription"),
+      images: [
+        "https://res.cloudinary.com/dsi9ercdo/image/upload/v1733296299/xnwsxfhvkgsy3njpsyat.png",
+      ],
+      type: "website",
+    },
+  };
 }
 
 export default async function Dashboard() {
