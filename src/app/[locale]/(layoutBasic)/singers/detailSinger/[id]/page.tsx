@@ -21,11 +21,67 @@ interface ISingerDetail {
   updatedAt: string;
   createdAt: string;
 }
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string; id: string };
+}) {
+  try {
+    const response = await apiBasicServer(
+      "GET",
+      `/singers/detailClient/${params.id}`,
+      undefined,
+      undefined,
+      undefined,
+      ["revalidate-tag-singers"]
+    );
+    const data: ISingerDetail = response.data;
+
+    // Kiểm tra nếu response hợp lệ
+    const title = data?.fullName || "Unknown Singer";
+    const description = "No biography available.";
+    const image =
+      data?.avatar ||
+      "https://res.cloudinary.com/dsi9ercdo/image/upload/v1733296299/xnwsxfhvkgsy3njpsyat.png";
+
+    return {
+      title: title + " | Music App Toandeptrai",
+      description,
+      openGraph: {
+        title,
+        description,
+        images: [image],
+        type: "website",
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching metadata:", error);
+    return {
+      title: "Error - Music App",
+      description: "An error occurred while fetching singer details.",
+      openGraph: {
+        title: "Error - Music App",
+        description: "An error occurred while fetching singer details.",
+        images: [
+          "https://res.cloudinary.com/dsi9ercdo/image/upload/v1733296299/xnwsxfhvkgsy3njpsyat.png",
+        ],
+        type: "website",
+      },
+    };
+  }
+}
 
 // Hàm server-side để lấy dữ liệu
 async function getSingerDetail(id: string): Promise<ISingerDetail | null> {
   try {
-    const response = await apiBasicServer("GET", `/singers/detailClient/${id}`);
+    const response = await apiBasicServer(
+      "GET",
+      `/singers/detailClient/${id}`,
+      undefined,
+      undefined,
+      undefined,
+      ["revalidate-tag-singers"]
+    );
     return response.data;
   } catch (error) {
     console.error("Failed to fetch singer details:", error);

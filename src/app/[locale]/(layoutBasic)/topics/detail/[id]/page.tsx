@@ -20,6 +20,54 @@ interface Topic {
   slug: string;
   deleted: boolean;
 }
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string; id: string };
+}) {
+  try {
+    const response = await apiBasicServer(
+      "GET",
+      `/topics/detail/${params.id}`,
+      undefined,
+      undefined,
+      undefined,
+      ["revalidate-tag-topics"]
+    );
+    const data: Topic = response.data;
+    // Kiểm tra nếu response hợp lệ
+    const title = data?.title || "Unknown Topic";
+    const description = data?.description || "No description available.";
+    const image =
+      data?.avatar ||
+      "https://res.cloudinary.com/dsi9ercdo/image/upload/v1733296299/xnwsxfhvkgsy3njpsyat.png";
+
+    return {
+      title: title + " | Music App Toandeptrai",
+      description,
+      openGraph: {
+        title,
+        description,
+        images: [image],
+        type: "website",
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching metadata:", error);
+    return {
+      title: "Error - Music App",
+      description: "An error occurred while fetching topic details.",
+      openGraph: {
+        title: "Error - Music App",
+        description: "An error occurred while fetching topic details.",
+        images: [
+          "https://res.cloudinary.com/dsi9ercdo/image/upload/v1733296299/xnwsxfhvkgsy3njpsyat.png",
+        ],
+        type: "website",
+      },
+    };
+  }
+}
 
 // Hàm server-side để lấy dữ liệu topic
 async function getTopicDetail(id: string): Promise<Topic | null> {
@@ -30,7 +78,7 @@ async function getTopicDetail(id: string): Promise<Topic | null> {
       undefined,
       undefined,
       undefined,
-      ["revalidate-tag-songs"]
+      ["revalidate-tag-topics"]
     );
     return response.data;
   } catch (error) {

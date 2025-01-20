@@ -26,6 +26,7 @@ import { decodeToken } from "@/app/helper/jwt";
 
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
+import { revalidateByTag } from "@/app/action";
 
 interface Singer {
   _id: string;
@@ -128,6 +129,7 @@ const EditSingerPage: React.FC = () => {
 
       if (response.status === 200) {
         setSinger(response.data.data);
+        await revalidateByTag("revalidate-tag-singers");
         await refreshtoken();
         showMessage(t("messages.updateSuccess"), "success");
       } else {

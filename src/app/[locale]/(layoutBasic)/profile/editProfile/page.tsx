@@ -22,6 +22,7 @@ import { useTranslations } from "next-intl";
 import axios, { AxiosProgressEvent } from "axios";
 import { apiBasicClient, refreshtoken } from "@/app/utils/request";
 import { getAccessTokenFromLocalStorage } from "@/app/helper/localStorageClient";
+import { revalidateByTag } from "@/app/action";
 
 interface User {
   _id: string;
@@ -108,6 +109,7 @@ const EditUserPage: React.FC = () => {
       if (response.status === 200) {
         setUser(response.data.data);
         await refreshtoken();
+        await revalidateByTag("revalidate-tag-users");
         showMessage(t("messages.updateSuccess"), "success");
       } else {
         showMessage(response.data.message || t("errors.updateFailed"), "error");

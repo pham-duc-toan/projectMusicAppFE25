@@ -17,11 +17,6 @@ import { GetPublicAccessTokenFromCookie } from "@/app/utils/checkRole";
 import SingerInfoPopover from "./components/SingerInfo";
 import TopicPopover from "./components/TopicInfo";
 
-export const metadata: Metadata = {
-  title: "Chi tiết bài hát",
-  description: "Thông tin chi tiết về bài hát",
-};
-
 interface SongDetail {
   listen: number;
   _id: string;
@@ -49,6 +44,55 @@ interface SongDetail {
   };
   like: number;
   lyrics: string;
+}
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string; id: string };
+}) {
+  try {
+    const response = await apiBasicServer(
+      "GET",
+      `/songs/detail/${params.id}`,
+      undefined,
+      undefined,
+      undefined,
+      ["revalidate-tag-songs"]
+    );
+    const data: SongDetail = response?.data;
+
+    // Kiểm tra nếu response hợp lệ
+    const title = data?.title || "Unknown Song";
+    const description = data?.description || "No description available.";
+    const image =
+      data?.avatar ||
+      "https://res.cloudinary.com/dsi9ercdo/image/upload/v1733296299/xnwsxfhvkgsy3njpsyat.png";
+
+    return {
+      title: title + " | Music App Toandeptrai",
+      description,
+      openGraph: {
+        title,
+        description,
+        images: [image],
+        type: "website",
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching metadata:", error);
+    return {
+      title: "Error - Music App",
+      description: "An error occurred while fetching song details.",
+      openGraph: {
+        title: "Error - Music App",
+        description: "An error occurred while fetching song details.",
+        images: [
+          "https://res.cloudinary.com/dsi9ercdo/image/upload/v1733296299/xnwsxfhvkgsy3njpsyat.png",
+        ],
+        type: "website",
+      },
+    };
+  }
 }
 
 // Fetch data server-side (SSR)
