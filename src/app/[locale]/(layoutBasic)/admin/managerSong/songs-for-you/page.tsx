@@ -60,7 +60,6 @@ interface Song {
   updatedAt: string;
   slug: string;
 }
-
 const ManageFeaturedSongs: React.FC = () => {
   const t = useTranslations("manageFeaturedSongs");
   const { showMessage } = useAppContext();

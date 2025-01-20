@@ -1,12 +1,7 @@
-import { routing } from "@/i18n/routing";
 import NotFoundPage from "./[locale]/not-found";
 import NextTopLoader from "nextjs-toploader";
 import InitColorSchemeScript from "@mui/system/InitColorSchemeScript";
 import { ThemeProvider } from "./theme-provider";
-
-// This page renders when a route like `/unknown.txt` is requested.
-// In this case, the layout at `app/[locale]/layout.tsx` receives
-// an invalid value as the `[locale]` param and calls `notFound()`.
 
 export default function GlobalNotFound() {
   return (

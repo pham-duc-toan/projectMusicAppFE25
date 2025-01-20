@@ -22,7 +22,29 @@ interface Singer {
   avatar: string;
   status: string;
 }
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}) {
+  const t = await getTranslations({
+    locale: params.locale,
+    namespace: "metadata.manageSingers",
+  });
 
+  return {
+    title: `${t("detailTitle")}`,
+    description: t("detailDescription"),
+    openGraph: {
+      title: t("detailTitle"),
+      description: t("detailDescription"),
+      images: [
+        "https://res.cloudinary.com/dsi9ercdo/image/upload/v1733296299/xnwsxfhvkgsy3njpsyat.png",
+      ],
+      type: "website",
+    },
+  };
+}
 const fetchSingers = async () => {
   const access_token = GetAccessTokenFromCookie();
   try {

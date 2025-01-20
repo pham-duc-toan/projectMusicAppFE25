@@ -5,7 +5,29 @@ import Box from "@mui/material/Box";
 
 import ItemControlCardSinger from "./components/ItemControlCardSinger";
 import { getTranslations } from "next-intl/server";
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}) {
+  const t = await getTranslations({
+    locale: params.locale,
+    namespace: "metadata.exploreAllSingers",
+  });
 
+  return {
+    title: `${t("detailTitle")}`,
+    description: t("detailDescription"),
+    openGraph: {
+      title: t("detailTitle"),
+      description: t("detailDescription"),
+      images: [
+        "https://res.cloudinary.com/dsi9ercdo/image/upload/v1733296299/xnwsxfhvkgsy3njpsyat.png",
+      ],
+      type: "website",
+    },
+  };
+}
 const AllSingers = async () => {
   const t = await getTranslations("AllSingers");
 

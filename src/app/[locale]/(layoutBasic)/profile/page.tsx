@@ -21,7 +21,29 @@ async function fetchProfileData(): Promise<IUserInfo | null> {
     return null;
   }
 }
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}) {
+  const t = await getTranslations({
+    locale: params.locale,
+    namespace: "metadata.profile",
+  });
 
+  return {
+    title: `${t("detailTitle")}`,
+    description: t("detailDescription"),
+    openGraph: {
+      title: t("detailTitle"),
+      description: t("detailDescription"),
+      images: [
+        "https://res.cloudinary.com/dsi9ercdo/image/upload/v1733296299/xnwsxfhvkgsy3njpsyat.png",
+      ],
+      type: "website",
+    },
+  };
+}
 export default async function ProfilePage() {
   const t = await getTranslations("ProfilePage");
   const profileData = await fetchProfileData();

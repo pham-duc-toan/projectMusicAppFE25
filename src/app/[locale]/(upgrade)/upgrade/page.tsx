@@ -15,9 +15,29 @@ import DoneIcon from "@mui/icons-material/Done";
 
 import { getTranslations } from "next-intl/server";
 
-export const metadata = {
-  title: "Nâng cấp tài khoản",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}) {
+  const t = await getTranslations({
+    locale: params.locale,
+    namespace: "metadata.registerAsSinger",
+  });
+
+  return {
+    title: `${t("detailTitle")}`,
+    description: t("detailDescription"),
+    openGraph: {
+      title: t("detailTitle"),
+      description: t("detailDescription"),
+      images: [
+        "https://res.cloudinary.com/dsi9ercdo/image/upload/v1733296299/xnwsxfhvkgsy3njpsyat.png",
+      ],
+      type: "website",
+    },
+  };
+}
 
 export default async function HomePage() {
   const t = await getTranslations("homePage"); // Dùng useTranslations() cho Client Component

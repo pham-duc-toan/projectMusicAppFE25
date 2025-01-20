@@ -10,7 +10,29 @@ import { redirect } from "next/navigation";
 import CreatePlaylistButton from "./components/createPlayListButton";
 import PlaylistItem from "./components/PlaylistItem";
 import { getTranslations } from "next-intl/server";
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}) {
+  const t = await getTranslations({
+    locale: params.locale,
+    namespace: "metadata.myPlaylists",
+  });
 
+  return {
+    title: `${t("detailTitle")}`,
+    description: t("detailDescription"),
+    openGraph: {
+      title: t("detailTitle"),
+      description: t("detailDescription"),
+      images: [
+        "https://res.cloudinary.com/dsi9ercdo/image/upload/v1733296299/xnwsxfhvkgsy3njpsyat.png",
+      ],
+      type: "website",
+    },
+  };
+}
 const Playlists = async () => {
   const t = await getTranslations("playlist"); // Load translations
   const access_token = GetAccessTokenFromCookie();

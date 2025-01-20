@@ -19,6 +19,66 @@
     "forgotPassword": {
       "detailTitle": "Quên mật khẩu",
       "detailDescription": "Khôi phục tài khoản trên website Toandeptrai"
+    },
+    "manageSingers": {
+      "detailTitle": "Quản lý ca sĩ",
+      "detailDescription": "Quản lý và tổ chức danh sách ca sĩ trong hệ thống"
+    },
+    "manageSongs": {
+      "detailTitle": "Quản lý bài hát",
+      "detailDescription": "Quản lý và tổ chức danh sách bài hát trong hệ thống"
+    },
+    "manageMySongs": {
+      "detailTitle": "Quản lý bài hát của tôi",
+      "detailDescription": "Quản lý và tổ chức danh sách bài hát của tôi"
+    },
+    "manageTopics": {
+      "detailTitle": "Quản lý chủ đề",
+      "detailDescription": "Tổ chức và phân loại chủ đề âm nhạc"
+    },
+    "manageUsers": {
+      "detailTitle": "Quản lý người dùng",
+      "detailDescription": "Quản lý tài khoản và thông tin của người dùng"
+    },
+    "rolesPermissions": {
+      "detailTitle": "Phân quyền và vai trò",
+      "detailDescription": "Quản lý quyền truy cập và vai trò của người dùng"
+    },
+    "dashboard": {
+      "detailTitle": "Trang chủ admin",
+      "detailDescription": "Tổng quan và phân tích hệ thống nghe nhạc"
+    },
+    "manageTransactions": {
+      "detailTitle": "Quản lý giao dịch",
+      "detailDescription": "Theo dõi và quản lý giao dịch của tôi"
+    },
+    "myPlaylists": {
+      "detailTitle": "Danh sách phát của tôi",
+      "detailDescription": "Quản lý và nghe danh sách phát cá nhân"
+    },
+    "profile": {
+      "detailTitle": "Trang cá nhân",
+      "detailDescription": "Xem và cập nhật thông tin cá nhân"
+    },
+    "exploreAllSingers": {
+      "detailTitle": "Khám phá tất cả ca sĩ",
+      "detailDescription": "Tìm kiếm và khám phá tất cả ca sĩ trên nền tảng."
+    },
+    "exploreAllTopics": {
+      "detailTitle": "Khám phá chủ đề âm nhạc",
+      "detailDescription": "Duyệt qua các thể loại âm nhạc và chủ đề khác nhau."
+    },
+    "exploreAllSongs": {
+      "detailTitle": "Khám phá không giới hạn bài hát",
+      "detailDescription": "Nghe và khám phá những bài hát đang thịnh hành nhất."
+    },
+    "myFavoriteSongs": {
+      "detailTitle": "Bài hát yêu thích của tôi",
+      "detailDescription": "Quản lý và nghe lại những bài hát yêu thích mọi lúc."
+    },
+    "registerAsSinger": {
+      "detailTitle": "Đăng ký trở thành ca sĩ",
+      "detailDescription": "Đăng ký để trở thành ca sĩ và chia sẻ âm nhạc của bạn với mọi người."
     }
   },
   "PlayListPage": {

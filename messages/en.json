@@ -19,6 +19,66 @@
     "forgotPassword": {
       "detailTitle": "Forgot Password",
       "detailDescription": "Recover your account on website Toandeptrai"
+    },
+    "manageSingers": {
+      "detailTitle": "Manage Singers",
+      "detailDescription": "Manage and organize all singers in the system"
+    },
+    "manageSongs": {
+      "detailTitle": "Manage Songs",
+      "detailDescription": "Manage and organize all songs in the system"
+    },
+    "manageMySongs": {
+      "detailTitle": "Manage My Songs",
+      "detailDescription": "Manage and organize my songs "
+    },
+    "manageTopics": {
+      "detailTitle": "Manage Topics",
+      "detailDescription": "Organize and categorize music topics"
+    },
+    "manageUsers": {
+      "detailTitle": "Manage Users",
+      "detailDescription": "Manage user accounts and their information"
+    },
+    "rolesPermissions": {
+      "detailTitle": "Roles & Permissions",
+      "detailDescription": "Manage user roles and access permissions"
+    },
+    "dashboard": {
+      "detailTitle": "Dashboard",
+      "detailDescription": "Overview and analytics of the music platform"
+    },
+    "manageTransactions": {
+      "detailTitle": "Manage Transactions",
+      "detailDescription": "Track and manage user transactions"
+    },
+    "myPlaylists": {
+      "detailTitle": "My Playlists",
+      "detailDescription": "Manage and listen to your personalized playlists"
+    },
+    "profile": {
+      "detailTitle": "Profile Page",
+      "detailDescription": "View and update your personal information"
+    },
+    "exploreAllSingers": {
+      "detailTitle": "Discover Singers",
+      "detailDescription": "Discover and explore all singers on the platform."
+    },
+    "exploreAllTopics": {
+      "detailTitle": "Discover Music Topics",
+      "detailDescription": "Browse through various music genres and themes."
+    },
+    "exploreAllSongs": {
+      "detailTitle": "Explore Unlimited Songs",
+      "detailDescription": "Listen to and discover the latest trending songs."
+    },
+    "myFavoriteSongs": {
+      "detailTitle": "My Favorite Songs",
+      "detailDescription": "Manage and listen to your favorite songs anytime."
+    },
+    "registerAsSinger": {
+      "detailTitle": "Register as a Singer",
+      "detailDescription": "Sign up to become a singer and share your music with the world."
     }
   },
   "HomePage": {
