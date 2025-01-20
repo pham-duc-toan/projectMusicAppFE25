@@ -80,7 +80,6 @@ const FooterComponent = () => {
 
   const playerRef = useRef<H5AudioPlayer | null>(null);
   const mounted = useHasMounted();
-
   useEffect(() => {
     const audioElement = playerRef.current?.audio.current;
     let interval: NodeJS.Timeout | null = null;
@@ -231,10 +230,13 @@ const FooterComponent = () => {
           >
             {songCurrent.singerFullName}
           </div>
-          <DivNavigation
-            link={"/songs/detail/" + songCurrent.slug}
-            content={songCurrent.title}
-          />
+
+          {songCurrent?.slug && (
+            <DivNavigation
+              link={`/songs/detail/${songCurrent.slug}`}
+              content={songCurrent.title}
+            />
+          )}
         </Box>
       </Container>
     </footer>

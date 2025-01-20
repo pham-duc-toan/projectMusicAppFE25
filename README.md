@@ -8,3 +8,6 @@ bài hát khi bị ban thì ko xuất hiện trong danh sách bài hát nhưng v
 
 VẤN ĐỀ XÓA VÀ CÁC PHẦN LIÊN QUAN SAU KHI XÓA:
 nếu như xóa singer mà song gọi singerId thì phải xử lý ở fe vì be gọi ra là null nếu gọi populate còn ko thì sẽ là id cũ nhưng id đó ko tồn tại
+
+VẤN ĐỀ VỀ SSG:
+hiện tại đang dùng router group nên đang bị lỗi hiển thị khi npm run build là ssg nhưng thực ra ko phải
