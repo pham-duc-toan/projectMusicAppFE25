@@ -81,6 +81,18 @@
       "detailDescription": "Đăng ký để trở thành ca sĩ và chia sẻ âm nhạc của bạn với mọi người."
     }
   },
+  "HomePage": {
+    "topSongs": "Bảng xếp hạng",
+    "viewTop100": "Xem Top 100 bài hát",
+    "songsForYou": "Có thể bạn muốn nghe",
+    "seeMore": "Xem thêm",
+    "newReleases": "Mới phát hành",
+    "latestTopics": "Những Chủ Đề Mới Nhất",
+    "descriptionUpdating": "Mô tả đang được cập nhật",
+    "featuredSingers": "Nghệ Sĩ Nổi Bật",
+    "artist": "Nghệ sĩ"
+  },
+
   "PlayListPage": {
     "no-playlist": "Hiện không có danh sách phát nào."
   },

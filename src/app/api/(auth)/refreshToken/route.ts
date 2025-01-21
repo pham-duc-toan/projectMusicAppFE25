@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     !(accessLocal && access_token && access_token == accessLocal)
   ) {
     return NextResponse.json(
-      { message: "Vui lòng đăng nhập lại!" },
+      { message: "Vui lòng đăng nhập lại! (1)" },
       { status: 400 }
     );
   }
