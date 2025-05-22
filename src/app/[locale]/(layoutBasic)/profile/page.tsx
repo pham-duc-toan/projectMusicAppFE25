@@ -132,7 +132,7 @@ export default async function ProfilePage() {
           <Stack direction="row" spacing={2} justifyContent="center">
             <ButtonRedirect
               link={
-                profileData.singerId?._id
+                profileData.singerId?.id
                   ? `/singers/detailSinger/${profileData.singerId.slug}`
                   : "#"
               }

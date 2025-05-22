@@ -17,7 +17,7 @@ import DeleteSingerDialog from "./component/DeleteSingerDialog";
 import { getTranslations } from "next-intl/server";
 
 interface Singer {
-  _id: string;
+  id: string;
   fullName: string;
   avatar: string;
   status: string;
@@ -93,7 +93,7 @@ const ManagerSingerPage = async () => {
 
           <TableBody>
             {singers.map((singer: Singer, index: number) => (
-              <TableRow key={singer._id}>
+              <TableRow key={singer.id}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>
                   <Avatar
@@ -104,10 +104,10 @@ const ManagerSingerPage = async () => {
                 </TableCell>
                 <TableCell>{singer.fullName}</TableCell>
                 <TableCell>
-                  <StatusChip id={singer._id} status={singer.status} />
+                  <StatusChip id={singer.id} status={singer.status} />
                 </TableCell>
                 <TableCell>
-                  <DeleteSingerDialog singerId={singer._id} />
+                  <DeleteSingerDialog singer={singer.id} />
                 </TableCell>
               </TableRow>
             ))}

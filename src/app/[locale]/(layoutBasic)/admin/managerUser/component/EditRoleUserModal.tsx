@@ -23,13 +23,13 @@ import { revalidateByTag } from "@/app/action";
 import { useTranslations } from "next-intl";
 
 interface User {
-  _id: string;
+  id: string;
   username: string;
   avatar: string;
   status: string;
   role: {
     roleName: string;
-    _id: string;
+    id: string;
   };
 }
 interface EditRoleUserModalProps {
@@ -49,7 +49,7 @@ const EditRoleUserModal: React.FC<EditRoleUserModalProps> = ({ user }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    setSelectedRoleId(user?.role?._id || "");
+    setSelectedRoleId(user?.role?.id || "");
   };
 
   const fetchApi = async () => {
@@ -57,10 +57,10 @@ const EditRoleUserModal: React.FC<EditRoleUserModalProps> = ({ user }) => {
     if (res?.data) {
       setRoles(res.data);
       const defaultRole = res.data.find(
-        (role: any) => role._id === user?.role?._id
+        (role: any) => role.id === user?.role?.id
       );
       if (defaultRole) {
-        setSelectedRoleId(defaultRole._id);
+        setSelectedRoleId(defaultRole.id);
       }
     } else {
       route.push("/");
@@ -78,7 +78,7 @@ const EditRoleUserModal: React.FC<EditRoleUserModalProps> = ({ user }) => {
     try {
       const res = await apiBasicClient(
         "PATCH",
-        `/users/change-role/${user._id}/${selectedRoleId}`
+        `/users/change-role/${user.id}/${selectedRoleId}`
       );
 
       if (res?.data) {
@@ -123,7 +123,7 @@ const EditRoleUserModal: React.FC<EditRoleUserModalProps> = ({ user }) => {
                     onChange={(e) => setSelectedRoleId(e.target.value)}
                   >
                     {roles.map((role) => (
-                      <MenuItem key={role._id} value={role._id}>
+                      <MenuItem key={role.id} value={role.id}>
                         {role.roleName}
                       </MenuItem>
                     ))}

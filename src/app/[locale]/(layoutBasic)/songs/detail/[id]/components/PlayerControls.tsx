@@ -13,7 +13,7 @@ import PauseIcon from "@mui/icons-material/Pause";
 
 interface PlayerControlsProps {
   songDetail: {
-    _id: string;
+    id: string;
     title: string;
     avatar: string;
   };
@@ -27,7 +27,7 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({ songDetail }) => {
   );
 
   const handlePlayPauseClick = () => {
-    if (isPlaying && songCurrent?._id === songDetail._id) {
+    if (isPlaying && songCurrent?.id === songDetail.id) {
       dispatch(pause());
     } else {
       dispatch(setNewSong(songDetail as any));
@@ -37,7 +37,7 @@ const PlayerControls: React.FC<PlayerControlsProps> = ({ songDetail }) => {
 
   return (
     <IconButton color="primary" onClick={handlePlayPauseClick}>
-      {isPlaying && songCurrent?._id === songDetail._id ? (
+      {isPlaying && songCurrent?.id === songDetail.id ? (
         <PauseIcon fontSize="large" />
       ) : (
         <PlayArrowIcon fontSize="large" />

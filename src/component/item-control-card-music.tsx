@@ -61,10 +61,10 @@ export default function ItemControlCard({
           >
             <Link href={`/songs/detail/${data.slug}`}>{data.title}</Link>
           </Typography>
-          <SingerInfoPopover singer={data.singerId} />
+          <SingerInfoPopover singer={data.singer} />
         </CardContent>
         <Box sx={{ display: "flex", alignItems: "center", pb: 1 }}>
-          {songCurrent._id != data._id ? (
+          {songCurrent.id != data.id ? (
             <IconButton
               aria-label="playing"
               onClick={handleChangeNewSongPlaying}
@@ -73,15 +73,15 @@ export default function ItemControlCard({
             </IconButton>
           ) : (
             <IconButton aria-label="play/pause" onClick={handleChangeIsPlaying}>
-              {!songCurrent.isPlaying && songCurrent._id == data._id ? (
+              {!songCurrent.isPlaying && songCurrent.id == data.id ? (
                 <PlayArrowIcon sx={{ fontSize: "48px" }} />
               ) : (
                 <PauseIcon sx={{ fontSize: "48px" }} />
               )}
             </IconButton>
           )}
-          <IconAddToPlayList songId={data._id} fSongs={fSongs} />
-          <IconLikeSong songId={data._id} fSongs={fSongs} />
+          <IconAddToPlayList songId={data.id} fSongs={fSongs} />
+          <IconLikeSong songId={data.id} fSongs={fSongs} />
         </Box>
       </Box>
 

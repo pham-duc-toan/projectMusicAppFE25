@@ -28,7 +28,7 @@ import CellTopicInfo from "./components/CellTopicInfo";
 import { useTranslations } from "next-intl";
 
 interface Topic {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
   description: string;
@@ -38,10 +38,10 @@ interface Topic {
 }
 
 interface Song {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
-  singerId: {
+  singer: {
     fullName: string;
     avatar: string;
     status: string;
@@ -50,7 +50,7 @@ interface Song {
     updatedAt: string;
     createdAt: string;
   };
-  topicId: Topic;
+  topic: Topic;
   like: number;
   listen: number;
   audio: string;
@@ -93,7 +93,7 @@ const ManageFeaturedSongs: React.FC = () => {
       if (response.statusCode >= 300) {
         showMessage(response.message, "error");
       } else {
-        setFeaturedSongs((prev) => prev.filter((song) => song._id !== songId));
+        setFeaturedSongs((prev) => prev.filter((song) => song.id !== songId));
       }
     } catch (error) {
       console.error("Error removing song from featured list", error);
@@ -124,7 +124,7 @@ const ManageFeaturedSongs: React.FC = () => {
   const updateSongOrder = async () => {
     setLoading(true);
     try {
-      const updatedIds = featuredSongs.map((song) => song._id);
+      const updatedIds = featuredSongs.map((song) => song.id);
       const response = await apiBasicClient(
         "PATCH",
         "/song-for-you/update-order",
@@ -231,7 +231,7 @@ const ManageFeaturedSongs: React.FC = () => {
               {featuredSongs && featuredSongs.length > 0 ? (
                 featuredSongs.map((song, index) => (
                   <TableRow
-                    key={song._id}
+                    key={song.id}
                     draggable
                     onDragStart={(event) => handleDragStart(event, index)}
                     onDrop={(event) => handleDrop(event, index)}
@@ -263,14 +263,14 @@ const ManageFeaturedSongs: React.FC = () => {
                         {song.title}
                       </Link>
                     </TableCell>
-                    <CellSingerInfo singer={song.singerId} />
-                    <CellTopicInfo topicDetail={song.topicId} />
+                    <CellSingerInfo singer={song.singer} />
+                    <CellTopicInfo topicDetail={song.topic} />
 
                     <TableCell>
                       <Tooltip title={t("tooltips.removeFeatured")} arrow>
                         <IconButton
                           color="secondary"
-                          onClick={() => handleRemoveFromFeatured(song._id)}
+                          onClick={() => handleRemoveFromFeatured(song.id)}
                         >
                           <StarIcon color="warning" />
                         </IconButton>

@@ -30,12 +30,12 @@ import { Link } from "@/i18n/routing";
 
 // Định nghĩa kiểu cho props của component
 interface Song {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
   slug: string;
-  singerId: {
-    _id: string;
+  singer: {
+    id: string;
     fullName: string;
     [key: string]: any;
   };
@@ -75,16 +75,16 @@ const ItemSongInSlider: React.FC<ItemSongInSliderProps> = ({
     handleClose();
     const res1 = await apiBasicClient(
       "DELETE",
-      `/playlists/removeSong/${currentPlaylist._id}`,
+      `/playlists/removeSong/${currentPlaylist.id}`,
       undefined,
-      { idSong: song._id }
+      { idSong: song.id }
     );
 
     revalidateByTag("revalidate-tag-list-playlist");
     //CALL API
     const res = await apiBasicClient(
       "GET",
-      `/playlists/findOne/${currentPlaylist._id}`
+      `/playlists/findOne/${currentPlaylist.id}`
     );
     updateNewPlaylist(res.data, dispatch);
 
@@ -105,10 +105,10 @@ const ItemSongInSlider: React.FC<ItemSongInSliderProps> = ({
   };
   return (
     <ListItem
-      key={song._id}
+      key={song.id}
       sx={{
         bgcolor:
-          song._id === songCurrent._id
+          song.id === songCurrent.id
             ? //@ts-ignore
               theme.palette.secondary.A200
             : "inherit",
@@ -126,7 +126,7 @@ const ItemSongInSlider: React.FC<ItemSongInSliderProps> = ({
       </ListItemAvatar>
       <ListItemText
         primary={song.title}
-        secondary={`Ca sĩ: ${song.singerId?.fullName || "Không rõ ca sĩ"}`}
+        secondary={`Ca sĩ: ${song.singer?.fullName || "Không rõ ca sĩ"}`}
       />
 
       {/* Box để sắp xếp các nút theo hàng dọc */}
@@ -166,12 +166,12 @@ const ItemSongInSlider: React.FC<ItemSongInSliderProps> = ({
         {/* Nút phát nhạc */}
         <IconButton
           onClick={
-            song._id == songCurrent._id
+            song.id == songCurrent.id
               ? handleChangeIsPlaying
               : handleChangeNewSongPlaying
           }
         >
-          {song._id == songCurrent._id && songCurrent.isPlaying ? (
+          {song.id == songCurrent.id && songCurrent.isPlaying ? (
             <PauseIcon />
           ) : (
             <PlayArrowIcon />

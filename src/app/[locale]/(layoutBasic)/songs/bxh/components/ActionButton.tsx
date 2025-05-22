@@ -37,21 +37,21 @@ export default function ActionButton({
 
   return (
     <Box sx={{ display: "flex", alignItems: "center", pb: 1 }}>
-      {songCurrent._id != data._id ? (
+      {songCurrent.id != data.id ? (
         <IconButton aria-label="playing" onClick={handleChangeNewSongPlaying}>
           <PlayArrowIcon sx={{ fontSize: "24px" }} />
         </IconButton>
       ) : (
         <IconButton aria-label="play/pause" onClick={handleChangeIsPlaying}>
-          {!songCurrent.isPlaying && songCurrent._id == data._id ? (
+          {!songCurrent.isPlaying && songCurrent.id == data.id ? (
             <PlayArrowIcon sx={{ fontSize: "24px" }} />
           ) : (
             <PauseIcon sx={{ fontSize: "24px" }} />
           )}
         </IconButton>
       )}
-      <IconAddToPlayList songId={data._id} fSongs={fSongs} />
-      <IconLikeSong songId={data._id} fSongs={fSongs} />
+      <IconAddToPlayList songId={data.id} fSongs={fSongs} />
+      <IconLikeSong songId={data.id} fSongs={fSongs} />
     </Box>
   );
 }

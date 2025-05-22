@@ -40,7 +40,7 @@ const MyFavoriteSong = async () => {
   if (access_token) {
     const dataFs = await getInfoUser(access_token.value);
     if (dataFs?.data?.listFavoriteSong) {
-      favoriteSongs = dataFs.data.listFavoriteSong.map((song: any) => song._id);
+      favoriteSongs = dataFs.data.listFavoriteSong.map((song: any) => song.id);
       fullInfoFavoriteSongs = dataFs.data.listFavoriteSong;
     } else {
       console.error("API không có listFavoriteSong:", dataFs);

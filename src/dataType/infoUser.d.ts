@@ -1,24 +1,24 @@
 interface TPermission {
-  _id: string;
+  id: string;
   name: string;
   pathName: string;
   method: string;
 }
 interface IUserInfo {
-  _id: string;
+  id: string;
   fullName: string;
   username: string;
   userId: string;
   avatar: string;
   role: {
-    _id: string;
+    id: string;
     roleName: string;
     permissions: TPermission[];
   };
   type: string;
   listPlaylist: [
     {
-      _id: string;
+      id: string;
       userId: string;
       title: string;
       listSong: TSongDetail[];
@@ -27,7 +27,7 @@ interface IUserInfo {
 
   refreshToken: string;
   singerId: {
-    _id: string;
+    id: string;
     fullName: string;
     avatar: string;
     status: string;

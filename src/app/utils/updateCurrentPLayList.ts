@@ -4,12 +4,12 @@ import { patchUpdate, updatePlaylist } from "@/store/playListSlice";
 import { AppDispatch } from "@/store/store";
 
 interface SongState {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
   audio: string;
-  singerId: {
-    _id: string;
+  singer: {
+    id: string;
     fullName: string;
     [key: string]: any;
   };
@@ -20,7 +20,7 @@ interface SongState {
 interface Playlist {
   title: string;
   listSong: Array<SongState>;
-  _id: string;
+  id: string;
   [key: string]: any;
 }
 
@@ -30,7 +30,7 @@ export const updateNewPlaylist = (
   dispatch: AppDispatch
 ) => {
   const newPlaylistData = {
-    _id: newPlaylist._id,
+    id: newPlaylist.id,
     title: newPlaylist.title,
     userId: newPlaylist.userId,
     listSong: newPlaylist.listSong,
@@ -44,7 +44,7 @@ export const updateNewPlaylistAndRun = (
   dispatch: AppDispatch
 ) => {
   const newPlaylistData = {
-    _id: newPlaylist._id,
+    id: newPlaylist.id,
     title: newPlaylist.title,
     userId: newPlaylist.userId,
     listSong: newPlaylist.listSong,
@@ -55,11 +55,11 @@ export const updateNewPlaylistAndRun = (
   dispatch(
     setNewSong(
       (newPlaylist.listSong[0] as TSongDetail) || {
-        _id: "",
+        id: "",
         title: "",
-        singerId: {
+        singer: {
           fullName: "",
-          _id: "",
+          id: "",
         },
         audio: "",
         slug: "",
@@ -74,7 +74,7 @@ export const updateNewPlaylistPartial = (
   dispatch: AppDispatch
 ) => {
   const partialPlaylistData = {
-    _id: partialPlaylist._id,
+    id: partialPlaylist.id,
     title: partialPlaylist.title,
     userId: partialPlaylist.userId,
     listSong: partialPlaylist.listSong,
@@ -86,7 +86,7 @@ export const updateNewPlaylistPartial = (
 export const exitPlaylist = (dispatch: AppDispatch) => {
   // Cập nhật Redux store với playlist đã xử lý
   const playlistData = {
-    _id: "",
+    id: "",
     title: "",
     userId: "",
     listSong: [],

@@ -12,7 +12,7 @@ import { useTranslations } from "next-intl";
 
 interface TopicPopoverProps {
   topicDetail: {
-    _id: string;
+    id: string;
     title: string;
     avatar: string;
     description: string;

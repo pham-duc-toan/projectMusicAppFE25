@@ -23,7 +23,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
 interface Order {
-  _id: string;
+  id: string;
   orderId: string;
   message: string;
   createdAt: string;
@@ -65,7 +65,7 @@ const HistoryTable = async () => {
     await revalidateByTag("revalidate-tag-orders");
     const res = await apiBasicServer(
       "GET",
-      `/orders/${info?._id}`,
+      `/orders/${info?.id}`,
       undefined,
       undefined,
       undefined,
@@ -95,7 +95,7 @@ const HistoryTable = async () => {
           <TableBody>
             {orders.length > 0 ? (
               orders.map((order: Order) => (
-                <TableRow key={order._id}>
+                <TableRow key={order.id}>
                   <TableCell>{order.orderId}</TableCell>
                   <TableCell>{order.message}</TableCell>
                   <TableCell>

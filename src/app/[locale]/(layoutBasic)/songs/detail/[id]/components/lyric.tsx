@@ -10,7 +10,7 @@ import "./style.css";
 
 const Lyric = ({ songId, lyrics }: { songId: string; lyrics: string }) => {
   const currentSongId = useSelector(
-    (state: RootState) => state.playingMusic._id
+    (state: RootState) => state.playingMusic.id
   );
   const currentTime = useSelector(
     (state: RootState) => state.playingMusic.currentTime

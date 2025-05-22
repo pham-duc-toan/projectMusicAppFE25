@@ -51,12 +51,12 @@ const Playlists = async () => {
   }
 
   interface SongState {
-    _id: string;
+    id: string;
     title: string;
     avatar: string;
     audio: string;
-    singerId: {
-      _id: string;
+    singer: {
+      id: string;
       fullName: string;
       [key: string]: any;
     };
@@ -64,7 +64,7 @@ const Playlists = async () => {
     slug: string;
   }
   interface Playlist {
-    _id: string;
+    id: string;
     title: string;
     listSong: Array<SongState>;
     [key: string]: any;

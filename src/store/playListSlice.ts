@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Định nghĩa kiểu cho trạng thái của bài hát
 interface SongState {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
   audio: string;
-  singerId: {
-    _id: string;
+  singer: {
+    id: string;
     fullName: string;
     [key: string]: any;
   };
@@ -17,7 +17,7 @@ interface SongState {
 
 // Định nghĩa kiểu cho trạng thái của playlist
 interface PlayListState {
-  _id: string;
+  id: string;
   title: string;
   userId: string;
   listSong: SongState[];
@@ -26,7 +26,7 @@ interface PlayListState {
 
 // Định nghĩa kiểu cho payload patchUpdate (có thể chỉ cập nhật một phần)
 interface PatchPlayListPayload {
-  _id?: string;
+  id?: string;
   title?: string;
   userId?: string;
   listSong?: SongState[];
@@ -35,7 +35,7 @@ interface PatchPlayListPayload {
 
 // Khởi tạo trạng thái ban đầu cho playlist
 const initialState: PlayListState = {
-  _id: "",
+  id: "",
   title: "",
   userId: "",
   listSong: [],
@@ -59,9 +59,9 @@ export const playlistSlice = createSlice({
 
     // Reducer để cập nhật patch (chỉ update các trường có trong payload)
     patchUpdate: (state, action: PayloadAction<PatchPlayListPayload>) => {
-      const { _id, title, userId, listSong, isLooping } = action.payload;
+      const { id, title, userId, listSong, isLooping } = action.payload;
 
-      if (_id !== undefined) state._id = _id;
+      if (id !== undefined) state.id = id;
       if (title !== undefined) state.title = title;
       if (userId !== undefined) state.userId = userId;
       if (listSong !== undefined) state.listSong = listSong;

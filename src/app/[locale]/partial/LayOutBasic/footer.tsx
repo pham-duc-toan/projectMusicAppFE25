@@ -96,7 +96,7 @@ const FooterComponent = () => {
 
       const handleEnded = () => {
         const currentIndex = currentPlaylist.listSong.findIndex(
-          (song) => song._id === songCurrent._id
+          (song) => song.id === songCurrent.id
         );
 
         let nextSong = undefined;
@@ -136,7 +136,7 @@ const FooterComponent = () => {
           try {
             await apiBasicClientPublic(
               "PATCH",
-              `/songs/listen/increase/${songCurrent._id}`
+              `/songs/listen/increase/${songCurrent.id}`
             );
 
             clearInterval(interval!); // Ngừng kiểm tra sau khi đạt 80%

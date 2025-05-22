@@ -12,7 +12,7 @@ import { getTranslations } from "next-intl/server";
 
 // Định nghĩa kiểu dữ liệu của topic
 interface Topic {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
   description: string;
@@ -111,7 +111,7 @@ export default async function TopicDetailPage({
   // Lấy danh sách bài hát của topic
   const datall: any = await apiBasicServer(
     "GET",
-    `/songs/song-of-topic/${topicDetail._id}`,
+    `/songs/song-of-topic/${topicDetail.id}`,
     undefined,
     undefined,
     undefined,
@@ -125,7 +125,7 @@ export default async function TopicDetailPage({
   if (access_token) {
     const dataFs = await getInfoUser(access_token.value);
     favoriteSongs =
-      dataFs.data.listFavoriteSong.map((song: any) => song._id) || [];
+      dataFs.data.listFavoriteSong.map((song: any) => song.id) || [];
   }
 
   return (

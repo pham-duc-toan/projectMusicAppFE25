@@ -93,7 +93,7 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("topicId", valueidTopic);
+    formData.append("topic", valueidTopic);
     formData.append("status", status);
     formData.append("lyrics", lyrics);
     if (avatarFile) {
@@ -106,7 +106,7 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
     setLoading(true);
     try {
       const response = await axios.patchForm(
-        process.env.NEXT_PUBLIC_BACK_END_URL + `/songs/editSong/${song._id}`,
+        process.env.NEXT_PUBLIC_BACK_END_URL + `/songs/editSong/${song.id}`,
         formData,
         {
           headers: {
@@ -203,8 +203,8 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
                 label={t("topic")}
                 name="topic"
                 defaultKey={{
-                  value: song?.topicId?.title || "",
-                  id: song?.topicId?._id || "",
+                  value: song?.topic?.title || "",
+                  id: song?.topic?.id || "",
                 }}
               />
             </Grid>

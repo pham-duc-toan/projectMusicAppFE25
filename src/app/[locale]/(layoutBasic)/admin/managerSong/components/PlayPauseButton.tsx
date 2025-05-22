@@ -18,12 +18,12 @@ interface PlayPauseButtonProps {
 
 const PlayPauseButton: React.FC<PlayPauseButtonProps> = ({ song }) => {
   const dispatch = useDispatch();
-  const { isPlaying, _id: playingSongId } = useSelector(
+  const { isPlaying, id: playingSongId } = useSelector(
     (state: RootState) => state.playingMusic
   );
 
   const handlePlayPauseClick = () => {
-    if (isPlaying && playingSongId === song._id) {
+    if (isPlaying && playingSongId === song.id) {
       dispatch(pause());
     } else {
       dispatch(setNewSong(song));
@@ -33,7 +33,7 @@ const PlayPauseButton: React.FC<PlayPauseButtonProps> = ({ song }) => {
 
   return (
     <IconButton color="primary" onClick={handlePlayPauseClick}>
-      {isPlaying && playingSongId === song._id ? (
+      {isPlaying && playingSongId === song.id ? (
         <PauseIcon />
       ) : (
         <PlayArrowIcon />

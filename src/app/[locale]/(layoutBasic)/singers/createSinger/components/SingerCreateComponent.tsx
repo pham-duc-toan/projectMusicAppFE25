@@ -89,6 +89,7 @@ function SingerCreateComponent() {
 
       if (response.status === 201) {
         await revalidateByTag("revalidate-tag-singers");
+        await revalidateByTag("revalidate-tag-infoUser");
         showMessage(t("messages.createSuccess"), "success");
         setAvatarPreview(null);
         setAvatarFile(null);

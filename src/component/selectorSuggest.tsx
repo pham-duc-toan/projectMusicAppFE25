@@ -93,7 +93,7 @@ const SelectorSuggest = (props: TPropSelector) => {
 
   const handleSelectSuggest = (suggest: TSuggestAvaSlugId) => {
     setShowSuggestions(false);
-    setValueId(suggest._id);
+    setValueId(suggest.id);
     const inputSelect = document.querySelector(`input[name="${name}"]`);
     setShrink(true);
     //@ts-ignore

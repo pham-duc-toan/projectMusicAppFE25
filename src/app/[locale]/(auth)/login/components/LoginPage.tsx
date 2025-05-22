@@ -158,7 +158,7 @@ export default function LoginPage() {
           label={t("fields.username")}
           variant="outlined"
           name="username"
-          defaultValue={"a@a.com"}
+          defaultValue={"abc@abc.com"}
           fullWidth
           margin="normal"
           autoFocus

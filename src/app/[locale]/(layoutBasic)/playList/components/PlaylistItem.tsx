@@ -33,12 +33,12 @@ import {
 
 // Định nghĩa kiểu cho đối tượng playlist
 interface SongState {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
   audio: string;
-  singerId: {
-    _id: string;
+  singer: {
+    id: string;
     fullName: string;
     [key: string]: any;
   };
@@ -48,7 +48,7 @@ interface SongState {
 interface Playlist {
   title: string;
   listSong: Array<SongState>;
-  _id: string;
+  id: string;
   [key: string]: any;
 }
 
@@ -89,12 +89,12 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist }) => {
     try {
       const response = await apiBasicClient(
         "DELETE",
-        `/playlists/${playlist._id}`
+        `/playlists/${playlist.id}`
       );
 
       if (response?.data) {
         revalidateByTag("revalidate-tag-list-playlist");
-        if (playlist._id == currentPlaylist._id) handleExitPlayList();
+        if (playlist.id == currentPlaylist.id) handleExitPlayList();
         showMessage(t("messages.deleteSuccess"), "success");
       } else {
         showMessage(t("messages.deleteError"), "error");
@@ -117,7 +117,7 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist }) => {
       setLoading(true);
       const response = await apiBasicClient(
         "PATCH",
-        `/playlists/${playlist._id}`,
+        `/playlists/${playlist.id}`,
         undefined,
         { title: newTitle }
       );
@@ -195,7 +195,7 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist }) => {
 
         <Box
           onClick={
-            currentPlaylist._id === playlist._id
+            currentPlaylist.id === playlist.id
               ? handleExitPlayList
               : handleClickPlayList
           }
@@ -218,7 +218,7 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ playlist }) => {
             },
           }}
         >
-          {currentPlaylist._id !== playlist._id ? (
+          {currentPlaylist.id !== playlist.id ? (
             <PlayCircleIcon sx={{ fontSize: 48, color: "#fff" }} />
           ) : (
             <PauseCircleIcon sx={{ fontSize: 48, color: "#fff" }} />

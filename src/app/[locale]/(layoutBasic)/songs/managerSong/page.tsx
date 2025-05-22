@@ -42,7 +42,7 @@ export async function generateMetadata({
   };
 }
 interface Topic {
-  _id: string;
+  id: string;
   title: string;
 }
 
@@ -51,11 +51,11 @@ interface Singer {
 }
 
 interface Song {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
-  singerId: Singer;
-  topicId: Topic;
+  singer: Singer;
+  topic: Topic;
   status: string;
   slug: string;
 }
@@ -133,7 +133,7 @@ const ManagerSongPage = async () => {
 
             <TableBody>
               {songs.map((song, index) => (
-                <TableRow key={song._id}>
+                <TableRow key={song.id}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>
                     <Avatar
@@ -143,7 +143,7 @@ const ManagerSongPage = async () => {
                     />
                   </TableCell>
                   <TableCell>{song.title}</TableCell>
-                  <TableCell>{song.topicId?.title || t("unknown")}</TableCell>
+                  <TableCell>{song.topic?.title || t("unknown")}</TableCell>
                   <TableCell>
                     <PlayPauseButton song={song} />
                   </TableCell>

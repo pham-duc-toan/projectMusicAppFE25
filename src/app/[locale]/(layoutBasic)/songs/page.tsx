@@ -62,7 +62,7 @@ const Songs = async ({ searchParams }: SongsProps) => {
   if (access_token) {
     const dataFs = await getInfoUser(access_token.value);
     favoriteSongs =
-      dataFs.data.listFavoriteSong.map((song: any) => song._id) || [];
+      dataFs.data.listFavoriteSong.map((song: any) => song.id) || [];
   }
 
   return (

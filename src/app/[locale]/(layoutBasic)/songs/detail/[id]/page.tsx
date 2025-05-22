@@ -19,12 +19,12 @@ import TopicPopover from "./components/TopicInfo";
 
 interface SongDetail {
   listen: number;
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
   description: string;
-  singerId: {
-    _id: string;
+  singer: {
+    id: string;
     fullName: string;
     avatar: string;
     status: string;
@@ -33,8 +33,8 @@ interface SongDetail {
     updatedAt: string;
     createdAt: string;
   };
-  topicId: {
-    _id: string;
+  topic: {
+    id: string;
     title: string;
     avatar: string;
     description: string;
@@ -123,7 +123,7 @@ const SongDetailPage = async ({ params }: { params: { id: string } }) => {
   if (access_token) {
     const dataFs = await getInfoUser(access_token.value);
     favoriteSongs =
-      dataFs.data.listFavoriteSong.map((song: any) => song._id) || [];
+      dataFs?.data?.listFavoriteSong.map((song: any) => song.id) || [];
   }
 
   if (!songDetail) {
@@ -169,13 +169,13 @@ const SongDetailPage = async ({ params }: { params: { id: string } }) => {
             <Typography variant="h4" fontWeight="bold">
               {songDetail.title}
             </Typography>
-            <SingerInfoPopover singer={songDetail.singerId} />
-            <TopicPopover topicDetail={songDetail.topicId} />
+            <SingerInfoPopover singer={songDetail.singer} />
+            <TopicPopover topicDetail={songDetail.topic} />
           </Box>
         </Box>
         <Box>
-          <FavoriteButton fSongs={favoriteSongs} songId={songDetail._id} />
-          <IconAddToPlayList fSongs={favoriteSongs} songId={songDetail._id} />
+          <FavoriteButton fSongs={favoriteSongs} songId={songDetail.id} />
+          <IconAddToPlayList fSongs={favoriteSongs} songId={songDetail.id} />
           <PlayerControls songDetail={songDetail} />
         </Box>
       </Box>
@@ -213,7 +213,7 @@ const SongDetailPage = async ({ params }: { params: { id: string } }) => {
             whiteSpace="pre-line"
             component="div"
           >
-            <Lyric songId={songDetail._id} lyrics={songDetail.lyrics} />
+            <Lyric songId={songDetail.id} lyrics={songDetail.lyrics} />
           </Typography>
         ) : (
           <Typography

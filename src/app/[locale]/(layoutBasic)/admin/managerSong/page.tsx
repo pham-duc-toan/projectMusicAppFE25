@@ -46,7 +46,7 @@ export async function generateMetadata({
   };
 }
 interface Topic {
-  _id: string;
+  id: string;
   title: string;
 }
 
@@ -55,11 +55,11 @@ interface Singer {
 }
 
 interface Song {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
-  singerId: Singer;
-  topicId: Topic;
+  singer: Singer;
+  topic: Topic;
   status: string;
 }
 
@@ -102,8 +102,7 @@ const ManagerSongPage = async ({ searchParams }: SongsProps) => {
       return {
         songs: songResponse?.data || [],
         listSongForYou:
-          forYouResponse?.data?.listSong.map((s: { _id: string }) => s._id) ||
-          [],
+          forYouResponse?.data?.listSong.map((s: { id: string }) => s.id) || [],
         totalPages: Math.ceil(songResponse?.total / limitItem),
       };
     } catch (error) {
@@ -150,7 +149,7 @@ const ManagerSongPage = async ({ searchParams }: SongsProps) => {
 
           <TableBody>
             {songs.map((song, index) => (
-              <TableRow key={song._id}>
+              <TableRow key={song.id}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>
                   <Avatar
@@ -160,18 +159,18 @@ const ManagerSongPage = async ({ searchParams }: SongsProps) => {
                   />
                 </TableCell>
                 <TableCell>{song.title}</TableCell>
-                <TableCell>{song.topicId?.title || t("unknown")}</TableCell>
-                <TableCell>{song.singerId?.fullName || t("unknown")}</TableCell>
+                <TableCell>{song.topic?.title || t("unknown")}</TableCell>
+                <TableCell>{song.singer?.fullName || t("unknown")}</TableCell>
                 <TableCell>
                   <PlayPauseButton song={song} />
                 </TableCell>
                 <TableCell>
-                  <StatusChip songId={song._id} status={song.status} />
+                  <StatusChip songId={song.id} status={song.status} />
                 </TableCell>
                 <TableCell>
                   <SongForYouButton
-                    songId={song._id}
-                    initialForYou={listSongForYou.includes(song._id)}
+                    songId={song.id}
+                    initialForYou={listSongForYou.includes(song.id)}
                   />
                 </TableCell>
               </TableRow>

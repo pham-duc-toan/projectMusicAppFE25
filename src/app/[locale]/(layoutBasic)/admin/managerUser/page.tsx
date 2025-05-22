@@ -44,14 +44,14 @@ export async function generateMetadata({
   };
 }
 interface User {
-  _id: string;
+  id: string;
   username: string;
   userId: string;
   avatar: string;
   status: string;
   role: {
     roleName: string;
-    _id: string;
+    id: string;
   };
 }
 
@@ -113,7 +113,7 @@ const ManagerUserPage = async ({ searchParams }: { searchParams: any }) => {
 
           <TableBody>
             {users.map((user: User, index: number) => (
-              <TableRow key={user._id}>
+              <TableRow key={user.id}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>
                   <Avatar
@@ -125,11 +125,11 @@ const ManagerUserPage = async ({ searchParams }: { searchParams: any }) => {
                 <TableCell>{user.userId}</TableCell>
                 <TableCell>{user?.role?.roleName || t("noRole")}</TableCell>
                 <TableCell>
-                  <StatusChip id={user._id} status={user.status} />
+                  <StatusChip id={user.id} status={user.status} />
                 </TableCell>
                 <TableCell>
                   <EditRoleUserModal user={user} />
-                  <DeleteUserButton id={user._id} username={user.userId} />
+                  <DeleteUserButton id={user.id} username={user.userId} />
                 </TableCell>
               </TableRow>
             ))}

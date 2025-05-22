@@ -12,7 +12,7 @@ import { useTranslations } from "next-intl";
 
 // Định nghĩa kiểu dữ liệu Topic để sử dụng trong component
 interface Topic {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
   description: string;

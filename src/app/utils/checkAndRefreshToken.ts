@@ -1,8 +1,5 @@
 import { decodeToken } from "../helper/jwt";
-import {
-  getAccessTokenFromLocalStorage,
-  setAccessTokenToLocalStorage,
-} from "../helper/localStorageClient";
+import { getAccessTokenFromLocalStorage } from "../helper/localStorageClient";
 import { refreshtoken } from "./request";
 
 export const checkAndRefreshToken = async (param?: {

@@ -192,7 +192,7 @@ export default function HeaderComponent({ open }: { open: boolean }) {
                             primary={suggestion.title || suggestion.fullName}
                             secondary={
                               suggestion.title
-                                ? suggestion.singerId?.fullName ||
+                                ? suggestion.singer?.fullName ||
                                   t("header-unknow-author")
                                 : t("header-artists")
                             }

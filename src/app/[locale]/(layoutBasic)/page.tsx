@@ -18,7 +18,7 @@ import SingerInfo from "./components/infoSinger";
 import { Metadata } from "next";
 
 interface Topic {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
   description: string;
@@ -28,7 +28,7 @@ interface Topic {
   songsCount: number;
 }
 interface ISingerDetail {
-  _id: string;
+  id: string;
   fullName: string;
   avatar: string;
   status: string;
@@ -100,18 +100,20 @@ export default async function Dashboard() {
   );
   const resSinger = await apiBasicServer(
     "GET",
-    "/singers",
+    "/singers/client",
     { limit: 6 },
     undefined,
     undefined,
     ["revalidate-tag-topics"]
   );
   const topics = resTopic?.data || [];
+
   const singers = resSinger?.data || [];
 
   const topSong = resTop?.data?.data || [];
   const newSong = resNs?.data?.data || [];
   const songsForYou = resSFY?.data?.listSong || [];
+
   return (
     <Box
       sx={{
@@ -227,7 +229,7 @@ export default async function Dashboard() {
                         {song.title}
                       </Link>
                     </Typography>
-                    <SingerInfo singer={song.singerId} />
+                    <SingerInfo singer={song.singer} />
                   </Box>
 
                   <ButtonListenNow song={song} />
@@ -310,7 +312,7 @@ export default async function Dashboard() {
                       </Link>
                     </Typography>
 
-                    <SingerInfo singer={song.singerId} />
+                    <SingerInfo singer={song.singer} />
                   </Box>
                   <ButtonListenNow song={song} />
                 </Box>

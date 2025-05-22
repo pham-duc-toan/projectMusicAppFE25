@@ -1,5 +1,5 @@
 interface Topic {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
   description: string;
@@ -10,12 +10,12 @@ interface Topic {
 
 export interface TSongDetail {
   listen: number;
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
   description: string;
-  singerId: {
-    _id: string;
+  singer: {
+    id: string;
     fullName: string;
     avatar: string;
     status: string;
@@ -24,7 +24,7 @@ export interface TSongDetail {
     updatedAt: string;
     createdAt: string;
   };
-  topicId: Topic;
+  topic: Topic;
   like: number;
   lyrics: string;
   audio: string;
@@ -35,7 +35,7 @@ export interface TSongDetail {
   createdAt: Date;
 }
 export interface TSongFooter {
-  _id: string;
+  id: string;
   title: string;
   singerFullName: string;
   audio: string;

@@ -22,7 +22,7 @@ import ViewTopicModal from "./VIewTopicModal";
 import { useTranslations } from "next-intl";
 
 interface Topic {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
   description: string;
@@ -46,7 +46,7 @@ const ButtonActionModal: React.FC<ButtonActionModalProps> = ({ topic }) => {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      const response = await apiBasicClient("DELETE", `/topics/${topic._id}`);
+      const response = await apiBasicClient("DELETE", `/topics/${topic.id}`);
       if (response.statusCode >= 300) {
         showMessage(response.message, "error");
       } else {

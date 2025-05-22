@@ -24,7 +24,7 @@ const ChangeStatus = ({ song }: any) => {
       showMessage(t("processing"), "info");
       const response = await apiBasicClient(
         "PATCH",
-        `/songs/editSong/${song._id}`,
+        `/songs/editSong/${song.id}`,
         undefined,
         {
           status: newStatus,

@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // Khởi tạo state mặc định cho playingMusic với kiểu TSongFooter và thêm currentTime
 const initialState: TSongFooter = {
-  _id: "",
+  id: "",
   title: "",
   singerFullName: "",
   audio: "",
@@ -24,10 +24,9 @@ const playingMusicSlice = createSlice({
     },
     setNewSong: (state, action: PayloadAction<TSongDetail>) => {
       // Cập nhật thông tin bài hát từ TSongDetail
-      state._id = action.payload._id;
+      state.id = action.payload.id;
       state.title = action.payload.title;
-      state.singerFullName =
-        action.payload.singerId?.fullName || "Unknow Singer";
+      state.singerFullName = action.payload.singer?.fullName || "Unknow Singer";
       state.audio = action.payload.audio;
       state.slug = action.payload.slug;
       state.isPlaying = true; // Đặt trạng thái phát bài hát mới

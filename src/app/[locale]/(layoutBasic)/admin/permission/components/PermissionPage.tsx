@@ -79,7 +79,7 @@ export default function PermissionPage() {
       const rolesData = rolesRes.data.map((role: any) => ({
         roleName: role.roleName,
         permissions: role.permissions, // Giả định mỗi vai trò có một mảng các permission IDs
-        roleId: role._id, // Lưu lại id của vai trò để xử lý sau này nếu cần
+        roleId: role.id, // Lưu lại id của vai trò để xử lý sau này nếu cần
       }));
 
       // Gọi API lấy danh sách quyền
@@ -90,7 +90,7 @@ export default function PermissionPage() {
       }
       const permissionsData = permissionsRes.data.map((permission: any) => ({
         name: permission.name,
-        id: permission._id, // Lưu lại id của quyền để đối chiếu
+        id: permission.id, // Lưu lại id của quyền để đối chiếu
         pathName: permission.pathName,
         method: permission.method,
       }));
@@ -365,8 +365,9 @@ export default function PermissionPage() {
                         <TableCell key={roleIndex}>
                           <Checkbox
                             name={`${role.roleId}-${permission.id}`}
-                            defaultChecked={role.permissions.includes(
-                              permission.id
+                            defaultChecked={role.permissions.some(
+                              //@ts-ignore
+                              (p) => p.id === permission.id
                             )}
                           />
                         </TableCell>

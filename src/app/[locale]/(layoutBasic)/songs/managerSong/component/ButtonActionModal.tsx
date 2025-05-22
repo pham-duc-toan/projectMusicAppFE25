@@ -23,7 +23,7 @@ import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 
 interface Topic {
-  _id: string;
+  id: string;
   title: string;
 }
 
@@ -32,12 +32,12 @@ interface Singer {
 }
 
 interface Song {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
-  singerId: Singer;
+  singer: Singer;
   slug: string;
-  topicId: Topic;
+  topic: Topic;
   status: string;
 }
 
@@ -57,7 +57,7 @@ const ButtonActionModal: React.FC<ButtonActionModalProps> = ({ song }) => {
     try {
       const response = await apiBasicClient(
         "DELETE",
-        `/songs/deleteSong/${song._id}`
+        `/songs/deleteSong/${song.id}`
       );
       if (response.statusCode >= 300) {
         showMessage(response.message, "error");

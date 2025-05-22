@@ -19,7 +19,7 @@ import { getTranslations } from "next-intl/server";
 import { GetAccessTokenFromCookie } from "@/app/utils/checkRole";
 
 interface Topic {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
   description: string;
@@ -103,7 +103,7 @@ const ManagerTopic = async () => {
           </TableHead>
           <TableBody>
             {topics.map((topic: Topic, index: number) => (
-              <TableRow key={topic._id}>
+              <TableRow key={topic.id}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>
                   <Avatar

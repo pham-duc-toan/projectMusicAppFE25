@@ -43,7 +43,7 @@ const CreatePlaylistButton = () => {
     try {
       const response = await apiBasicClient("POST", "/playlists", undefined, {
         //@ts-ignore
-        userId: info_user?._id,
+        userId: info_user?.id,
         title: title,
       });
 

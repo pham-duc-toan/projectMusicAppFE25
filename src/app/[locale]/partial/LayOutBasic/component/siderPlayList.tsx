@@ -28,11 +28,11 @@ import { useTranslations } from "next-intl";
 
 // Định nghĩa kiểu cho bài hát
 interface Song {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
-  singerId: {
-    _id: string;
+  singer: {
+    id: string;
     fullName: string;
     [key: string]: any;
   };
@@ -79,15 +79,15 @@ const RightSlider = () => {
     // Cập nhật Redux
     dispatch(updatePlaylist({ ...currentPlaylist, listSong: updatedList }));
 
-    // Lấy danh sách _id của các bài hát trong updatedList
-    const updatedIds = updatedList.map((song) => song._id);
+    // Lấy danh sách id của các bài hát trong updatedList
+    const updatedIds = updatedList.map((song) => song.id);
 
     // Cập nhật dữ liệu lên server
     await apiBasicClient(
       "PATCH",
-      `/playlists/${currentPlaylist._id}`,
+      `/playlists/${currentPlaylist.id}`,
       undefined,
-      { listSong: updatedIds } // Gửi mảng _id của updatedList
+      { listSong: updatedIds } // Gửi mảng id của updatedList
     );
     revalidateByTag("revalidate-tag-list-playlist");
   };
@@ -146,7 +146,7 @@ const RightSlider = () => {
               bgcolor: "secondary.A100",
             }}
           >
-            {currentPlaylist._id ? (
+            {currentPlaylist.id ? (
               <>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <Box
@@ -188,7 +188,7 @@ const RightSlider = () => {
                     currentPlaylist.listSong.map(
                       (song: Song, index: number) => (
                         <Box
-                          key={song._id}
+                          key={song.id}
                           draggable
                           onDragStart={(event) => handleDragStart(event, index)}
                           onDrop={(event) => handleDrop(event, index)}

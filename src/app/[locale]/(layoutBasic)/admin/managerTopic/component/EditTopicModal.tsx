@@ -32,7 +32,7 @@ import { useTranslations } from "next-intl";
 import DropzoneComponent from "@/component/customDropzone/dropzoneComponent";
 
 interface Topic {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
   description: string;
@@ -98,7 +98,7 @@ const EditTopicModal: React.FC<EditTopicModalProps> = ({
     setLoading(true);
     try {
       const response = await axios.patchForm(
-        process.env.NEXT_PUBLIC_BACK_END_URL + `/topics/editTopic/${topic._id}`,
+        process.env.NEXT_PUBLIC_BACK_END_URL + `/topics/editTopic/${topic.id}`,
         formData,
         {
           headers: {

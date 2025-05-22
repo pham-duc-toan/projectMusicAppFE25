@@ -29,7 +29,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { revalidateByTag } from "@/app/action";
 
 interface Singer {
-  _id: string;
+  id: string;
   fullName: string;
   avatar?: string;
   status: string;
@@ -52,14 +52,14 @@ const EditSingerPage: React.FC = () => {
 
   useEffect(() => {
     const userInfo = decodeToken(accessToken || undefined) as any;
-    const singerId = userInfo?.singerId;
+    const singerInfo = userInfo?.singerId;
 
-    if (singerId) {
+    if (singerInfo) {
       const fetchSingerData = async () => {
         try {
           const response = await apiBasicClient(
             "GET",
-            `/singers/detail/${singerId}`
+            `/singers/detail/${singerInfo.id}`
           );
           if (response.statusCode === 200) {
             setSinger(response.data);
@@ -112,7 +112,7 @@ const EditSingerPage: React.FC = () => {
     setLoading(true);
     try {
       const response = await axios.patchForm(
-        process.env.NEXT_PUBLIC_BACK_END_URL + `/singers/${singer._id}`,
+        process.env.NEXT_PUBLIC_BACK_END_URL + `/singers/${singer.id}`,
         formData,
         {
           headers: {
@@ -130,6 +130,7 @@ const EditSingerPage: React.FC = () => {
       if (response.status === 200) {
         setSinger(response.data.data);
         await revalidateByTag("revalidate-tag-singers");
+        await revalidateByTag("revalidate-tag-infoUser");
         await refreshtoken();
         showMessage(t("messages.updateSuccess"), "success");
       } else {

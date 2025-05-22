@@ -23,9 +23,11 @@ import axios, { AxiosProgressEvent } from "axios";
 import { apiBasicClient, refreshtoken } from "@/app/utils/request";
 import { getAccessTokenFromLocalStorage } from "@/app/helper/localStorageClient";
 import { revalidateByTag } from "@/app/action";
+import { useDispatch } from "react-redux";
+import { setLogin } from "@/store/authSlice";
 
 interface User {
-  _id: string;
+  id: string;
   fullName: string;
   username: string;
   role: string;
@@ -41,7 +43,7 @@ const EditUserPage: React.FC = () => {
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -109,6 +111,7 @@ const EditUserPage: React.FC = () => {
       if (response.status === 200) {
         setUser(response.data.data);
         await refreshtoken();
+        dispatch(setLogin());
         await revalidateByTag("revalidate-tag-users");
         showMessage(t("messages.updateSuccess"), "success");
       } else {

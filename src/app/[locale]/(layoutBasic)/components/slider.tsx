@@ -164,7 +164,7 @@ const Slider: React.FC<SliderProps> = ({ topSong }) => {
                         {song.title}
                       </Link>
                     </Typography>
-                    <SingerInfo singer={song.singerId} />
+                    <SingerInfo singer={song.singer} />
                   </Box>
                   <Box
                     sx={{

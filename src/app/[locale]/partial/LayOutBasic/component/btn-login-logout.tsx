@@ -15,7 +15,6 @@ import {
   removeTokensFromLocalStorage,
 } from "@/app/helper/localStorageClient";
 import { logout } from "@/app/utils/request";
-import { decodeToken } from "@/app/helper/jwt";
 import { JwtPayload } from "jsonwebtoken";
 
 import { Link } from "@/i18n/routing";
@@ -24,8 +23,12 @@ import IUserInfo from "@/dataType/infoUser";
 import { useLocale, useTranslations } from "next-intl";
 
 import LogoutIcon from "@mui/icons-material/Logout";
+import { decodeToken } from "@/app/helper/jwt";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 export default function BtnLoginLogout() {
+  const is = useSelector((state: RootState) => state.auth.isLogin);
   const { showMessage } = useAppContext();
   const [isLogin, setIsLogin] = useState<
     string | JwtPayload | null | undefined
@@ -45,7 +48,7 @@ export default function BtnLoginLogout() {
       setInfoUser(info || undefined);
       setIsLogin(info);
     }
-  }, []);
+  }, [is]);
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);

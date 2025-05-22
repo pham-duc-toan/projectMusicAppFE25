@@ -45,7 +45,7 @@ const ManagetopSong: React.FC = async () => {
   if (access_token) {
     const dataFs = await getInfoUser(access_token.value);
     favoriteSongs =
-      dataFs.data.listFavoriteSong.map((song: any) => song._id) || [];
+      dataFs.data.listFavoriteSong.map((song: any) => song.id) || [];
   }
 
   return (
@@ -80,7 +80,7 @@ const ManagetopSong: React.FC = async () => {
           <TableBody>
             {topSong && topSong.length > 0 ? (
               topSong.map((song: TSongDetail, index: number) => (
-                <TableRow key={song._id}>
+                <TableRow key={song.id}>
                   <TableCell
                     sx={{
                       color:
@@ -108,8 +108,8 @@ const ManagetopSong: React.FC = async () => {
                     </Link>
                   </TableCell>
                   <TableCell>{song.listen}</TableCell>
-                  <CellTopicInfo topicDetail={song.topicId} />
-                  <CellSingerInfo singer={song.singerId} />
+                  <CellTopicInfo topicDetail={song.topic} />
+                  <CellSingerInfo singer={song.singer} />
                   <TableCell>
                     <ActionButton fSongs={favoriteSongs} data={song} />
                   </TableCell>

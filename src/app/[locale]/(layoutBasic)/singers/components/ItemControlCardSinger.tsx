@@ -14,7 +14,7 @@ export default function ItemControlCardSinger({
   data,
 }: {
   data: {
-    _id: string;
+    id: string;
     fullName: string;
     avatar: string;
     songsCount: number;

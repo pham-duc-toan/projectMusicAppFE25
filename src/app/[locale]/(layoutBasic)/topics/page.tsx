@@ -7,7 +7,7 @@ import { getTranslations } from "next-intl/server";
 import ItemControlCardTopic from "./components/ItemControlCardTopic ";
 
 interface Topic {
-  _id: string;
+  id: string;
   title: string;
   avatar: string;
   description: string;

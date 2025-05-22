@@ -38,9 +38,9 @@ import IUserInfo from "@/dataType/infoUser";
 import { useTranslations } from "next-intl";
 
 interface Playlist {
-  _id: string;
+  id: string;
   title: string;
-  listSong: Array<{ _id: string }>;
+  listSong: Array<{ id: string }>;
   [key: string]: any;
 }
 
@@ -82,7 +82,13 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
         undefined
       );
       if (response?.data) {
-        setPlaylists(response.data);
+        if (response?.data) {
+          const playlistsWithListSong = response.data.map((playlist: any) => ({
+            ...playlist,
+            listSong: Array.isArray(playlist.listSong) ? playlist.listSong : [],
+          }));
+          setPlaylists(playlistsWithListSong);
+        }
       }
     } catch (error) {
       showMessage(t("fetchError"), "error");
@@ -112,12 +118,18 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
     try {
       const response = await apiBasicClient("POST", "/playlists", undefined, {
         //@ts-ignore
-        userId: info_user?._id,
+        userId: info_user?.id,
         title: newPlaylistTitle,
       });
 
       if (response?.data) {
-        setPlaylists([...playlists, response.data]);
+        const dataProcessed = {
+          ...response.data,
+          listSong: Array.isArray(response.data.listSong)
+            ? response.data.listSong
+            : [],
+        };
+        setPlaylists([...playlists, dataProcessed]);
         showMessage(t("createSuccess"), "success");
       } else {
         showMessage(t("createError"), "error");
@@ -143,14 +155,14 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
 
     for (const playlist of playlists) {
       //@ts-ignore
-      const isChecked = form.elements[playlist._id]?.checked;
-      const wasChecked = playlist.listSong.some((song) => song._id === songId);
+      const isChecked = form.elements[playlist.id]?.checked;
+      const wasChecked = playlist.listSong.some((song) => song.id === songId);
 
       if (isChecked != wasChecked) {
         if (isChecked) {
           const data = await apiBasicClient(
             "POST",
-            `/playlists/addSong/${playlist._id}`,
+            `/playlists/addSong/${playlist.id}`,
             undefined,
             {
               idSong: songId,
@@ -164,7 +176,7 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
         } else {
           const data = await apiBasicClient(
             "DELETE",
-            `/playlists/removeSong/${playlist._id}`,
+            `/playlists/removeSong/${playlist.id}`,
             undefined,
             {
               idSong: songId,
@@ -181,10 +193,10 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
 
     revalidateByTag("revalidate-tag-list-playlist");
 
-    if (currentPlaylist._id) {
+    if (currentPlaylist.id) {
       const res = await apiBasicClient(
         "GET",
-        `/playlists/findOne/${currentPlaylist._id}`
+        `/playlists/findOne/${currentPlaylist.id}`
       );
       updateNewPlaylist(res.data, dispatch);
     }
@@ -195,13 +207,13 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
 
   const handleDeletePlaylist = async (playlistId: string) => {
     const res = await apiBasicClient("DELETE", `/playlists/${playlistId}`);
-    if (playlistId == currentPlaylist._id) exitPlaylist(dispatch);
+    if (playlistId == currentPlaylist.id) exitPlaylist(dispatch);
     revalidateByTag("revalidate-tag-list-playlist");
 
     if (res.data) {
       showMessage(t("deleteSuccess"), "success");
       setPlaylists((prevPlaylists) =>
-        prevPlaylists.filter((playlist) => playlist._id !== playlistId)
+        prevPlaylists.filter((playlist) => playlist.id !== playlistId)
       );
     }
   };
@@ -223,20 +235,20 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
             {/* Danh sách các playlist */}
             <PlaylistList>
               {playlists.map((playlist) => {
-                const labelId = `checkbox-list-label-${playlist._id}`;
+                const labelId = `checkbox-list-label-${playlist.id}`;
 
                 return (
-                  <ListItem key={playlist._id} button>
+                  <ListItem key={playlist.id} button>
                     <ListItemIcon>
                       <Checkbox
                         edge="start"
                         defaultChecked={playlist.listSong.some(
-                          (song) => song._id === songId
+                          (song) => song.id === songId
                         )}
                         tabIndex={-1}
                         disableRipple
                         inputProps={{ "aria-labelledby": labelId }}
-                        name={playlist._id} // Đặt tên cho checkbox để lấy giá trị
+                        name={playlist.id} // Đặt tên cho checkbox để lấy giá trị
                       />
                     </ListItemIcon>
                     <ListItemText id={labelId} primary={playlist.title} />
@@ -245,7 +257,7 @@ const IconAddToPlayList: React.FC<IconAddToPlayListProps> = ({
                     <IconButton
                       edge="end"
                       aria-label={t("delete")}
-                      onClick={() => handleDeletePlaylist(playlist._id)}
+                      onClick={() => handleDeletePlaylist(playlist.id)}
                     >
                       <DeleteIcon />
                     </IconButton>

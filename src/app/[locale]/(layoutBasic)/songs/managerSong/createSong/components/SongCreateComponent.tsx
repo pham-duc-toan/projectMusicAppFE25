@@ -66,7 +66,7 @@ function SongCreateComponent() {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("topicId", valueidTopic);
+    formData.append("topic", valueidTopic);
     formData.append("status", status);
     formData.append("lyrics", lyrics);
 

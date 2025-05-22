@@ -12,7 +12,7 @@ import { getTranslations } from "next-intl/server";
 
 // Định nghĩa kiểu dữ liệu của ca sĩ
 interface ISingerDetail {
-  _id: string;
+  id: string;
   fullName: string;
   avatar: string;
   status: string;
@@ -112,7 +112,7 @@ export default async function SingerDetailPage({
 
   const datall: any = await apiBasicServer(
     "GET",
-    `/songs/song-of-singer/${singerDetail?._id}`,
+    `/songs/song-of-singer/${singerDetail?.id}`,
     undefined,
     undefined,
     undefined,
@@ -127,7 +127,7 @@ export default async function SingerDetailPage({
   if (access_token) {
     const dataFs = await getInfoUser(access_token.value);
     favoriteSongs =
-      dataFs.data.listFavoriteSong.map((song: any) => song._id) || [];
+      dataFs.data.listFavoriteSong.map((song: any) => song.id) || [];
   }
   return (
     <Box

@@ -17,12 +17,10 @@ import { revalidateByTag } from "@/app/action";
 import { useTranslations } from "next-intl";
 
 interface DeleteSingerDialogProps {
-  singerId: string;
+  singer: string;
 }
 
-const DeleteSingerDialog: React.FC<DeleteSingerDialogProps> = ({
-  singerId,
-}) => {
+const DeleteSingerDialog: React.FC<DeleteSingerDialogProps> = ({ singer }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { showMessage } = useAppContext();
@@ -31,7 +29,7 @@ const DeleteSingerDialog: React.FC<DeleteSingerDialogProps> = ({
   const handleDelete = async () => {
     setLoading(true);
     try {
-      const response = await apiBasicClient("DELETE", `/singers/${singerId}`);
+      const response = await apiBasicClient("DELETE", `/singers/${singer}`);
       if (response?.statusCode >= 300) {
         showMessage(response.message, "error");
       } else {
